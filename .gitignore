@@ -127,3 +127,17 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Local development artifacts
+*~
+.idea
+*.log
+local*
+.vscode/
+current-bandit.json
+tmp*
+foo
+store/
+log.html
+report.html
+output.xml
