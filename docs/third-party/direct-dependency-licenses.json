@@ -1,0 +1,14 @@
+[
+  {
+    "Author": "ijl <ijl@mailbox.org>",
+    "Description": "Fast, correct Python JSON library supporting dataclasses, datetimes, and numpy",
+    "License": "Apache Software License; MIT License",
+    "LicenseFile": "UNKNOWN",
+    "LicenseText": "UNKNOWN",
+    "Name": "orjson",
+    "NoticeFile": "UNKNOWN",
+    "NoticeText": "UNKNOWN",
+    "URL": "https://github.com/ijl/orjson",
+    "Version": "3.8.0"
+  }
+]

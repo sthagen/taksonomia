@@ -1,0 +1,3 @@
+digraph {
+	orjson [label="orjson\n3.8.0"]
+}
