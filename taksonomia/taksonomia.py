@@ -1,11 +1,7 @@
 import datetime as dti
 import hashlib
 import json
-import logging
 import pathlib
-from typing_extensions import Self
-
-import orjson
 
 CHUNK_SIZE = 2 << 15
 EMPTY_SHA512 = (
@@ -13,29 +9,22 @@ EMPTY_SHA512 = (
     '47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e'
 )
 TS_FORMAT = '%Y-%m-%d %H:%M:%S.%f +00:00'
+
+
 class Taxonomy:
     """Collector of topological and size information on files in a tree."""
-    def __init__(self, root: pathlib.Path) -> Self:
+
+    def __init__(self, root: pathlib.Path) -> None:
         """Construct a collector instance for root."""
         self.root = root
-        self.tree = {
-            'sha512' : EMPTY_SHA512,
-            'count_folders': 0,
-            'count_files': 0,
-            'branches': {
-
-            },
-            'leaves': {
-
-            }
-        }
+        self.tree = {'sha512': EMPTY_SHA512, 'count_folders': 0, 'count_files': 0, 'branches': {}, 'leaves': {}}
 
     def branch(self, path: pathlib.Path) -> None:
         """Add a folder (sub tree) entry."""
         st = path.stat()
 
-        self.tree['branches'][str(path)] = {
-            'sha512' : EMPTY_SHA512,
+        self.tree['branches'][str(path)] = {  # type: ignore
+            'sha512': EMPTY_SHA512,
             'count_folders': 1,
             'count_files': 0,
             'size_bytes': 0,
@@ -43,8 +32,8 @@ class Taxonomy:
         }
         for parent in path.parents:
             branch = str(parent)
-            if branch in self.tree['branches']:
-                self.tree['branches'][branch]['count_folders'] += 1
+            if branch in self.tree['branches']:  # type: ignore
+                self.tree['branches'][branch]['count_folders'] += 1  # type: ignore
 
     @staticmethod
     def hash_file(path: pathlib.Path) -> str:
@@ -60,8 +49,8 @@ class Taxonomy:
         st = path.stat()
         hash = self.hash_file(path)
 
-        self.tree['leaves'][str(path)] = {
-            'sha512' : hash,
+        self.tree['leaves'][str(path)] = {  # type: ignore
+            'sha512': hash,
             'count_folders': 0,
             'count_files': 1,
             'size_bytes': st.st_size,
@@ -70,11 +59,11 @@ class Taxonomy:
 
         for parent in path.parents:
             branch = str(parent)
-            if branch in self.tree['branches']:
-                self.tree['branches'][branch]['count_files'] += 1
-                self.tree['branches'][branch]['size_bytes'] += st.st_size
+            if branch in self.tree['branches']:  # type: ignore
+                self.tree['branches'][branch]['count_files'] += 1  # type: ignore
+                self.tree['branches'][branch]['size_bytes'] += st.st_size  # type: ignore
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """Express yourself."""
         return json.dumps(self.tree, indent=2)
 
