@@ -15,8 +15,8 @@ DEFAULT_CONFIG_NAME = '.taksonomia.json'
 DEFAULT_LF_ONLY = 'YES'
 
 # [[[fill git_describe()]]]
-__version__ = '2022.7.30+parent.cad5c0e2'
-# [[[end]]] (checksum: bf3e4cb130b92c08b23ac44978b7d275)
+__version__ = '2022.9.8+parent.2c4ab5a1'
+# [[[end]]] (checksum: de43ed2f169d2fcbac7e1dd8f3c454d8)
 __version_info__ = tuple(
     e if '-' not in e else e.split('-')[0] for part in __version__.split('+') for e in part.split('.') if e != 'parent'
 )
