@@ -22,10 +22,19 @@ def test_parse_request_help(capsys):
         assert not err
 
 
-def test_parse_request_bad_tree_root(capsys):
+def test_parse_request_non_existing_tree_root(capsys):
     with pytest.raises(SystemExit) as err:
         cli.parse_request(['--tree-root', 'this-tree-root-is-missing'])
     assert err.value.code == 1
     out, err = capsys.readouterr()
     assert '[-h] --tree-root TREE_ROOT [--out-path OUT_PATH]' in out
     assert 'ERROR: requested tree root at (this-tree-root-is-missing) does not exist' in err
+
+
+def test_parse_request_file_as_tree_root(capsys):
+    with pytest.raises(SystemExit) as err:
+        cli.parse_request(['--tree-root', 'requirements.txt'])
+    assert err.value.code == 1
+    out, err = capsys.readouterr()
+    assert '[-h] --tree-root TREE_ROOT [--out-path OUT_PATH]' in out
+    assert 'ERROR: requested tree root at (requirements.txt) is not a folder' in err

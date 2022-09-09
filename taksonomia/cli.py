@@ -28,7 +28,12 @@ def parse_request(argv: List[str]) -> argparse.Namespace:
     options = parser.parse_args(argv)
     tree_root = pathlib.Path(options.tree_root)
     if tree_root.exists():
-        return options
+        if tree_root.is_dir():
+            return options
+        print(f'ERROR: requested tree root at ({tree_root}) is not a folder', file=sys.stderr)
+        parser.print_usage()
+        sys.exit(1)
+
     print(f'ERROR: requested tree root at ({tree_root}) does not exist', file=sys.stderr)
     parser.print_usage()
     sys.exit(1)
