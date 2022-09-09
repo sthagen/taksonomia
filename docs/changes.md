@@ -2,8 +2,12 @@
 
 ## 2022.9.9
 
-* Extended collector and fixed aggregations not propagated
-* Added command line interface
+* Achieved complete (screening) test coverage
+* Added command line interface and changed signature and behavior of main implementation interface
+* Changed default output to stdout, extended collector, and fixed aggregations not propagated
+* Decided on hash avalanches based on hexdigest hashing
+* Transformed non-existing tree-root as well as non-folder tree-root into error cases
+* Updated baseline, SBOM, third-party docs, and usage docs
 
 ## 2022.9.8
 
