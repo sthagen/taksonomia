@@ -1,5 +1,6 @@
 """CLI operations for taxonomy (Finnish: taksonomia) guided by conventions of a folder tree.."""
 import argparse
+import pathlib
 import sys
 from typing import List, Union
 
@@ -24,10 +25,15 @@ def parse_request(argv: List[str]) -> argparse.Namespace:
         default='taxonomy.json',
         help=(f'output file path for taxonomy (default: {APP_ALIAS}.json)'),
     )
-    return parser.parse_args(argv)
+    options = parser.parse_args(argv)
+    tree_root = pathlib.Path(options.tree_root)
+    if tree_root.exists():
+        return options
+    print(f'ERROR: requested tree root at ({tree_root}) does not exist', file=sys.stderr)
+    parser.print_usage()
+    sys.exit(1)
 
 
-# pylint: disable=expression-not-assigned
 def main(argv: Union[List[str], None] = None) -> int:
     """Delegate processing to functional module."""
     argv = sys.argv[1:] if argv is None else argv

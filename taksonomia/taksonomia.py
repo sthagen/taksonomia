@@ -4,6 +4,7 @@ import datetime as dti
 import hashlib
 import json
 import pathlib
+import sys
 
 CHUNK_SIZE = 2 << 15
 EMPTY_SHA512 = (
