@@ -12,9 +12,10 @@ TBD
 
 Example of visiting the test folder:
 ```python
+>>> import json
 >>> import pathlib
 >>> import taksonomia.taksonomia as api
->>> api.main(pathlib.Path('test'))
+>>> print(json.dumps(json.loads(str(api.main(pathlib.Path('test')))), indent=2))
 {
   "sha512": "65a13ac4476799e88f70ff5ad4840021340ea7b7f37833dbb9ca4488a5f953ee278980029cbd9162de79e101eddb2d06131846237bf134e5fe8c121471fbbbe3",
   "count_folders": 7,
