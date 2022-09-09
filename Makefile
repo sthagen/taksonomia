@@ -67,8 +67,12 @@ baseline:
 	@bandit --output baseline-bandit.json --format json --recursive --quiet --exclude ./test,./build taksonomia
 	@cat baseline-bandit.json; printf "\n^ The new baseline ^^ ^^ ^^ ^^ ^^ ^^. OK?\n"
 
+.PHONY: clocal
+clocal:
+	@rm -f taxonomy.json
+
 .PHONY: clean
-clean:
+clean: clocal
 	@rm -rf `find . -name __pycache__`
 	@rm -f `find . -type f -name '*.py[co]' `
 	@rm -f `find . -type f -name '*~' `
