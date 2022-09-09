@@ -47,3 +47,11 @@ def test_parse_request_tree_root_test_fixtures_corner(capsys):
     out, err = capsys.readouterr()
     assert not out
     assert not err
+
+
+def test_main_tree_root_test_fixtures_corner(capsys):
+    code = cli.main(['--tree-root', 'test/fixtures/corner/', '-o', '/dev/null'])
+    assert code == 0
+    out, err = capsys.readouterr()
+    assert not out
+    assert not err
