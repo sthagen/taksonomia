@@ -18,7 +18,14 @@ class Taxonomy:
     def __init__(self, root: pathlib.Path) -> None:
         """Construct a collector instance for root."""
         self.root = root
-        self.tree = {'sha512': EMPTY_SHA512, 'count_folders': 0, 'count_files': 0, 'branches': {}, 'leaves': {}}
+        self.tree = {
+            'sha512': EMPTY_SHA512,
+            'count_folders': 0,
+            'count_files': 0,
+            'size_bytes': 0,
+            'branches': {},
+            'leaves': {},
+        }
         self.shadow = {'sha512_hash': hashlib.sha512(), 'branches': {}}
 
     def branch(self, path: pathlib.Path) -> None:
@@ -33,6 +40,7 @@ class Taxonomy:
             'mod_time': dti.datetime.fromtimestamp(st.st_ctime, tz=dti.timezone.utc).strftime(TS_FORMAT),
         }
         self.shadow['branches'][branch] = hashlib.sha512()  # type: ignore
+        self.tree['count_folders'] += 1  # type: ignore
         for parent in path.parents:
             branch = str(parent)
             if branch in self.tree['branches']:  # type: ignore
@@ -50,23 +58,25 @@ class Taxonomy:
     def leaf(self, path: pathlib.Path) -> None:
         """Add a folder (sub tree) entry."""
         st = path.stat()
+        size_bytes = st.st_size
+        mod_time = dti.datetime.fromtimestamp(st.st_ctime, tz=dti.timezone.utc).strftime(TS_FORMAT)
         hash = self.hash_file(path)
 
         self.tree['leaves'][str(path)] = {  # type: ignore
             'sha512': hash,
-            'count_folders': 0,
-            'count_files': 1,
-            'size_bytes': st.st_size,
-            'mod_time': dti.datetime.fromtimestamp(st.st_ctime, tz=dti.timezone.utc).strftime(TS_FORMAT),
+            'size_bytes': size_bytes,
+            'mod_time': mod_time,
         }
 
         self.shadow['sha512_hash'].update(hash.encode(ENCODING))  # type: ignore
         self.tree['sha512'] = self.shadow['sha512_hash'].hexdigest()  # type: ignore
+        self.tree['size_bytes'] += size_bytes  # type: ignore
+        self.tree['count_files'] += 1  # type: ignore
         for parent in path.parents:
             branch = str(parent)
             if branch in self.tree['branches']:  # type: ignore
                 self.tree['branches'][branch]['count_files'] += 1  # type: ignore
-                self.tree['branches'][branch]['size_bytes'] += st.st_size  # type: ignore
+                self.tree['branches'][branch]['size_bytes'] += size_bytes  # type: ignore
                 self.shadow['branches'][branch].update(hash.encode(ENCODING))  # type: ignore
                 self.tree['branches'][branch]['sha512'] = self.shadow['branches'][branch].hexdigest()  # type: ignore
 
