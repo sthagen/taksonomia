@@ -1,6 +1,7 @@
 import pytest
 
 import taksonomia.cli as cli
+from taksonomia.taksonomia import EMPTY_SHA512
 
 
 def test_parse_request_empty(capsys):
@@ -49,9 +50,20 @@ def test_parse_request_tree_root_test_fixtures_corner(capsys):
     assert not err
 
 
-def test_main_tree_root_test_fixtures_corner(capsys):
+def test_main_tree_root_test_fixtures_corner_nirvana(capsys):
     code = cli.main(['--tree-root', 'test/fixtures/corner/', '-o', '/dev/null'])
     assert code == 0
     out, err = capsys.readouterr()
     assert not out
+    assert not err
+
+
+def test_main_tree_root_test_fixtures_corner_result(capsys):
+    code = cli.main(['--tree-root', 'test/fixtures/corner/'])
+    assert code == 0
+    out, err = capsys.readouterr()
+    assert f'"sha512": "{EMPTY_SHA512}",' in out
+    assert '"count_folders": 1,' in out
+    assert '"count_files": 1,' in out
+    assert '"size_bytes": 0,' in out
     assert not err

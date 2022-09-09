@@ -95,7 +95,6 @@ def parse():  # type: ignore
 def main(options: argparse.Namespace) -> int:
     """Visit the folder tree below root and return the taxonomy."""
     tree_root = pathlib.Path(options.tree_root)
-    out_path = pathlib.Path(options.out_path)
 
     taxonomy = Taxonomy(tree_root)
     for path in sorted(tree_root.glob('**/')):
@@ -104,6 +103,12 @@ def main(options: argparse.Namespace) -> int:
         if path.is_file():
             taxonomy.leaf(path)
 
+    if options.out_path is sys.stdout:
+        print(json.dumps(json.loads(str(taxonomy)), indent=2))
+        return 0
+
+    out_path = pathlib.Path(options.out_path)
     with open(out_path, 'wt', encoding=ENCODING) as handle:
         json.dump(json.loads(str(taxonomy)), handle, indent=2)
+
     return 0

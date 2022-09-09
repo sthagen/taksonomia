@@ -22,8 +22,8 @@ def parse_request(argv: List[str]) -> argparse.Namespace:
         '--out-path',
         '-o',
         dest='out_path',
-        default='taxonomy.json',
-        help=(f'output file path for taxonomy (default: {APP_ALIAS}.json)'),
+        default=sys.stdout,
+        help=(f'output file path for taxonomy (default: STDOUT)'),
     )
     options = parser.parse_args(argv)
     tree_root = pathlib.Path(options.tree_root)
