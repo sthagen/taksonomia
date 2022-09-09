@@ -67,3 +67,13 @@ def test_main_tree_root_test_fixtures_corner_result(capsys):
     assert '"count_files": 1,' in out
     assert '"size_bytes": 0,' in out
     assert not err
+
+def test_main_tree_root_test_fixtures_basic_result(capsys):
+    code = cli.main(['--tree-root', 'test/fixtures/basic/'])
+    assert code == 0
+    out, err = capsys.readouterr()
+    assert f'"sha512": "e7fa8661' in out
+    assert '"count_folders": 5,' in out
+    assert '"count_files": 8,' in out
+    assert '"size_bytes": 15,' in out
+    assert not err
