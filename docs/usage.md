@@ -21,29 +21,36 @@ options:
   --tree-root TREE_ROOT, -t TREE_ROOT
                         tree root
   --out-path OUT_PATH, -o OUT_PATH
-                        output file path for taxonomy (default: taksonomia.json)
-
+                        output file path for taxonomy (default: STDOUT)
 ```
 
-## Example of Visiting the test Folder
+## Example of Visiting a Folder
+
+Using a folder with a single empty file results in something like
+(ommitted some parts of the sha512 hashes to avoid horizontal scrollbars):
 
 ```console
-❯ taksonomia --tree-root test
-```
-
-The resulting taxonmy will be written to the file `taxonomy.json` by default:
-
-```console
-❯ head taxonomy.json
+❯ taksonomia --tree-root test/fixtures/corner
 {
-  "sha512": "7e1df68a6f60a08c4de45971843659773e5d15ba9a7b3cdf9e0c170e2bed54e9f2d742966cefcd6b976a1006c213d748363cbf815de37a145677f09bc31ae544",
-  "count_folders": 8,
-  "count_files": 18,
-  "size_bytes": 2907,
+  "sha512": "8fb29448faee18 ... de1715aa6badede8ddc801c739777be77f166",
+  "count_folders": 1,
+  "count_files": 1,
+  "size_bytes": 0,
   "branches": {
-    "test": {
-      "sha512": "7e1df68a6f60a08c4de45971843659773e5d15ba9a7b3cdf9e0c170e2bed54e9f2d742966cefcd6b976a1006c213d748363cbf815de37a145677f09bc31ae544",
-      "count_folders": 8,
-      "count_files": 18,
-# ...
+    "test/fixtures/corner": {
+      "sha512": "8fb29448f ... e7bde1715aa6badede8ddc801c739777be77f166",
+      "count_folders": 1,
+      "count_files": 1,
+      "size_bytes": 0,
+      "mod_time": "2022-09-09 19:59:01.121310 +00:00"
+    }
+  },
+  "leaves": {
+    "test/fixtures/corner/empty.txt": {
+      "sha512": "cf83e1357eef ... 877eec2f63b931bd47417a81a538327af927da3e",
+      "size_bytes": 0,
+      "mod_time": "2022-09-09 19:59:01.121278 +00:00"
+    }
+  }
+}
 ```
