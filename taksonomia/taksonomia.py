@@ -1,3 +1,5 @@
+"""Taxonomy (Finnish: taksonomia) guided by conventions of a folder tree (implementation)."""
+import argparse
 import datetime as dti
 import hashlib
 import json
@@ -89,12 +91,18 @@ def parse():  # type: ignore
     return NotImplemented
 
 
-def main(root: pathlib.Path) -> Taxonomy:
+def main(options: argparse.Namespace) -> int:
     """Visit the folder tree below root and return the taxonomy."""
-    taxonomy = Taxonomy(root)
-    for path in sorted(root.glob('**/')):
+    tree_root = pathlib.Path(options.tree_root)
+    out_path = pathlib.Path(options.out_path)
+
+    taxonomy = Taxonomy(tree_root)
+    for path in sorted(tree_root.glob('**/')):
         taxonomy.branch(path)
-    for path in sorted(root.rglob('*')):
+    for path in sorted(tree_root.rglob('*')):
         if path.is_file():
             taxonomy.leaf(path)
-    return taxonomy
+
+    with open(out_path, 'wt', encoding=ENCODING) as handle:
+        json.dump(json.loads(str(taxonomy)), handle, indent=2)
+    return 0
