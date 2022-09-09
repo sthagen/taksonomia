@@ -38,3 +38,12 @@ def test_parse_request_file_as_tree_root(capsys):
     out, err = capsys.readouterr()
     assert '[-h] --tree-root TREE_ROOT [--out-path OUT_PATH]' in out
     assert 'ERROR: requested tree root at (requirements.txt) is not a folder' in err
+
+
+def test_parse_request_tree_root_test_fixtures_corner(capsys):
+    options = cli.parse_request(['--tree-root', 'test/fixtures/corner/', '-o', '/dev/null'])
+    assert options.tree_root == 'test/fixtures/corner/'
+    assert options.out_path == '/dev/null'
+    out, err = capsys.readouterr()
+    assert not out
+    assert not err
