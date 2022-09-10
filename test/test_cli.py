@@ -61,6 +61,14 @@ def test_main_tree_root_test_fixtures_corner_nirvana(capsys):
     assert not err
 
 
+def test_main_tree_root_pos_test_fixtures_corner_nirvana(capsys):
+    code = cli.main(['test/fixtures/corner/', '-o', '/dev/null'])
+    assert code == 0
+    out, err = capsys.readouterr()
+    assert not out
+    assert not err
+
+
 def test_main_tree_root_test_fixtures_corner_result(capsys):
     code = cli.main(['--tree-root', 'test/fixtures/corner/'])
     assert code == 0
