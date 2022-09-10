@@ -72,89 +72,59 @@ class Taxonomy:
         """Some random information from machine performance measures."""
         p = psutil.Process(pid)
         cpts = p.cpu_times()
+        cpts_union_attrs = ('children_system', 'children_user', 'system', 'user')
         mfi = p.memory_full_info()
+        mfi_union_attrs = ('pageins', 'pfaults', 'rss', 'uss', 'vms')
         threads = p.threads()
+        thr_union_attrs = ('id', 'system_time', 'user_time')
         ctxs = p.num_ctx_switches()
+        ctxs_union_attrs = ('involuntary', 'voluntary')
         return {
             'name': p.name(),
             'status': p.status(),
             'create_time': dti.datetime.fromtimestamp(p.create_time(), dti.timezone.utc).strftime(TS_FORMAT),
             'username': p.username(),
-            'cpu_times': {
-                'user': cpts.user,
-                'system': cpts.system,
-                'children_user': cpts.children_user,
-                'children_system': cpts.children_system,
-            },
-            'memory_full_info': {
-                'rss': mfi.rss,
-                'vms': mfi.vms,
-                'pfaults': mfi.pfaults,
-                'pageins': mfi.pageins,
-                'uss': mfi.uss,
-            },
+            'cpu_times': {aspect: getattr(cpts, aspect, None) for aspect in cpts_union_attrs},
+            'memory_full_info': {aspect: getattr(mfi, aspect, None) for aspect in mfi_union_attrs},
             'memory_percent': p.memory_percent(),
             'num_threads': p.num_threads(),
-            'threads': [{'id': thr.id, 'user_time': thr.user_time, 'system_time': thr.system_time} for thr in threads],
+            'threads': [{aspect: getattr(thr, aspect, None) for aspect in thr_union_attrs} for thr in threads],
             'num_fds': p.num_fds(),
-            'num_ctx_switches': {
-                'voluntary': ctxs.voluntary,
-                'involuntary': ctxs.involuntary,
-            },
+            'num_ctx_switches': {aspect: getattr(ctxs, aspect, None) for aspect in ctxs_union_attrs},
         }
 
     @no_type_check
     def machine_context(self, path_selector: str):
         """Some random information from machine context."""
         swa = psutil.swap_memory()
+        swa_union_attrs = ('free', 'percent', 'sin', 'sout', 'total', 'used')
         vim = psutil.virtual_memory()
-        memory = {
-            'swap': {
-                'total': swa.total,
-                'used': swa.used,
-                'free': swa.free,
-                'percent': swa.percent,
-                'sin': swa.sin,
-                'sout': swa.sout,
-            },
-            'virtual': {
-                'total': vim.total,
-                'available': vim.available,
-                'percent': vim.percent,
-                'used': vim.used,
-                'free': vim.free,
-                'active': vim.active,
-                'inactive': vim.inactive,
-                'wired': vim.wired,
-            },
-        }
+        vim_union_attrs = (
+            'active',
+            'available',
+            'buffers',
+            'cached',
+            'free',
+            'inactive',
+            'percent',
+            'shared',
+            'slab',
+            'total',
+            'used',
+            'wired',
+        )
         dic = psutil.disk_io_counters(perdisk=False)
-        counters_combined = {
-            'read_count': dic.read_count,
-            'write_count': dic.write_count,
-            'read_bytes': dic.read_bytes,
-            'write_bytes': dic.write_bytes,
-            'read_time': dic.read_time,
-            'write_time': dic.write_time,
-        }
+        dic_union_attrs = ('read_bytes', 'read_count', 'read_time', 'write_bytes', 'write_count', 'write_time')
         du = psutil.disk_usage(path_selector)
-        usage = {
-            'total': du.total,
-            'used': du.used,
-            'free': du.free,
-            'percent': du.percent,
-        }
+        du_union_attrs = ('free', 'percent', 'total', 'used')
         dpas = psutil.disk_partitions()
+        dpa_union_attrs = ('device', 'fstype', 'maxfile', 'maxpath', 'mountpoint')
         partitions = []
         for dpa in dpas:
             partitions.append(
                 {
-                    'device': dpa.device,
-                    'mountpoint': dpa.mountpoint,
-                    'fstype': dpa.fstype,
-                    'opts': dpa.opts.split(','),
-                    'maxfile': dpa.maxfile,
-                    'maxpath': dpa.maxpath,
+                    **{aspect: getattr(dpa, aspect, None) for aspect in dpa_union_attrs},
+                    'opts': dpa.opts.split(',') if hasattr(dpa, 'opts') else None,
                 }
             )
 
@@ -164,12 +134,15 @@ class Taxonomy:
             'ppid': os.getppid(),
             'boottime': dti.datetime.fromtimestamp(psutil.boot_time(), dti.timezone.utc).strftime(TS_FORMAT),
             'cpu_info': {**get_cpu_info()},
-            'memory': memory,
+            'memory': {
+                'swap': {aspect: getattr(swa, aspect, None) for aspect in swa_union_attrs},
+                'virtual': {aspect: getattr(vim, aspect, None) for aspect in vim_union_attrs},
+            },
             'disks': {
-                'counters_combined': counters_combined,
+                'counters_combined': {aspect: getattr(dic, aspect, None) for aspect in dic_union_attrs},
                 'partitions': partitions,
                 'path_selector': path_selector,
-                'usage': usage,
+                'usage': {aspect: getattr(du, aspect, None) for aspect in du_union_attrs},
             },
         }
 
