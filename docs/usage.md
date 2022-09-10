@@ -84,7 +84,7 @@ Using a folder with a single empty file results in something like
   "summary": {
     "hash_hexdigest": {
       "sha512": "8fb29448...be77f166",
-      "sha256": "cd372fb85148700fa88095e3492d3f9f5beb43e555e5ff26d95f5a6adc36f8e6"
+      "sha256": "cd37...f8e6"
     },
     "count_branches": 0,
     "count_leaves": 1,
@@ -95,7 +95,7 @@ Using a folder with a single empty file results in something like
     "test/fixtures/corner/empty.txt": {
       "hash_hexdigest": {
         "sha512": "cf83e135...f927da3e",
-        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        "sha256": "e3b0...b855"
       },
       "size_bytes": 0,
       "mod_time": "2022-09-09 19:59:01.121278 +00:00"
