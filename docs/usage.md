@@ -12,7 +12,7 @@ For the commandline please add the help option `-h` or `--help` like so:
 
 ```console
 ❯ taksonomia -h
-usage: taksonomia [-h] [--tree-root TREE_ROOT] [--out-path OUT_PATH] [tree_root_pos]
+usage: taksonomia [-h] [--tree-root TREE_ROOT] [--excludes EXCLUDES] [--out-path OUT_PATH] [tree_root_pos]
 
 Taxonomy (Finnish: taksonomia) guided by conventions of a folder tree.
 
@@ -23,6 +23,8 @@ options:
   -h, --help            show this help message and exit
   --tree-root TREE_ROOT, -t TREE_ROOT
                         Root of the tree to visit. Optional (default: positional tree root value)
+  --excludes EXCLUDES, -x EXCLUDES
+                        comma separated list of values to exclude paths containing the substring (default: empty string)
   --out-path OUT_PATH, -o OUT_PATH
                         output file path for taxonomy (default: STDOUT)
 ```
@@ -39,6 +41,17 @@ Using a folder with a single empty file results in something like
     "sha512",
     "sha256"
   ],
+  "generator": {
+    "name": "taksonomia",
+    "version_info": [
+      "2022",
+      "9",
+      "11",
+      "fadecafe"
+    ],
+    "source": "https://pypi.or/project/taksonomia/2022.9.11/",
+    "sbom": "https://codes.dilettant.life/docs/taksonomia/third-party/"
+  },
   "context": {
     "start_ts": "2022-09-10 12:14:02.229878 +00:00",
     "end_ts": "2022-09-10 12:14:02.305927 +00:00",
@@ -61,6 +74,7 @@ Using a folder with a single empty file results in something like
     },
     "pwd": "/some/where",
     "tree_root": "test/fixtures/corner",
+    "excludes": [],
     "machine_perf": {
       "pre": {
         "...": "...",
