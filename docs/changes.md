@@ -4,6 +4,9 @@
 # 2022.9.10
 
 * Changed the tree root parameter to optional (and added positional optional alternative) parameter defaulting to current working dir to ease use in automation within build processes
+* Extended the taxonomy with context and performance data
+* Optimized away the pre pass for folder gathering
+* Simplified the reporting by directly returning the serializable tree from the new report method
 
 ## 2022.9.9
 
