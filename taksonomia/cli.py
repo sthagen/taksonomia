@@ -5,12 +5,12 @@ import sys
 from typing import List, Union
 
 import taksonomia.taksonomia as api
-from taksonomia import APP_ALIAS
+from taksonomia import APP_ALIAS, APP_NAME
 
 
 def parse_request(argv: List[str]) -> argparse.Namespace:
     """DRY."""
-    parser = argparse.ArgumentParser(description=APP_ALIAS)
+    parser = argparse.ArgumentParser(prog=APP_ALIAS, description=APP_NAME)
     parser.add_argument(
         '--tree-root',
         '-t',
