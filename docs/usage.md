@@ -12,9 +12,12 @@ For the commandline please add the help option `-h` or `--help` like so:
 
 ```console
 ❯ taksonomia -h
-usage: __main__.py [-h] --tree-root TREE_ROOT [--out-path OUT_PATH]
+usage: taksonomia [-h] [--tree-root TREE_ROOT] [--out-path OUT_PATH] [tree_root_pos]
 
-taksonomia
+Taxonomy (Finnish: taksonomia) guided by conventions of a folder tree.
+
+positional arguments:
+  tree_root_pos
 
 options:
   -h, --help            show this help message and exit
