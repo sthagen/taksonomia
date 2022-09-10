@@ -4,12 +4,12 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "taksonomia"
-version = "2022.9.9"
+version = "2022.9.10"
 description = "Taxonomy (Finnish: taksonomia) guided by conventions of a folder tree."
 readme = "README.md"
 authors = [{ name = "Stefan Hagen", email = "stefan@hagen.link" }]
 maintainers = [{ name = "Stefan Hagen", email = "stefan@hagen.link" }]
-license = { file = "LICENSE" }
+license = "MIT"
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
@@ -18,7 +18,7 @@ classifiers = [
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
 ]
-keywords = ["developer-tools", "validation", "verification"]
+keywords = ["developer-tools", "fingerprints", "validation", "verification", "sbom", "taxonomy"]
 dependencies = [
     "orjson >= 3.8.0",
 ]
