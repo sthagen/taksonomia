@@ -17,8 +17,8 @@ DEFAULT_LF_ONLY = 'YES'
 TS_FORMAT = '%Y-%m-%d %H:%M:%S.%f +00:00'
 
 # [[[fill git_describe()]]]
-__version__ = '2022.9.10+parent.f142b795'
-# [[[end]]] (checksum: 73350df0f894090b087006722919489b)
+__version__ = '2022.9.11+parent.af6df604'
+# [[[end]]] (checksum: 9336d94d5ff3d191250df64292d4a210)
 __version_info__ = tuple(
     e if '-' not in e else e.split('-')[0] for part in __version__.split('+') for e in part.split('.') if e != 'parent'
 )
