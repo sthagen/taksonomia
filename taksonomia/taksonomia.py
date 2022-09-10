@@ -13,6 +13,8 @@ from typing import no_type_check
 import psutil  # type: ignore
 from cpuinfo import get_cpu_info  # type: ignore
 
+from taksonomia import APP_ALIAS, COMMA, ENCODING, TS_FORMAT, __version_info__ as VERSION_INFO
+
 CHUNK_SIZE = 2 << 15
 EMPTY_SHA512 = (
     'cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce'
@@ -24,17 +26,17 @@ EMPTY = {
     'sha256': EMPTY_SHA256,
 }
 HASH_ALGO_PREFS = tuple(EMPTY)
-ENCODING = 'utf-8'
-TS_FORMAT = '%Y-%m-%d %H:%M:%S.%f +00:00'
 
 
 @no_type_check
 class Taxonomy:
     """Collector of topological and size information on files in a tree."""
 
-    def __init__(self, root: pathlib.Path) -> None:
+    def __init__(self, root: pathlib.Path, excludes: str) -> None:
         """Construct a collector instance for root."""
         self.root = root
+        self.excludes = sorted(part.strip() for part in excludes.split(COMMA) if part.strip())
+        self.perspective = str(pathlib.Path.cwd())
         self.hasher = {
             'sha512': hashlib.sha512,
             'sha256': hashlib.sha256,
@@ -44,13 +46,20 @@ class Taxonomy:
 
         self.tree = {
             'hash_algo_prefs': list(HASH_ALGO_PREFS),
+            'generator': {
+                'name': APP_ALIAS,
+                'version_info': list(VERSION_INFO),
+                'source': f'https://pypi.or/project/taksonomia/{".".join(VERSION_INFO[:3])}/',
+                'sbom': 'https://codes.dilettant.life/docs/taksonomia/third-party/',
+            },
             'context': {
                 'start_ts': self.start_time.strftime(TS_FORMAT),
                 'end_ts': None,
                 'duration_usecs': 0,
                 **self.machine_context(path_selector=str(self.root)),  # type: ignore
-                'pwd': str(pathlib.Path.cwd()),
+                'pwd': self.perspective,
                 'tree_root': str(self.root),
+                'excludes': self.excludes,
                 'machine_perf': {
                     'pre': self.machine_perf(self.pid),  # type: ignore
                     'post': None,
@@ -146,12 +155,20 @@ class Taxonomy:
             },
         }
 
+    def ignore(self, path: pathlib.Path) -> bool:
+        """Dry place for the filter hook (excludes)."""
+        text = str(path)
+        return bool(self.excludes) and any(exclude in text for exclude in self.excludes)
+
     def branch(self, path: pathlib.Path) -> None:
         """Add a folder (sub tree) entry."""
+        if self.ignore(path):
+            return
+
         st = path.stat()
         branch = str(path)
         self.tree['branches'][branch] = {  # type: ignore
-            'hash_hexdigest': {**{algo: self.hasher[algo]() for algo in HASH_ALGO_PREFS}},
+            'hash_hexdigest': {**{algo: EMPTY[algo] for algo in HASH_ALGO_PREFS}},
             'summary': {
                 'count_branches': 1,
                 'count_leaves': 0,
@@ -179,6 +196,9 @@ class Taxonomy:
 
     def leaf(self, path: pathlib.Path) -> None:
         """Add a folder (sub tree) entry."""
+        if self.ignore(path):
+            return
+
         st = path.stat()
         size_bytes = st.st_size
         mod_time = dti.datetime.fromtimestamp(st.st_ctime, tz=dti.timezone.utc).strftime(TS_FORMAT)
@@ -227,7 +247,7 @@ def main(options: argparse.Namespace) -> int:
     """Visit the folder tree below root and return the taxonomy."""
     tree_root = pathlib.Path(options.tree_root)
 
-    visit = Taxonomy(tree_root)
+    visit = Taxonomy(tree_root, options.excludes)
     for path in sorted(tree_root.rglob('*')):
         if path.is_dir():
             visit.branch(path)
@@ -239,7 +259,12 @@ def main(options: argparse.Namespace) -> int:
     taxonomy = visit.report()
 
     if options.out_path is sys.stdout:
-        print(json.dumps(taxonomy, indent=2))
+        try:
+            print(json.dumps(taxonomy, indent=2))
+        except TypeError as err:
+            print(taxonomy)
+            print('ERROR is:', err)
+            return 1
         return 0
 
     out_path = pathlib.Path(options.out_path)

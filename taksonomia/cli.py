@@ -23,6 +23,13 @@ def parse_request(argv: List[str]) -> argparse.Namespace:
         'tree_root_pos', nargs='?', default='', help='Root of the tree to visit. Optional (default: PWD)'
     )
     parser.add_argument(
+        '--excludes',
+        '-x',
+        dest='excludes',
+        default='',
+        help='comma separated list of values to exclude paths containing the substring (default: empty string)',
+    )
+    parser.add_argument(
         '--out-path',
         '-o',
         dest='out_path',

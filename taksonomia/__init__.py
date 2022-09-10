@@ -5,6 +5,7 @@ from typing import List
 APP_NAME = 'Taxonomy (Finnish: taksonomia) guided by conventions of a folder tree.'
 APP_ALIAS = 'taksonomia'
 APP_ENV = 'TAKSONOMIA'
+COMMA = ','
 DEBUG = bool(os.getenv(f'{APP_ENV}_DEBUG', ''))
 VERBOSE = bool(os.getenv(f'{APP_ENV}_VERBOSE', ''))
 QUIET = False
@@ -13,6 +14,7 @@ ENCODING = 'utf-8'
 ENCODING_ERRORS_POLICY = 'ignore'
 DEFAULT_CONFIG_NAME = '.taksonomia.json'
 DEFAULT_LF_ONLY = 'YES'
+TS_FORMAT = '%Y-%m-%d %H:%M:%S.%f +00:00'
 
 # [[[fill git_describe()]]]
 __version__ = '2022.9.10+parent.f142b795'
