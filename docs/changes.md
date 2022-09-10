@@ -1,5 +1,10 @@
 # Change History
 
+
+# 2022.9.10
+
+* Changed the tree root parameter to optional (and added positional optional alternative) parameter defaulting to current working dir to ease use in automation within build processes
+
 ## 2022.9.9
 
 * Achieved complete (screening) test coverage
