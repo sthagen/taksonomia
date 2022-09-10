@@ -1,7 +1,10 @@
 # Change History
 
+## 2022.9.11
 
-# 2022.9.10
+* Less naive context info gathering to fix https://todo.sr.ht/~sthagen/taksonomia/1
+
+## 2022.9.10
 
 * Changed the tree root parameter to optional (and added positional optional alternative) parameter defaulting to current working dir to ease use in automation within build processes
 * Extended the taxonomy with context and performance data
