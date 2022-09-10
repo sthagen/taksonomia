@@ -25,7 +25,7 @@ def parse_request(argv: List[str]) -> argparse.Namespace:
         '-o',
         dest='out_path',
         default=sys.stdout,
-        help=(f'output file path for taxonomy (default: STDOUT)'),
+        help=('output file path for taxonomy (default: STDOUT)'),
     )
     options = parser.parse_args(argv)
 
