@@ -17,12 +17,12 @@ usage: taksonomia [-h] [--tree-root TREE_ROOT] [--out-path OUT_PATH] [tree_root_
 Taxonomy (Finnish: taksonomia) guided by conventions of a folder tree.
 
 positional arguments:
-  tree_root_pos
+  tree_root_pos         Root of the tree to visit. Optional (default: PWD)
 
 options:
   -h, --help            show this help message and exit
   --tree-root TREE_ROOT, -t TREE_ROOT
-                        tree root
+                        Root of the tree to visit. Optional (default: positional tree root value)
   --out-path OUT_PATH, -o OUT_PATH
                         output file path for taxonomy (default: STDOUT)
 ```

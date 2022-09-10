@@ -16,16 +16,18 @@ def parse_request(argv: List[str]) -> argparse.Namespace:
         '-t',
         dest='tree_root',
         default='',
-        help='tree root',
+        help='Root of the tree to visit. Optional (default: positional tree root value)',
         required=False,
     )
-    parser.add_argument('tree_root_pos', nargs='?', default='')
+    parser.add_argument(
+        'tree_root_pos', nargs='?', default='', help='Root of the tree to visit. Optional (default: PWD)'
+    )
     parser.add_argument(
         '--out-path',
         '-o',
         dest='out_path',
         default=sys.stdout,
-        help=('output file path for taxonomy (default: STDOUT)'),
+        help='output file path for taxonomy (default: STDOUT)',
     )
     options = parser.parse_args(argv)
 
