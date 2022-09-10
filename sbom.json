@@ -2,10 +2,10 @@
   "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.4",
-  "serialNumber": "urn:uuid:58493366-ede6-4b7e-90b3-7792e0891d04",
+  "serialNumber": "urn:uuid:84a86aa1-7926-43f4-9887-dc804184f8e8",
   "version": 1,
   "metadata": {
-    "timestamp": "2022-09-10T14:16:16.104958+00:00",
+    "timestamp": "2022-09-10T15:35:52.128286+00:00",
     "tools": [
       {
         "vendor": "CycloneDX",
@@ -56,21 +56,21 @@
   "components": [
     {
       "type": "library",
-      "bom-ref": "743e2f92-3301-4506-b983-02dd445b8368",
+      "bom-ref": "cb8f05f6-5be4-44c0-9fe9-02951438db86",
       "name": "orjson",
       "version": "3.8.0",
       "purl": "pkg:pypi/orjson@3.8.0"
     },
     {
       "type": "library",
-      "bom-ref": "fc68cfa4-59f3-4e52-b15c-d1234f5f158a",
+      "bom-ref": "2a3319ce-9330-46dc-bd04-df31945bb9c0",
       "name": "psutil",
       "version": "5.9.2",
       "purl": "pkg:pypi/psutil@5.9.2"
     },
     {
       "type": "library",
-      "bom-ref": "63efd450-77d0-4bd7-884a-65dc5dc321b2",
+      "bom-ref": "4b09f82a-f77c-45e1-8b61-a082aa156710",
       "name": "py-cpuinfo",
       "version": "8.0.0",
       "purl": "pkg:pypi/py-cpuinfo@8.0.0"
@@ -78,15 +78,15 @@
   ],
   "dependencies": [
     {
-      "ref": "743e2f92-3301-4506-b983-02dd445b8368",
+      "ref": "cb8f05f6-5be4-44c0-9fe9-02951438db86",
       "dependsOn": []
     },
     {
-      "ref": "fc68cfa4-59f3-4e52-b15c-d1234f5f158a",
+      "ref": "2a3319ce-9330-46dc-bd04-df31945bb9c0",
       "dependsOn": []
     },
     {
-      "ref": "63efd450-77d0-4bd7-884a-65dc5dc321b2",
+      "ref": "4b09f82a-f77c-45e1-8b61-a082aa156710",
       "dependsOn": []
     }
   ]
