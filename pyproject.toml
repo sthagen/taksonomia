@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "taksonomia"
-version = "2022.9.10"
+version = "2022.9.11"
 description = "Taxonomy (Finnish: taksonomia) guided by conventions of a folder tree."
 readme = "README.md"
 authors = [{ name = "Stefan Hagen", email = "stefan@hagen.link" }]
