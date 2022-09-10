@@ -2,6 +2,9 @@
 
 ## 2022.9.11
 
+* Added excludes option to exempt paths containing zero or more of the comma separated strings
+* Added generator information and the excludes to the taxonomy report
+* Fixed failed CPSR coding for branch hash digest slots
 * Less naive context info gathering to fix https://todo.sr.ht/~sthagen/taksonomia/1
 
 ## 2022.9.10
