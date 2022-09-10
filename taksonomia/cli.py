@@ -15,9 +15,11 @@ def parse_request(argv: List[str]) -> argparse.Namespace:
         '--tree-root',
         '-t',
         dest='tree_root',
+        default='',
         help='tree root',
-        required=True,
+        required=False,
     )
+    parser.add_argument('tree_root_pos', nargs='?', default='')
     parser.add_argument(
         '--out-path',
         '-o',
@@ -26,6 +28,13 @@ def parse_request(argv: List[str]) -> argparse.Namespace:
         help=(f'output file path for taxonomy (default: STDOUT)'),
     )
     options = parser.parse_args(argv)
+
+    if not options.tree_root:
+        if options.tree_root_pos:
+            options.tree_root = options.tree_root_pos
+        else:
+            options.tree_root = str(pathlib.Path.cwd())
+
     tree_root = pathlib.Path(options.tree_root)
     if tree_root.exists():
         if tree_root.is_dir():

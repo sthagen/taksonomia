@@ -1,3 +1,6 @@
+import pathlib
+import sys
+
 import pytest
 
 import taksonomia.cli as cli
@@ -5,12 +8,12 @@ from taksonomia.taksonomia import EMPTY_SHA512
 
 
 def test_parse_request_empty(capsys):
-    with pytest.raises(SystemExit) as err:
-        cli.parse_request([])
-    assert err.value.code == 2
+    options = cli.parse_request([])
+    assert options.out_path is sys.stdout
+    assert options.tree_root == str(pathlib.Path.cwd())
     out, err = capsys.readouterr()
     assert not out
-    assert 'the following arguments are required: --tree-root/-t' in err
+    assert not err
 
 
 def test_parse_request_help(capsys):
@@ -28,7 +31,7 @@ def test_parse_request_non_existing_tree_root(capsys):
         cli.parse_request(['--tree-root', 'this-tree-root-is-missing'])
     assert err.value.code == 1
     out, err = capsys.readouterr()
-    assert '[-h] --tree-root TREE_ROOT [--out-path OUT_PATH]' in out
+    assert '[-h] [--tree-root TREE_ROOT] [--out-path OUT_PATH]' in out
     assert 'ERROR: requested tree root at (this-tree-root-is-missing) does not exist' in err
 
 
@@ -37,7 +40,7 @@ def test_parse_request_file_as_tree_root(capsys):
         cli.parse_request(['--tree-root', 'requirements.txt'])
     assert err.value.code == 1
     out, err = capsys.readouterr()
-    assert '[-h] --tree-root TREE_ROOT [--out-path OUT_PATH]' in out
+    assert '[-h] [--tree-root TREE_ROOT] [--out-path OUT_PATH]' in out
     assert 'ERROR: requested tree root at (requirements.txt) is not a folder' in err
 
 
