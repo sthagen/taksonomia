@@ -30,27 +30,73 @@ options:
 ## Example of Visiting a Folder
 
 Using a folder with a single empty file results in something like
-(ommitted some parts of the sha512 hashes to avoid horizontal scrollbars):
+(ommitted some parts of the hash values and context entries to avoid scrollbars):
 
 ```console
 ❯ taksonomia --tree-root test/fixtures/corner
 {
-  "sha512": "8fb29448faee18 ... de1715aa6badede8ddc801c739777be77f166",
-  "count_folders": 1,
-  "count_files": 1,
-  "size_bytes": 0,
-  "branches": {
-    "test/fixtures/corner": {
-      "sha512": "8fb29448f ... e7bde1715aa6badede8ddc801c739777be77f166",
-      "count_folders": 1,
-      "count_files": 1,
-      "size_bytes": 0,
-      "mod_time": "2022-09-09 19:59:01.121310 +00:00"
+  "hash_algo_prefs": [
+    "sha512",
+    "sha256"
+  ],
+  "context": {
+    "start_ts": "2022-09-10 12:14:02.229878 +00:00",
+    "end_ts": "2022-09-10 12:14:02.305927 +00:00",
+    "duration_usecs": 76049,
+    "...": "...",
+    "boottime": "2022-09-10 05:56:16.000000 +00:00",
+    "cpu_info": {
+      "python_version": "3.10.6.final.0 (64 bit)",
+      "...": "..."
+    },
+    "memory": {
+      "swap": "...",
+      "virtual": {"...": "..."}
+    },
+    "disks": {
+      "counters_combined": {"...": "..."},
+      "partitions": ["..."],
+      "path_selector": "test/fixtures/corner",
+      "usage": {"...": "..."}
+    },
+    "pwd": "/some/where",
+    "tree_root": "test/fixtures/corner",
+    "machine_perf": {
+      "pre": {
+        "...": "...",
+        "create_time": "2022-09-10 12:14:02.029446 +00:00",
+        "...": "...",
+        "num_fds": 3,
+        "num_ctx_switches": {
+          "voluntary": 199,
+          "involuntary": 0
+        }
+      },
+      "post": {
+        "...": "...",
+        "num_ctx_switches": {
+          "voluntary": 210,
+          "involuntary": 0
+        }
+      }
     }
   },
+  "summary": {
+    "hash_hexdigest": {
+      "sha512": "8fb29448...be77f166",
+      "sha256": "cd372fb85148700fa88095e3492d3f9f5beb43e555e5ff26d95f5a6adc36f8e6"
+    },
+    "count_branches": 0,
+    "count_leaves": 1,
+    "size_bytes": 0
+  },
+  "branches": {},
   "leaves": {
     "test/fixtures/corner/empty.txt": {
-      "sha512": "cf83e1357eef ... 877eec2f63b931bd47417a81a538327af927da3e",
+      "hash_hexdigest": {
+        "sha512": "cf83e135...f927da3e",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
       "size_bytes": 0,
       "mod_time": "2022-09-09 19:59:01.121278 +00:00"
     }
