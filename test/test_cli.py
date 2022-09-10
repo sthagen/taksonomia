@@ -69,6 +69,14 @@ def test_main_tree_root_pos_test_fixtures_corner_nirvana(capsys):
     assert not err
 
 
+def test_main_tree_root_pos_test_fixtures_corner_nirvana_excludes(capsys):
+    code = cli.main(['test/fixtures/corner/', '-o', '/dev/null', '-x', 'corner'])
+    assert code == 0
+    out, err = capsys.readouterr()
+    assert not out
+    assert not err
+
+
 def test_main_tree_root_test_fixtures_corner_result(capsys):
     code = cli.main(['--tree-root', 'test/fixtures/corner/'])
     assert code == 0
@@ -80,6 +88,17 @@ def test_main_tree_root_test_fixtures_corner_result(capsys):
     assert not err
 
 
+def test_main_tree_root_test_fixtures_corner_result_excludes(capsys):
+    code = cli.main(['--tree-root', 'test/fixtures/corner/', '--excludes', 'empty'])
+    assert code == 0
+    out, err = capsys.readouterr()
+    assert f'"sha512": "{EMPTY_SHA512}",' in out
+    assert '"count_branches": 0,' in out
+    assert '"count_leaves": 0,' in out
+    assert '"size_bytes": 0' in out
+    assert not err
+
+
 def test_main_tree_root_test_fixtures_basic_result(capsys):
     code = cli.main(['--tree-root', 'test/fixtures/basic/'])
     assert code == 0
@@ -88,4 +107,20 @@ def test_main_tree_root_test_fixtures_basic_result(capsys):
     assert '"count_branches": 4,' in out
     assert '"count_leaves": 8,' in out
     assert '"size_bytes": 15' in out
+    assert not err
+
+
+def test_main_tree_root_pos_test_fixtures_basic_nirvana_excludes(capsys):
+    code = cli.main(['test/fixtures/basic/', '-o', '/dev/null', '-x', 'empty'])
+    assert code == 0
+    out, err = capsys.readouterr()
+    assert not out
+    assert not err
+
+
+def test_main_tree_root_pos_test_fixtures_basic_nirvana_excludes_with_slash(capsys):
+    code = cli.main(['test/fixtures/basic/', '-o', '/dev/null', '-x', 'empty,/'])
+    assert code == 0
+    out, err = capsys.readouterr()
+    assert not out
     assert not err
