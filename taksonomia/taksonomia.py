@@ -244,27 +244,20 @@ def parse():  # type: ignore
 
 
 def main(options: argparse.Namespace) -> int:
-    """Visit the folder tree below root and return the taxonomy."""
+    """Visit the folder tree below root and yield the taxonomy."""
     tree_root = pathlib.Path(options.tree_root)
 
     visit = Taxonomy(tree_root, options.excludes)
     for path in sorted(tree_root.rglob('*')):
         if path.is_dir():
             visit.branch(path)
-        elif path.is_file():
-            visit.leaf(path)
-        else:
-            raise ValueError(f'path ({path}) is neither a folder nor a file')
+            continue
+        visit.leaf(path)
 
     taxonomy = visit.report()
 
     if options.out_path is sys.stdout:
-        try:
-            print(json.dumps(taxonomy, indent=2))
-        except TypeError as err:
-            print(taxonomy)
-            print('ERROR is:', err)
-            return 1
+        print(json.dumps(taxonomy, indent=2))
         return 0
 
     out_path = pathlib.Path(options.out_path)
