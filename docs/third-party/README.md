@@ -1,8 +1,8 @@
 # Third Party Dependencies
 
 <!--[[[fill sbom_sha256()]]]-->
-The [SBOM in CycloneDX v1.4 JSON format](https://github.com/sthagen/pilli/blob/default/sbom.json) with SHA256 checksum ([e79015d0 ...](https://raw.githubusercontent.com/sthagen/pilli/default/sbom.json.sha256 "sha256:e79015d0a9f22aeae3f45714221a98adf6c3ce6dd2e8571e6ecb2cfb15a0e9b7")).
-<!--[[[end]]] (checksum: 54449e0aaf70ceab4f67f3d8012c2743)-->
+The [SBOM in CycloneDX v1.4 JSON format](https://github.com/sthagen/pilli/blob/default/sbom.json) with SHA256 checksum ([a592b3f4 ...](https://raw.githubusercontent.com/sthagen/pilli/default/sbom.json.sha256 "sha256:a592b3f4fcda559d5ef68c0fd3be48f8d819f2fec63d352a06aebeab1438e21e")).
+<!--[[[end]]] (checksum: 6ac910cfd50b16bfbe3d28b9195eea3e)-->
 ## Licenses 
 
 JSON files with complete license info of: [direct dependencies](direct-dependency-licenses.json) | [all dependencies](all-dependency-licenses.json)
@@ -10,10 +10,12 @@ JSON files with complete license info of: [direct dependencies](direct-dependenc
 ### Direct Dependencies
 
 <!--[[[fill direct_dependencies_table()]]]-->
-| Name                                    | Version                                         | License                              | Author                | Description (from packaging data)                                              |
-|:----------------------------------------|:------------------------------------------------|:-------------------------------------|:----------------------|:-------------------------------------------------------------------------------|
-| [orjson](https://github.com/ijl/orjson) | [3.8.0](https://pypi.org/project/orjson/3.8.0/) | Apache Software License; MIT License | ijl <ijl@mailbox.org> | Fast, correct Python JSON library supporting dataclasses, datetimes, and numpy |
-<!--[[[end]]] (checksum: 5bdbbace01e33add822ef5e47b1faa18)-->
+| Name                                                  | Version                                             | License                              | Author                | Description (from packaging data)                                              |
+|:------------------------------------------------------|:----------------------------------------------------|:-------------------------------------|:----------------------|:-------------------------------------------------------------------------------|
+| [orjson](https://github.com/ijl/orjson)               | [3.8.0](https://pypi.org/project/orjson/3.8.0/)     | Apache Software License; MIT License | ijl <ijl@mailbox.org> | Fast, correct Python JSON library supporting dataclasses, datetimes, and numpy |
+| [psutil](https://github.com/giampaolo/psutil)         | [5.9.2](https://pypi.org/project/psutil/5.9.2/)     | BSD License                          | Giampaolo Rodola      | Cross-platform lib for process and system monitoring in Python.                |
+| [py-cpuinfo](https://github.com/workhorsy/py-cpuinfo) | [8.0.0](https://pypi.org/project/py-cpuinfo/8.0.0/) | MIT License                          | Matthew Brennan Jones | Get CPU info with pure Python 2 & 3                                            |
+<!--[[[end]]] (checksum: 2a7075680cbac951d0042550daed914e)-->
 
 ### Indirect Dependencies
 
@@ -38,5 +40,7 @@ Base graphviz file in dot format: [Trees of the direct dependencies](package-dep
 <!--[[[fill dependency_tree_console_text()]]]-->
 ````console
 orjson==3.8.0
+psutil==5.9.2
+py-cpuinfo==8.0.0
 ````
-<!--[[[end]]] (checksum: 956d60ee33d79a2532a94c82b6097753)-->
+<!--[[[end]]] (checksum: 443e6087ff61872b0e93b0e3648d2acd)-->

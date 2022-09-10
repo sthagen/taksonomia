@@ -22,5 +22,29 @@
     "NoticeText": "UNKNOWN",
     "URL": "https://github.com/ijl/orjson",
     "Version": "3.8.0"
+  },
+  {
+    "Author": "Giampaolo Rodola",
+    "Description": "Cross-platform lib for process and system monitoring in Python.",
+    "License": "BSD License",
+    "LicenseFile": "/Users/ruth/.pyenv/versions/3.10.6/envs/taksonomia-3-10-6/lib/python3.10/site-packages/psutil-5.9.2.dist-info/LICENSE",
+    "LicenseText": "BSD 3-Clause License\n\nCopyright (c) 2009, Jay Loden, Dave Daeschler, Giampaolo Rodola'\nAll rights reserved.\n\nRedistribution and use in source and binary forms, with or without modification,\nare permitted provided that the following conditions are met:\n\n * Redistributions of source code must retain the above copyright notice, this\n   list of conditions and the following disclaimer.\n\n * Redistributions in binary form must reproduce the above copyright notice,\n   this list of conditions and the following disclaimer in the documentation\n   and/or other materials provided with the distribution.\n\n * Neither the name of the psutil authors nor the names of its contributors\n   may be used to endorse or promote products derived from this software without\n   specific prior written permission.\n\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\" AND\nANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED\nWARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\nDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR\nANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES\n(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;\nLOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON\nANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT\n(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS\nSOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n",
+    "Name": "psutil",
+    "NoticeFile": "UNKNOWN",
+    "NoticeText": "UNKNOWN",
+    "URL": "https://github.com/giampaolo/psutil",
+    "Version": "5.9.2"
+  },
+  {
+    "Author": "Matthew Brennan Jones",
+    "Description": "Get CPU info with pure Python 2 & 3",
+    "License": "MIT License",
+    "LicenseFile": "/Users/ruth/.pyenv/versions/3.10.6/envs/taksonomia-3-10-6/lib/python3.10/site-packages/py_cpuinfo-8.0.0.dist-info/LICENSE",
+    "LicenseText": "The MIT License (MIT)\n\nCopyright (c) 2014-2021 Matthew Brennan Jones <matthew.brennan.jones@gmail.com>\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of\nthis software and associated documentation files (the \"Software\"), to deal in\nthe Software without restriction, including without limitation the rights to\nuse, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of\nthe Software, and to permit persons to whom the Software is furnished to do so,\nsubject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS\nFOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR\nCOPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER\nIN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN\nCONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n",
+    "Name": "py-cpuinfo",
+    "NoticeFile": "UNKNOWN",
+    "NoticeText": "UNKNOWN",
+    "URL": "https://github.com/workhorsy/py-cpuinfo",
+    "Version": "8.0.0"
   }
 ]
