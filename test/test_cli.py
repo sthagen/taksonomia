@@ -31,7 +31,7 @@ def test_parse_request_non_existing_tree_root(capsys):
         cli.parse_request(['--tree-root', 'this-tree-root-is-missing'])
     assert err.value.code == 1
     out, err = capsys.readouterr()
-    assert '[-h] [--tree-root TREE_ROOT] [--out-path OUT_PATH]' in out
+    assert 'usage: taksonomia [-h] [--tree-root TREE_ROOT] [--excludes EXCLUDES]' in out
     assert 'ERROR: requested tree root at (this-tree-root-is-missing) does not exist' in err
 
 
@@ -40,7 +40,7 @@ def test_parse_request_file_as_tree_root(capsys):
         cli.parse_request(['--tree-root', 'requirements.txt'])
     assert err.value.code == 1
     out, err = capsys.readouterr()
-    assert '[-h] [--tree-root TREE_ROOT] [--out-path OUT_PATH]' in out
+    assert 'usage: taksonomia [-h] [--tree-root TREE_ROOT] [--excludes EXCLUDES]' in out
     assert 'ERROR: requested tree root at (requirements.txt) is not a folder' in err
 
 
