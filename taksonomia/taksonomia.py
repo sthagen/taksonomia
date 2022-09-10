@@ -186,7 +186,7 @@ class Taxonomy:
     def hash_file(self, path: pathlib.Path, algo: str = 'sha512') -> str:
         """Return the SHA512 hex digest of the data from file."""
         if algo not in self.hasher:
-            raise KeyError(f'Unsupported hash algorithm requested - {algo} is not in ({HASH_ALGO_PREFS})')
+            raise KeyError(f'Unsupported hash algorithm requested - {algo} is not in {HASH_ALGO_PREFS}')
 
         hash = self.hasher[algo]()
         with open(path, 'rb') as handle:
