@@ -1,6 +1,6 @@
 {
   "errors": [],
-  "generated_at": "2022-09-11T16:07:20Z",
+  "generated_at": "2022-09-11T19:51:24Z",
   "metrics": {
     "_totals": {
       "CONFIDENCE.HIGH": 0,
@@ -11,9 +11,9 @@
       "SEVERITY.LOW": 0,
       "SEVERITY.MEDIUM": 0,
       "SEVERITY.UNDEFINED": 0,
-      "loc": 366,
+      "loc": 375,
       "nosec": 0,
-      "skipped_tests": 0
+      "skipped_tests": 1
     },
     "taksonomia/__init__.py": {
       "CONFIDENCE.HIGH": 0,
@@ -50,7 +50,7 @@
       "SEVERITY.LOW": 0,
       "SEVERITY.MEDIUM": 0,
       "SEVERITY.UNDEFINED": 0,
-      "loc": 68,
+      "loc": 70,
       "nosec": 0,
       "skipped_tests": 0
     },
@@ -63,9 +63,9 @@
       "SEVERITY.LOW": 0,
       "SEVERITY.MEDIUM": 0,
       "SEVERITY.UNDEFINED": 0,
-      "loc": 272,
+      "loc": 279,
       "nosec": 0,
-      "skipped_tests": 0
+      "skipped_tests": 1
     }
   },
   "results": []
