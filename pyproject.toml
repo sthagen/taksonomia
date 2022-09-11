@@ -19,6 +19,7 @@ classifiers = [
 ]
 keywords = ["developer-tools", "fingerprints", "validation", "verification", "sbom", "taxonomy"]
 dependencies = [
+    "PyYAML >= 6.0",
     "orjson >= 3.8.0",
     "psutil >= 5.9.2",
     "py-cpuinfo >= 8.0.0",
