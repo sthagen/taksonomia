@@ -3,6 +3,7 @@
 ## 2022.9.12
 
 * Added format option and YAML format
+* Moved all tree elements below taxonomy root to simplify injection of tree and prepare possible future xml format
 
 ## 2022.9.11
 
