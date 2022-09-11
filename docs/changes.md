@@ -1,5 +1,9 @@
 # Change History
 
+## 2022.9.12
+
+* Added format option and YAML format
+
 ## 2022.9.11
 
 * Added excludes option to exempt paths containing zero or more of the comma separated strings
