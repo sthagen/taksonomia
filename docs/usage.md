@@ -36,11 +36,15 @@ options:
 
 ### Default Taxonomy Format (JSON)
 
-Using a folder with a single empty file results in something like
-(ommitted some parts of the hash values and context entries to avoid scrollbars):
+Taxing a folder with a single empty file: 
 
 ```console
 ❯ taksonomia --tree-root test/fixtures/corner
+```
+
+... results in something like (ommitted some parts of the hash values and context entries to avoid scrollbars):
+
+```json
 {
   "hash_algo_prefs": [
     "sha512",
@@ -129,6 +133,11 @@ Similarly for YAML:
 
 ```console
 ❯ python -m taksonomia  --tree-root test/fixtures/corner --format yaml
+```
+
+yields (edited):
+
+```yaml
 branches: {}
 context:
   boottime: '2022-09-11 07:13:04.000000 +00:00'
