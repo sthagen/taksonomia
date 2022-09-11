@@ -167,6 +167,10 @@ class Taxonomy:
         text = str(path)
         return bool(self.excludes) and any(exclude in text for exclude in self.excludes)
 
+    def key(self, path_str: str) -> str:
+        """Hashing function for the path keys."""
+        return hashlib.md5(path_str.encode(ENCODING)).hexdigest()
+
     def add_branch(self, path: pathlib.Path) -> None:
         """Add a folder (sub tree) entry."""
         if self.ignore(path):
@@ -174,7 +178,8 @@ class Taxonomy:
 
         st = path.stat()
         branch = str(path)
-        self.tree[TAX]['branches'][branch] = {  # type: ignore
+        self.tree[TAX]['branches'][self.key(branch)] = {  # type: ignore
+            'path': branch,
             'hash_hexdigest': {**{algo: EMPTY[algo] for algo in HASH_ALGO_PREFS}},
             'summary': {
                 'count_branches': 1,
@@ -183,12 +188,12 @@ class Taxonomy:
             },
             'mod_time': dti.datetime.fromtimestamp(st.st_ctime, tz=dti.timezone.utc).strftime(TS_FORMAT),
         }
-        self.shadow['branches'][branch] = {**{algo: self.hasher[algo]() for algo in HASH_ALGO_PREFS}}
+        self.shadow['branches'][self.key(branch)] = {**{algo: self.hasher[algo]() for algo in HASH_ALGO_PREFS}}
         self.tree[TAX]['summary']['count_branches'] += 1  # type: ignore
         for parent in path.parents:
-            branch = str(parent)
-            if branch in self.tree[TAX]['branches']:
-                self.tree[TAX]['branches'][branch]['summary']['count_branches'] += 1  # type: ignore
+            branch_key = self.key(str(parent))
+            if branch_key in self.tree[TAX]['branches']:
+                self.tree[TAX]['branches'][branch_key]['summary']['count_branches'] += 1  # type: ignore
 
     def hash_file(self, path: pathlib.Path, algo: str = 'sha512') -> str:
         """Return the SHA512 hex digest of the data from file."""
@@ -210,7 +215,8 @@ class Taxonomy:
         size_bytes = st.st_size
         mod_time = dti.datetime.fromtimestamp(st.st_ctime, tz=dti.timezone.utc).strftime(TS_FORMAT)
         leaf = str(path)
-        self.tree[TAX]['leaves'][leaf] = {  # type: ignore
+        self.tree[TAX]['leaves'][self.key(leaf)] = {  # type: ignore
+            'path': leaf,
             'hash_hexdigest': {algo: self.hash_file(path, algo) for algo in HASH_ALGO_PREFS},
             'size_bytes': size_bytes,
             'mod_time': mod_time,
@@ -218,21 +224,23 @@ class Taxonomy:
 
         hexdig = 'hash_hexdigest'
         for algo in HASH_ALGO_PREFS:
-            self.shadow[algo].update(self.tree[TAX]['leaves'][leaf][hexdig][algo].encode(ENCODING))  # type: ignore
+            self.shadow[algo].update(
+                self.tree[TAX]['leaves'][self.key(leaf)][hexdig][algo].encode(ENCODING)  # type: ignore
+            )
             self.tree[TAX]['summary'][hexdig][algo] = self.shadow[algo].hexdigest()  # type: ignore
         self.tree[TAX]['summary']['size_bytes'] += size_bytes  # type: ignore
         self.tree[TAX]['summary']['count_leaves'] += 1  # type: ignore
         for parent in path.parents:
-            b = str(parent)
-            if b in self.tree[TAX]['branches']:
-                self.tree[TAX]['branches'][b]['summary']['count_leaves'] += 1  # type: ignore
-                self.tree[TAX]['branches'][b]['summary']['size_bytes'] += size_bytes  # type: ignore
-                shadow_sum = self.shadow['branches'][b]
+            bk = self.key(str(parent))
+            if bk in self.tree[TAX]['branches']:
+                self.tree[TAX]['branches'][bk]['summary']['count_leaves'] += 1  # type: ignore
+                self.tree[TAX]['branches'][bk]['summary']['size_bytes'] += size_bytes  # type: ignore
+                shadow_sum = self.shadow['branches'][bk]
                 for algo in HASH_ALGO_PREFS:
                     shadow_sum[algo].update(
-                        self.tree[TAX]['leaves'][leaf][hexdig][algo].encode(ENCODING)  # type: ignore
+                        self.tree[TAX]['leaves'][self.key(leaf)][hexdig][algo].encode(ENCODING)  # type: ignore
                     )
-                    self.tree[TAX]['branches'][b][hexdig][algo] = shadow_sum[algo].hexdigest()  # type: ignore
+                    self.tree[TAX]['branches'][bk][hexdig][algo] = shadow_sum[algo].hexdigest()  # type: ignore
 
     def close(self) -> None:
         """Create the post visitation machine context perf entry (if needed))."""
@@ -276,12 +284,12 @@ class Taxonomy:
             yaml.dump(self.tree, handle)
 
     @no_type_check
-    def dump(self, sink: object, format: str) -> None:
+    def dump(self, sink: object, format_type: str) -> None:
         """Dump the assumed to be final taxonomy (tree) in json or yaml format."""
-        if format.lower() not in KNOWN_FORMATS:
-            raise ValueError(f'requested format {format} for taxonomy dump not in {KNOWN_FORMATS}')
+        if format_type.lower() not in KNOWN_FORMATS:
+            raise ValueError(f'requested format {format_type} for taxonomy dump not in {KNOWN_FORMATS}')
 
-        if format.lower() == 'json':
+        if format_type.lower() == 'json':
             return self.json_to(sink)
         return self.yaml_to(sink)
 
@@ -301,6 +309,6 @@ def main(options: argparse.Namespace) -> int:
             continue
         taxonomy.add_leaf(path)
 
-    taxonomy.dump(sink=options.out_path, format=options.format)
+    taxonomy.dump(sink=options.out_path, format_type=options.format_type)
 
     return 0

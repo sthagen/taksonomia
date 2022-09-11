@@ -40,7 +40,7 @@ def parse_request(argv: List[str]) -> argparse.Namespace:
     )
     parser.add_argument(
         '--format',
-        dest='format',
+        dest='format_type',
         default='json',
         help='format (json, yaml) for taxonomy (default: json)',
     )
@@ -52,8 +52,10 @@ def parse_request(argv: List[str]) -> argparse.Namespace:
         else:
             options.tree_root = str(pathlib.Path.cwd())
 
-    if options.format.lower() not in KNOWN_FORMATS:
-        print(f'ERROR: requested format {format} for taxonomy dump not in {KNOWN_FORMATS}')
+    if options.format_type.lower() not in KNOWN_FORMATS:
+        print(
+            f'ERROR: requested format {options.format_type} for taxonomy dump not in {KNOWN_FORMATS}', file=sys.stderr
+        )
         parser.print_usage()
         sys.exit(2)
 
