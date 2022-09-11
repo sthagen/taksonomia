@@ -2,8 +2,10 @@
 
 ## 2022.9.12
 
-* Added format option and YAML format
-* Moved all tree elements below taxonomy root to simplify injection of tree and prepare possible future xml format
+* Adapted and extended tests to cover new behaviors, options, and again achieve full (screening) test coverage
+* Added format option and additional YAML format
+* Moved all tree elements under the single taxonomy root to simplify injection of tree and prepare possible future XML format
+* Migrated path keys to md5 and added path key to records (branches and leaves)
 
 ## 2022.9.11
 
