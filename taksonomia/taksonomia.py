@@ -169,7 +169,7 @@ class Taxonomy:
 
     def key(self, path_str: str) -> str:
         """Hashing function for the path keys."""
-        return hashlib.md5(path_str.encode(ENCODING)).hexdigest()
+        return hashlib.md5(path_str.encode(ENCODING)).hexdigest()  # nosec B324
 
     def add_branch(self, path: pathlib.Path) -> None:
         """Add a folder (sub tree) entry."""
