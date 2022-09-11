@@ -27,6 +27,9 @@ EMPTY = {
     'sha256': EMPTY_SHA256,
 }
 HASH_ALGO_PREFS = tuple(EMPTY)
+DOCTYPE = '<?xml version="1.0" encoding="UTF-8"?>'
+XMLNS = 'https://pypi.org/project/taksonomia/api/v1'
+TAX = 'taxonomy'
 
 
 @no_type_check
@@ -47,34 +50,36 @@ class Taxonomy:
         self.start_time = dti.datetime.now(tz=dti.timezone.utc)
 
         self.tree = {
-            'hash_algo_prefs': list(HASH_ALGO_PREFS),
-            'generator': {
-                'name': APP_ALIAS,
-                'version_info': list(VERSION_INFO),
-                'source': f'https://pypi.or/project/taksonomia/{".".join(VERSION_INFO[:3])}/',
-                'sbom': 'https://codes.dilettant.life/docs/taksonomia/third-party/',
-            },
-            'context': {
-                'start_ts': self.start_time.strftime(TS_FORMAT),
-                'end_ts': None,
-                'duration_usecs': 0,
-                **self.machine_context(path_selector=str(self.root)),  # type: ignore
-                'pwd': self.perspective,
-                'tree_root': str(self.root),
-                'excludes': self.excludes,
-                'machine_perf': {
-                    'pre': self.machine_perf(self.pid),  # type: ignore
-                    'post': None,
+            TAX: {
+                'hash_algo_prefs': list(HASH_ALGO_PREFS),
+                'generator': {
+                    'name': APP_ALIAS,
+                    'version_info': list(VERSION_INFO),
+                    'source': f'https://pypi.or/project/taksonomia/{".".join(VERSION_INFO[:3])}/',
+                    'sbom': 'https://codes.dilettant.life/docs/taksonomia/third-party/',
                 },
-            },
-            'summary': {
-                'hash_hexdigest': {**{algo: EMPTY[algo] for algo in HASH_ALGO_PREFS}},
-                'count_branches': 0,
-                'count_leaves': 0,
-                'size_bytes': 0,
-            },
-            'branches': {},
-            'leaves': {},
+                'context': {
+                    'start_ts': self.start_time.strftime(TS_FORMAT),
+                    'end_ts': None,
+                    'duration_usecs': 0,
+                    **self.machine_context(path_selector=str(self.root)),  # type: ignore
+                    'pwd': self.perspective,
+                    'tree_root': str(self.root),
+                    'excludes': self.excludes,
+                    'machine_perf': {
+                        'pre': self.machine_perf(self.pid),  # type: ignore
+                        'post': None,
+                    },
+                },
+                'summary': {
+                    'hash_hexdigest': {**{algo: EMPTY[algo] for algo in HASH_ALGO_PREFS}},
+                    'count_branches': 0,
+                    'count_leaves': 0,
+                    'size_bytes': 0,
+                },
+                'branches': {},
+                'leaves': {},
+            }
         }
         self.shadow = {**{algo: self.hasher[algo]() for algo in HASH_ALGO_PREFS}, 'branches': {}}  # type: ignore
 
@@ -169,7 +174,7 @@ class Taxonomy:
 
         st = path.stat()
         branch = str(path)
-        self.tree['branches'][branch] = {  # type: ignore
+        self.tree[TAX]['branches'][branch] = {  # type: ignore
             'hash_hexdigest': {**{algo: EMPTY[algo] for algo in HASH_ALGO_PREFS}},
             'summary': {
                 'count_branches': 1,
@@ -179,11 +184,11 @@ class Taxonomy:
             'mod_time': dti.datetime.fromtimestamp(st.st_ctime, tz=dti.timezone.utc).strftime(TS_FORMAT),
         }
         self.shadow['branches'][branch] = {**{algo: self.hasher[algo]() for algo in HASH_ALGO_PREFS}}
-        self.tree['summary']['count_branches'] += 1  # type: ignore
+        self.tree[TAX]['summary']['count_branches'] += 1  # type: ignore
         for parent in path.parents:
             branch = str(parent)
-            if branch in self.tree['branches']:
-                self.tree['branches'][branch]['summary']['count_branches'] += 1  # type: ignore
+            if branch in self.tree[TAX]['branches']:
+                self.tree[TAX]['branches'][branch]['summary']['count_branches'] += 1  # type: ignore
 
     def hash_file(self, path: pathlib.Path, algo: str = 'sha512') -> str:
         """Return the SHA512 hex digest of the data from file."""
@@ -205,7 +210,7 @@ class Taxonomy:
         size_bytes = st.st_size
         mod_time = dti.datetime.fromtimestamp(st.st_ctime, tz=dti.timezone.utc).strftime(TS_FORMAT)
         leaf = str(path)
-        self.tree['leaves'][leaf] = {  # type: ignore
+        self.tree[TAX]['leaves'][leaf] = {  # type: ignore
             'hash_hexdigest': {algo: self.hash_file(path, algo) for algo in HASH_ALGO_PREFS},
             'size_bytes': size_bytes,
             'mod_time': mod_time,
@@ -213,27 +218,29 @@ class Taxonomy:
 
         hexdig = 'hash_hexdigest'
         for algo in HASH_ALGO_PREFS:
-            self.shadow[algo].update(self.tree['leaves'][leaf][hexdig][algo].encode(ENCODING))  # type: ignore
-            self.tree['summary'][hexdig][algo] = self.shadow[algo].hexdigest()  # type: ignore
-        self.tree['summary']['size_bytes'] += size_bytes  # type: ignore
-        self.tree['summary']['count_leaves'] += 1  # type: ignore
+            self.shadow[algo].update(self.tree[TAX]['leaves'][leaf][hexdig][algo].encode(ENCODING))  # type: ignore
+            self.tree[TAX]['summary'][hexdig][algo] = self.shadow[algo].hexdigest()  # type: ignore
+        self.tree[TAX]['summary']['size_bytes'] += size_bytes  # type: ignore
+        self.tree[TAX]['summary']['count_leaves'] += 1  # type: ignore
         for parent in path.parents:
             b = str(parent)
-            if b in self.tree['branches']:
-                self.tree['branches'][b]['summary']['count_leaves'] += 1  # type: ignore
-                self.tree['branches'][b]['summary']['size_bytes'] += size_bytes  # type: ignore
+            if b in self.tree[TAX]['branches']:
+                self.tree[TAX]['branches'][b]['summary']['count_leaves'] += 1  # type: ignore
+                self.tree[TAX]['branches'][b]['summary']['size_bytes'] += size_bytes  # type: ignore
                 shadow_sum = self.shadow['branches'][b]
                 for algo in HASH_ALGO_PREFS:
-                    shadow_sum[algo].update(self.tree['leaves'][leaf][hexdig][algo].encode(ENCODING))  # type: ignore
-                    self.tree['branches'][b][hexdig][algo] = shadow_sum[algo].hexdigest()  # type: ignore
+                    shadow_sum[algo].update(
+                        self.tree[TAX]['leaves'][leaf][hexdig][algo].encode(ENCODING)  # type: ignore
+                    )
+                    self.tree[TAX]['branches'][b][hexdig][algo] = shadow_sum[algo].hexdigest()  # type: ignore
 
     def close(self) -> None:
         """Create the post visitation machine context perf entry (if needed))."""
         if not self.closed:
-            self.tree['context']['machine_perf']['post'] = self.machine_perf(self.pid)  # type: ignore
+            self.tree[TAX]['context']['machine_perf']['post'] = self.machine_perf(self.pid)  # type: ignore
             end_time = dti.datetime.now(tz=dti.timezone.utc)
-            self.tree['context']['end_ts'] = end_time.strftime(TS_FORMAT)  # type: ignore
-            self.tree['context']['duration_usecs'] = (end_time - self.start_time).microseconds  # type: ignore
+            self.tree[TAX]['context']['end_ts'] = end_time.strftime(TS_FORMAT)  # type: ignore
+            self.tree[TAX]['context']['duration_usecs'] = (end_time - self.start_time).microseconds  # type: ignore
             self.closed = True
 
     @no_type_check
@@ -274,7 +281,9 @@ class Taxonomy:
         if format.lower() not in KNOWN_FORMATS:
             raise ValueError(f'requested format {format} for taxonomy dump not in {KNOWN_FORMATS}')
 
-        return self.json_to(sink) if format.lower() == 'json' else self.yaml_to(sink)
+        if format.lower() == 'json':
+            return self.json_to(sink)
+        return self.yaml_to(sink)
 
 
 def parse():  # type: ignore

@@ -5,7 +5,7 @@ import sys
 from typing import List, Union
 
 import taksonomia.taksonomia as api
-from taksonomia import APP_ALIAS, APP_NAME
+from taksonomia import APP_ALIAS, APP_NAME, KNOWN_FORMATS
 
 
 def parse_request(argv: List[str]) -> argparse.Namespace:
@@ -51,6 +51,11 @@ def parse_request(argv: List[str]) -> argparse.Namespace:
             options.tree_root = options.tree_root_pos
         else:
             options.tree_root = str(pathlib.Path.cwd())
+
+    if options.format.lower() not in KNOWN_FORMATS:
+        print(f'ERROR: requested format {format} for taxonomy dump not in {KNOWN_FORMATS}')
+        parser.print_usage()
+        sys.exit(2)
 
     tree_root = pathlib.Path(options.tree_root)
     if tree_root.exists():
