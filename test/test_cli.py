@@ -35,6 +35,15 @@ def test_parse_request_non_existing_tree_root(capsys):
     assert 'ERROR: requested tree root at (this-tree-root-is-missing) does not exist' in err
 
 
+def test_parse_request_non_existing_format(capsys):
+    with pytest.raises(SystemExit) as err:
+        cli.parse_request(['--tree-root', 'this-tree-root-is-missing', '--format', 'unknown'])
+    assert err.value.code == 2
+    out, err = capsys.readouterr()
+    assert 'usage: taksonomia [-h] [--tree-root TREE_ROOT] [--excludes EXCLUDES]' in out
+    assert "ERROR: requested format unknown for taxonomy dump not in ('json', 'yaml')" in err
+
+
 def test_parse_request_file_as_tree_root(capsys):
     with pytest.raises(SystemExit) as err:
         cli.parse_request(['--tree-root', 'requirements.txt'])
@@ -120,6 +129,14 @@ def test_main_tree_root_pos_test_fixtures_basic_nirvana_excludes(capsys):
 
 def test_main_tree_root_pos_test_fixtures_basic_nirvana_excludes_with_slash(capsys):
     code = cli.main(['test/fixtures/basic/', '-o', '/dev/null', '-x', 'empty,/'])
+    assert code == 0
+    out, err = capsys.readouterr()
+    assert not out
+    assert not err
+
+
+def test_main_format_yaml_tree_root_pos_test_fixtures_basic_nirvana_excludes_with_slash(capsys):
+    code = cli.main(['test/fixtures/basic/', '-o', '/dev/null', '-x', 'empty,/', '--format', 'yaml'])
     assert code == 0
     out, err = capsys.readouterr()
     assert not out
