@@ -18,8 +18,8 @@ TS_FORMAT = '%Y-%m-%d %H:%M:%S.%f +00:00'
 VERBOSE = bool(os.getenv(f'{APP_ENV}_VERBOSE', ''))
 
 # [[[fill git_describe()]]]
-__version__ = '2022.9.11+parent.af6df604'
-# [[[end]]] (checksum: 9336d94d5ff3d191250df64292d4a210)
+__version__ = '2022.9.12+parent.fa6f9052'
+# [[[end]]] (checksum: 8db8d160346fefa2326c8b496f220731)
 __version_info__ = tuple(
     e if '-' not in e else e.split('-')[0] for part in __version__.split('+') for e in part.split('.') if e != 'parent'
 )
