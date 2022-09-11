@@ -117,7 +117,8 @@ Taxing a folder with a single empty file:
     },
     "branches": {},
     "leaves": {
-      "test/fixtures/corner/empty.txt": {
+      "f36084f592a9260f0fdb971a2c6cc590": {
+        "path": "test/fixtures/corner/empty.txt",
         "hash_hexdigest": {
           "sha512": "cf83e135...f927da3e",
           "sha256": "e3b0...b855"
@@ -180,11 +181,12 @@ taxonomy:
   - sha512
   - sha256
   leaves:
-    test/fixtures/corner/empty.txt:
+    f36084f592a9260f0fdb971a2c6cc590:
       hash_hexdigest:
         sha256: e3b0...b855
         sha512: cf83e135...f927da3e
       mod_time: '2022-09-09 19:59:01.121278 +00:00'
+      path: test/fixtures/corner/empty.txt
       size_bytes: 0
   summary:
     count_branches: 0
