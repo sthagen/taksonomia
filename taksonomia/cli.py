@@ -10,13 +10,15 @@ from taksonomia import APP_ALIAS, APP_NAME
 
 def parse_request(argv: List[str]) -> argparse.Namespace:
     """DRY."""
-    parser = argparse.ArgumentParser(prog=APP_ALIAS, description=APP_NAME)
+    parser = argparse.ArgumentParser(
+        prog=APP_ALIAS, description=APP_NAME, formatter_class=argparse.RawTextHelpFormatter
+    )
     parser.add_argument(
         '--tree-root',
         '-t',
         dest='tree_root',
         default='',
-        help='Root of the tree to visit. Optional (default: positional tree root value)',
+        help='Root of the tree to visit. Optional\n(default: positional tree root value)',
         required=False,
     )
     parser.add_argument(
@@ -27,7 +29,7 @@ def parse_request(argv: List[str]) -> argparse.Namespace:
         '-x',
         dest='excludes',
         default='',
-        help='comma separated list of values to exclude paths containing the substring (default: empty string)',
+        help='comma separated list of values to exclude paths\ncontaining the substring (default: empty string)',
     )
     parser.add_argument(
         '--out-path',
@@ -35,6 +37,12 @@ def parse_request(argv: List[str]) -> argparse.Namespace:
         dest='out_path',
         default=sys.stdout,
         help='output file path for taxonomy (default: STDOUT)',
+    )
+    parser.add_argument(
+        '--format',
+        dest='format',
+        default='json',
+        help='format (json, yaml) for taxonomy (default: json)',
     )
     options = parser.parse_args(argv)
 

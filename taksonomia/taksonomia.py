@@ -11,9 +11,10 @@ import uuid
 from typing import no_type_check
 
 import psutil  # type: ignore
+import yaml
 from cpuinfo import get_cpu_info  # type: ignore
 
-from taksonomia import APP_ALIAS, COMMA, ENCODING, TS_FORMAT, __version_info__ as VERSION_INFO
+from taksonomia import APP_ALIAS, COMMA, ENCODING, KNOWN_FORMATS, TS_FORMAT, __version_info__ as VERSION_INFO
 
 CHUNK_SIZE = 2 << 15
 EMPTY_SHA512 = (
@@ -37,6 +38,7 @@ class Taxonomy:
         self.root = root
         self.excludes = sorted(part.strip() for part in excludes.split(COMMA) if part.strip())
         self.perspective = str(pathlib.Path.cwd())
+        self.closed = False
         self.hasher = {
             'sha512': hashlib.sha512,
             'sha256': hashlib.sha256,
@@ -160,7 +162,7 @@ class Taxonomy:
         text = str(path)
         return bool(self.excludes) and any(exclude in text for exclude in self.excludes)
 
-    def branch(self, path: pathlib.Path) -> None:
+    def add_branch(self, path: pathlib.Path) -> None:
         """Add a folder (sub tree) entry."""
         if self.ignore(path):
             return
@@ -194,7 +196,7 @@ class Taxonomy:
                 hash.update(chunk)
         return hash.hexdigest()
 
-    def leaf(self, path: pathlib.Path) -> None:
+    def add_leaf(self, path: pathlib.Path) -> None:
         """Add a folder (sub tree) entry."""
         if self.ignore(path):
             return
@@ -225,18 +227,54 @@ class Taxonomy:
                     shadow_sum[algo].update(self.tree['leaves'][leaf][hexdig][algo].encode(ENCODING))  # type: ignore
                     self.tree['branches'][b][hexdig][algo] = shadow_sum[algo].hexdigest()  # type: ignore
 
+    def close(self) -> None:
+        """Create the post visitation machine context perf entry (if needed))."""
+        if not self.closed:
+            self.tree['context']['machine_perf']['post'] = self.machine_perf(self.pid)  # type: ignore
+            end_time = dti.datetime.now(tz=dti.timezone.utc)
+            self.tree['context']['end_ts'] = end_time.strftime(TS_FORMAT)  # type: ignore
+            self.tree['context']['duration_usecs'] = (end_time - self.start_time).microseconds  # type: ignore
+            self.closed = True
+
     @no_type_check
     def report(self):
-        """Create the post visitation machine context perf entry and report the taxaonomy."""
-        self.tree['context']['machine_perf']['post'] = self.machine_perf(self.pid)
-        end_time = dti.datetime.now(tz=dti.timezone.utc)
-        self.tree['context']['end_ts'] = end_time.strftime(TS_FORMAT)
-        self.tree['context']['duration_usecs'] = (end_time - self.start_time).microseconds
+        """Create the post visitation machine context perf entry (if needed) and report the taxonomy."""
+        self.close()
         return self.tree
 
     def __repr__(self) -> str:
         """Express yourself."""
         return json.dumps(self.tree, indent=2)
+
+    @no_type_check
+    def json_to(self, sink: object) -> None:
+        """Close the taxonomy collection and write tree in json format to sink."""
+        self.close()
+        if sink is sys.stdout:
+            print(json.dumps(self.tree, indent=2))
+            return
+
+        with open(pathlib.Path(sink), 'wt', encoding=ENCODING) as handle:
+            json.dump(self.tree, handle, indent=2)
+
+    @no_type_check
+    def yaml_to(self, sink: object) -> None:
+        """Close the taxonomy collection and write tree in yaml format to sink."""
+        self.close()
+        if sink is sys.stdout:
+            print(yaml.dump(self.tree))
+            return
+
+        with open(pathlib.Path(sink), 'wt', encoding=ENCODING) as handle:
+            yaml.dump(self.tree, handle)
+
+    @no_type_check
+    def dump(self, sink: object, format: str) -> None:
+        """Dump the assumed to be final taxonomy (tree) in json or yaml format."""
+        if format.lower() not in KNOWN_FORMATS:
+            raise ValueError(f'requested format {format} for taxonomy dump not in {KNOWN_FORMATS}')
+
+        return self.json_to(sink) if format.lower() == 'json' else self.yaml_to(sink)
 
 
 def parse():  # type: ignore
@@ -247,21 +285,13 @@ def main(options: argparse.Namespace) -> int:
     """Visit the folder tree below root and yield the taxonomy."""
     tree_root = pathlib.Path(options.tree_root)
 
-    visit = Taxonomy(tree_root, options.excludes)
+    taxonomy = Taxonomy(tree_root, options.excludes)
     for path in sorted(tree_root.rglob('*')):
         if path.is_dir():
-            visit.branch(path)
+            taxonomy.add_branch(path)
             continue
-        visit.leaf(path)
+        taxonomy.add_leaf(path)
 
-    taxonomy = visit.report()
-
-    if options.out_path is sys.stdout:
-        print(json.dumps(taxonomy, indent=2))
-        return 0
-
-    out_path = pathlib.Path(options.out_path)
-    with open(out_path, 'wt', encoding=ENCODING) as handle:
-        json.dump(taxonomy, handle, indent=2)
+    taxonomy.dump(sink=options.out_path, format=options.format)
 
     return 0
