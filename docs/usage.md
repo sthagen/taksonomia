@@ -57,8 +57,8 @@ Taxing a folder with a single empty file:
       "version_info": [
         "2022",
         "9",
-        "11",
-        "fadecafe"
+        "12",
+        "fa6f9052"
       ],
       "source": "https://pypi.or/project/taksonomia/2022.9.11/",
       "sbom": "https://codes.dilettant.life/docs/taksonomia/third-party/"
@@ -175,8 +175,8 @@ taxonomy:
     version_info:
     - '2022'
     - '9'
-    - '11'
-    - fadecafe
+    - '12'
+    - fa6f9052
   hash_algo_prefs:
   - sha512
   - sha256
