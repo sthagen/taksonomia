@@ -19,5 +19,12 @@
         "installed_version": "8.0.0",
         "required_version": "8.0.0",
         "dependencies": []
+    },
+    {
+        "key": "pyyaml",
+        "package_name": "PyYAML",
+        "installed_version": "6.0",
+        "required_version": "6.0",
+        "dependencies": []
     }
 ]

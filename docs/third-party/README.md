@@ -1,8 +1,8 @@
 # Third Party Dependencies
 
 <!--[[[fill sbom_sha256()]]]-->
-The [SBOM in CycloneDX v1.4 JSON format](https://github.com/sthagen/pilli/blob/default/sbom.json) with SHA256 checksum ([061a4b6d ...](https://raw.githubusercontent.com/sthagen/pilli/default/sbom.json.sha256 "sha256:061a4b6d7bc70fe024718d14a22843cb52c072481ce15c4a8fbc101abd24dc7f")).
-<!--[[[end]]] (checksum: 84fce9f854486ffeb0a820198e7117a0)-->
+The [SBOM in CycloneDX v1.4 JSON format](https://github.com/sthagen/pilli/blob/default/sbom.json) with SHA256 checksum ([dcbedfed ...](https://raw.githubusercontent.com/sthagen/pilli/default/sbom.json.sha256 "sha256:dcbedfededcd63bae3bf9b2534bbcd7657c27836a2883e08b959965a173abde0")).
+<!--[[[end]]] (checksum: 5ded2b7009d4ac57335b1b0670609f55)-->
 ## Licenses 
 
 JSON files with complete license info of: [direct dependencies](direct-dependency-licenses.json) | [all dependencies](all-dependency-licenses.json)
@@ -12,10 +12,11 @@ JSON files with complete license info of: [direct dependencies](direct-dependenc
 <!--[[[fill direct_dependencies_table()]]]-->
 | Name                                                  | Version                                             | License                              | Author                | Description (from packaging data)                                              |
 |:------------------------------------------------------|:----------------------------------------------------|:-------------------------------------|:----------------------|:-------------------------------------------------------------------------------|
+| [PyYAML](https://pyyaml.org/)                         | [6.0](https://pypi.org/project/PyYAML/6.0/)         | MIT License                          | Kirill Simonov        | YAML parser and emitter for Python                                             |
 | [orjson](https://github.com/ijl/orjson)               | [3.8.0](https://pypi.org/project/orjson/3.8.0/)     | Apache Software License; MIT License | ijl <ijl@mailbox.org> | Fast, correct Python JSON library supporting dataclasses, datetimes, and numpy |
 | [psutil](https://github.com/giampaolo/psutil)         | [5.9.2](https://pypi.org/project/psutil/5.9.2/)     | BSD License                          | Giampaolo Rodola      | Cross-platform lib for process and system monitoring in Python.                |
 | [py-cpuinfo](https://github.com/workhorsy/py-cpuinfo) | [8.0.0](https://pypi.org/project/py-cpuinfo/8.0.0/) | MIT License                          | Matthew Brennan Jones | Get CPU info with pure Python 2 & 3                                            |
-<!--[[[end]]] (checksum: 2a7075680cbac951d0042550daed914e)-->
+<!--[[[end]]] (checksum: b099228aa537f5c5d09c42dd706ec1e4)-->
 
 ### Indirect Dependencies
 
@@ -42,5 +43,6 @@ Base graphviz file in dot format: [Trees of the direct dependencies](package-dep
 orjson==3.8.0
 psutil==5.9.2
 py-cpuinfo==8.0.0
+PyYAML==6.0
 ````
-<!--[[[end]]] (checksum: 443e6087ff61872b0e93b0e3648d2acd)-->
+<!--[[[end]]] (checksum: 112f7a12cddd9bf86bd3160bdc3f6c91)-->

@@ -1,4 +1,5 @@
 digraph {
+	pyyaml [label="PyYAML\n6.0"]
 	"py-cpuinfo" [label="py-cpuinfo\n8.0.0"]
 	psutil [label="psutil\n5.9.2"]
 	orjson [label="orjson\n3.8.0"]
