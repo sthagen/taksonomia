@@ -11,7 +11,7 @@ from typing import no_type_check
 
 import yaml
 
-from taksonomia import APP_ALIAS, COMMA, ENCODING, KNOWN_FORMATS, TS_FORMAT, __version_info__ as VERSION_INFO
+from taksonomia import APP_ALIAS, COMMA, ENCODING, KNOWN_FORMATS, TS_FORMAT, __version_info__ as VERSION_INFO, log
 from taksonomia.machine import Machine
 
 CHUNK_SIZE = 2 << 15
@@ -241,14 +241,18 @@ def parse():  # type: ignore
 def main(options: argparse.Namespace) -> int:
     """Visit the folder tree below root and yield the taxonomy."""
     tree_root = pathlib.Path(options.tree_root)
+    log.info(f'Assessing taxonomy of folder {tree_root}')
 
     taxonomy = Taxonomy(tree_root, options.excludes)
     for path in sorted(tree_root.rglob('*')):
         if path.is_dir():
+            log.info(f'Detected branch {path}')
             taxonomy.add_branch(path)
             continue
         taxonomy.add_leaf(path)
+        log.info(f'Detected leaf {path}')
 
     taxonomy.dump(sink=options.out_path, format_type=options.format_type, base64_encode=options.base64_encode)
+    log.info(f'Assessed taxonomy of folder {tree_root}')
 
     return 0
