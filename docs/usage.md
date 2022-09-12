@@ -69,7 +69,7 @@ Taxing a folder with a single empty file:
         "2022",
         "9",
         "13",
-        "cafefade"
+        "e5cceb14"
       ],
       "source": "https://pypi.or/project/taksonomia/2022.9.11/",
       "sbom": "https://codes.dilettant.life/docs/taksonomia/third-party/"
@@ -187,7 +187,7 @@ taxonomy:
     - '2022'
     - '9'
     - '13'
-    - cafefade
+    - e5cceb14
   hash_algo_prefs:
   - sha512
   - sha256
