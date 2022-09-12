@@ -2,8 +2,9 @@
 
 ## 2022.9.13
 
+* Added base64-encode command line option to ease embedding of taxonomies into other documents / records.
+* Added logging
 * Belt and braces process info gathering to fix https://todo.sr.ht/~sthagen/taksonomia/2
-* Added base64-encode option to ease embedding of taxonomies into other documents / records.
 
 ## 2022.9.12
 
