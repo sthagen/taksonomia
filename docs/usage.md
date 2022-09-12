@@ -12,7 +12,7 @@ For the commandline please add the help option `-h` or `--help` like so:
 
 ```console
 ❯ taksonomia -h
-usage: taksonomia [-h] [--tree-root TREE_ROOT] [--excludes EXCLUDES] [--out-path OUT_PATH] [--format FORMAT_TYPE] [tree_root_pos]
+usage: taksonomia [-h] [--tree-root TREE_ROOT] [--excludes EXCLUDES] [--out-path OUT_PATH] [--format FORMAT_TYPE] [--base64-encode] [tree_root_pos]
 
 Taxonomy (Finnish: taksonomia) guided by conventions of a folder tree.
 
@@ -30,6 +30,7 @@ options:
   --out-path OUT_PATH, -o OUT_PATH
                         output file path for taxonomy (default: STDOUT)
   --format FORMAT_TYPE  format (json, yaml) for taxonomy (default: json)
+  --base64-encode       encode taxonomy in base64 (default: False)
 ```
 
 ## Example of Visiting a Folder
