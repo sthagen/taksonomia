@@ -1,9 +1,10 @@
-"""Taxonomy (Finnish: taksonomia) guided by conventions of a folder tree (implementation)."""
+"""Taxonomy (Finnish: taksonomia) of a folder tree, guided by conventions. (implementation)."""
 import argparse
 import base64
 import datetime as dti
 import hashlib
 import json
+import lzma
 import os
 import pathlib
 import sys
@@ -11,33 +12,72 @@ from typing import no_type_check
 
 import yaml
 
-from taksonomia import APP_ALIAS, COMMA, ENCODING, KNOWN_FORMATS, TS_FORMAT, __version_info__ as VERSION_INFO, log
+from taksonomia import (
+    APP_ALIAS,
+    COMMA,
+    ENCODING,
+    KNOWN_FORMATS,
+    KNOWN_KEY_FUNCTIONS,
+    TS_FORMAT,
+    __version_info__ as VERSION_INFO,
+    log,
+)
 from taksonomia.machine import Machine
 
 CHUNK_SIZE = 2 << 15
+DOCTYPE = '<?xml version="1.0" encoding="UTF-8"?>'
+EMPTY_SHA256 = 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'
 EMPTY_SHA512 = (
     'cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce'
     '47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e'
 )
-EMPTY_SHA256 = 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'
 EMPTY = {
     'sha512': EMPTY_SHA512,
     'sha256': EMPTY_SHA256,
 }
+ENCODING_ERRORS_POLICY = 'ignore'
 HASH_ALGO_PREFS = tuple(EMPTY)
-DOCTYPE = '<?xml version="1.0" encoding="UTF-8"?>'
-XMLNS = 'https://pypi.org/project/taksonomia/api/v1'
 TAX = 'taxonomy'
+XMLNS = 'https://pypi.org/project/taksonomia/api/v1'
+XZ_EXT = '.xz'
+XZ_FILTERS = [{'id': lzma.FILTER_LZMA2, 'preset': 7 | lzma.PRESET_EXTREME}]
+
+
+def elf_hash(some_bytes: bytes) -> int:
+    """The ELF hash (Extremely Lossy Function - also used in ELF format).
+    unsigned long ElfHash(const unsigned char *s) {
+        unsigned long h = 0, high;
+        while (*s) {
+            h = (h << 4) + *s++;
+            if (high = h & 0xF0000000)
+                h ^= high >> 24;
+            h &= ~high;
+        }
+        return h;
+    }
+    """
+    h = 0
+    for s in some_bytes:
+        h = (h << 4) + s
+        high = h & 0xF0000000
+        if high:
+            h ^= high >> 24
+        h &= ~high
+    return h
 
 
 @no_type_check
 class Taxonomy:
     """Collector of topological and size information on files in a tree."""
 
-    def __init__(self, root: pathlib.Path, excludes: str) -> None:
+    def __init__(self, root: pathlib.Path, excludes: str, key_function: str = 'elf') -> None:
         """Construct a collector instance for root."""
         self.root = root
         self.excludes = sorted(part.strip() for part in excludes.split(COMMA) if part.strip())
+        self.key_function = key_function.lower()
+        if self.key_function not in KNOWN_KEY_FUNCTIONS:
+            raise ValueError(f'key function {key_function} not in {KNOWN_KEY_FUNCTIONS}')
+
         self.perspective = str(pathlib.Path.cwd())
         self.closed = False
         self.hasher = {
@@ -51,6 +91,7 @@ class Taxonomy:
         self.tree = {
             TAX: {
                 'hash_algo_prefs': list(HASH_ALGO_PREFS),
+                'key_function': self.key_function,
                 'generator': {
                     'name': APP_ALIAS,
                     'version_info': list(VERSION_INFO),
@@ -89,6 +130,8 @@ class Taxonomy:
 
     def key(self, path_str: str) -> str:
         """Hashing function for the path keys."""
+        if self.key_function == 'elf':
+            return str(elf_hash(path_str.encode(ENCODING)))
         return hashlib.md5(path_str.encode(ENCODING)).hexdigest()  # nosec B324
 
     def add_branch(self, path: pathlib.Path) -> None:
@@ -182,10 +225,12 @@ class Taxonomy:
         return json.dumps(self.tree, indent=2)
 
     @no_type_check
-    def json_to(self, sink: object, base64_encode: bool = False) -> None:
+    def json_to(self, sink: object, base64_encode: bool = False, xz_compress: bool = False) -> None:
         """Close the taxonomy collection and write tree in json format to sink."""
         self.close()
         if sink is sys.stdout:
+            if xz_compress:
+                log.warning('ignoring --xz-compress for now as json output goes to std out')
             if base64_encode:
                 print(
                     base64.b64encode(json.dumps(self.tree, indent=2).encode(encoding=ENCODING)).decode(
@@ -194,6 +239,11 @@ class Taxonomy:
                 )
                 return
             print(json.dumps(self.tree, indent=2))
+            return
+
+        if xz_compress:
+            with lzma.open(pathlib.Path(sink), 'w', check=lzma.CHECK_SHA256, filters=XZ_FILTERS) as handle:
+                handle.write(json.dumps(self.tree, indent=2).encode(encoding=ENCODING, errors=ENCODING_ERRORS_POLICY))
             return
 
         with open(pathlib.Path(sink), 'wt', encoding=ENCODING) as handle:
@@ -207,14 +257,21 @@ class Taxonomy:
                 json.dump(self.tree, handle, indent=2)
 
     @no_type_check
-    def yaml_to(self, sink: object, base64_encode: bool = False) -> None:
+    def yaml_to(self, sink: object, base64_encode: bool = False, xz_compress: bool = False) -> None:
         """Close the taxonomy collection and write tree in yaml format to sink."""
         self.close()
         if sink is sys.stdout:
+            if xz_compress:
+                log.warning('ignoring --xz-compress for now as yaml output goes to std out')
             if base64_encode:
                 print(str(base64.b64encode(yaml.dump(self.tree).encode(encoding=ENCODING)).decode(encoding=ENCODING)))
                 return
             print(yaml.dump(self.tree))
+            return
+
+        if xz_compress:
+            with lzma.open(pathlib.Path(sink), 'w', check=lzma.CHECK_SHA256, filters=XZ_FILTERS) as handle:
+                handle.write(yaml.dump(self.tree).encode(encoding=ENCODING, errors=ENCODING_ERRORS_POLICY))
             return
 
         with open(pathlib.Path(sink), 'wt', encoding=ENCODING) as handle:
@@ -224,14 +281,14 @@ class Taxonomy:
                 yaml.dump(self.tree, handle)
 
     @no_type_check
-    def dump(self, sink: object, format_type: str, base64_encode: bool = False) -> None:
+    def dump(self, sink: object, format_type: str, base64_encode: bool = False, xz_compress: bool = False) -> None:
         """Dump the assumed to be final taxonomy (tree) in json or yaml format."""
         if format_type.lower() not in KNOWN_FORMATS:
             raise ValueError(f'requested format {format_type} for taxonomy dump not in {KNOWN_FORMATS}')
 
         if format_type.lower() == 'json':
-            return self.json_to(sink, base64_encode)
-        return self.yaml_to(sink, base64_encode)
+            return self.json_to(sink, base64_encode, xz_compress)
+        return self.yaml_to(sink, base64_encode, xz_compress)
 
 
 def parse():  # type: ignore
@@ -242,8 +299,15 @@ def main(options: argparse.Namespace) -> int:
     """Visit the folder tree below root and yield the taxonomy."""
     tree_root = pathlib.Path(options.tree_root)
     log.info(f'Assessing taxonomy of folder {tree_root}')
-
-    taxonomy = Taxonomy(tree_root, options.excludes)
+    log.info(f'Output channel is {"STDOUT" if options.out_path is sys.stdout else options.out_path}')
+    if options.excludes.strip():
+        exploded = tuple(options.excludes.strip().split(COMMA))
+        log.info(f'Requested exclusion of ({", ".join(exploded)}) partial{"" if len(exploded) == 1 else "s"}')
+    if options.xz_compress:
+        log.info('Requested xz compression (LZMA)')
+    if options.base64_encode:
+        log.info('Requested encoding (BASE64)')
+    taxonomy = Taxonomy(tree_root, options.excludes, options.key_function)
     for path in sorted(tree_root.rglob('*')):
         if path.is_dir():
             log.info(f'Detected branch {path}')
@@ -252,8 +316,13 @@ def main(options: argparse.Namespace) -> int:
         taxonomy.add_leaf(path)
         log.info(f'Detected leaf {path}')
 
-    taxonomy.dump(sink=options.out_path, format_type=options.format_type, base64_encode=options.base64_encode)
-    duration_secs = taxonomy.tree['taxonomy']['context']['duration_usecs'] / 1.e6
+    taxonomy.dump(
+        sink=options.out_path,
+        format_type=options.format_type,
+        base64_encode=options.base64_encode,
+        xz_compress=options.xz_compress,
+    )
+    duration_secs = taxonomy.tree['taxonomy']['context']['duration_usecs'] / 1.0e6  # type: ignore
     log.info(f'Assessed taxonomy of folder {tree_root} in {duration_secs} secs')
 
     return 0

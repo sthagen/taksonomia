@@ -1,4 +1,4 @@
-"""Taxonomy (Finnish: taksonomia) guided by conventions of a folder tree."""
+"""Taxonomy (Finnish: taksonomia) of a folder tree, guided by conventions."""
 import datetime as dti
 import logging
 import os
@@ -15,7 +15,7 @@ __all__: List[str] = []
 
 APP_ALIAS = 'taksonomia'
 APP_ENV = 'TAKSONOMIA'
-APP_NAME = 'Taxonomy (Finnish: taksonomia) guided by conventions of a folder tree.'
+APP_NAME = 'Taxonomy (Finnish: taksonomia) of a folder tree, guided by conventions.'
 COMMA = ','
 DEBUG = bool(os.getenv(f'{APP_ENV}_DEBUG', ''))
 DEFAULT_CONFIG_NAME = '.taksonomia.json'
@@ -23,6 +23,7 @@ DEFAULT_LF_ONLY = 'YES'
 ENCODING = 'utf-8'
 ENCODING_ERRORS_POLICY = 'ignore'
 KNOWN_FORMATS = ('json', 'yaml')
+KNOWN_KEY_FUNCTIONS = ('elf', 'md5')
 QUIET = False
 STRICT = bool(os.getenv(f'{APP_ENV}_STRICT', ''))
 TS_FORMAT = '%Y-%m-%d %H:%M:%S.%f +00:00'
