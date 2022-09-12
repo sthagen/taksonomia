@@ -1,6 +1,6 @@
 # taksonomia
 
-Taxonomy (Finnish: taksonomia) guided by conventions of a folder tree.
+Taxonomy (Finnish: taksonomia) of a folder tree, guided by conventions.
 
 [License: MIT](https://git.sr.ht/~sthagen/taksonomia/tree/default/item/LICENSE)
 
