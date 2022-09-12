@@ -34,60 +34,18 @@ TAX = 'taxonomy'
 
 
 @no_type_check
-class Taxonomy:
-    """Collector of topological and size information on files in a tree."""
+class Machine:
+    """Auxiliary context and performance information provider."""
 
-    def __init__(self, root: pathlib.Path, excludes: str) -> None:
-        """Construct a collector instance for root."""
-        self.root = root
-        self.excludes = sorted(part.strip() for part in excludes.split(COMMA) if part.strip())
-        self.perspective = str(pathlib.Path.cwd())
-        self.closed = False
-        self.hasher = {
-            'sha512': hashlib.sha512,
-            'sha256': hashlib.sha256,
-        }
-        self.pid = os.getpid()
-        self.start_time = dti.datetime.now(tz=dti.timezone.utc)
-
-        self.tree = {
-            TAX: {
-                'hash_algo_prefs': list(HASH_ALGO_PREFS),
-                'generator': {
-                    'name': APP_ALIAS,
-                    'version_info': list(VERSION_INFO),
-                    'source': f'https://pypi.or/project/taksonomia/{".".join(VERSION_INFO[:3])}/',
-                    'sbom': 'https://codes.dilettant.life/docs/taksonomia/third-party/',
-                },
-                'context': {
-                    'start_ts': self.start_time.strftime(TS_FORMAT),
-                    'end_ts': None,
-                    'duration_usecs': 0,
-                    **self.machine_context(path_selector=str(self.root)),  # type: ignore
-                    'pwd': self.perspective,
-                    'tree_root': str(self.root),
-                    'excludes': self.excludes,
-                    'machine_perf': {
-                        'pre': self.machine_perf(self.pid),  # type: ignore
-                        'post': None,
-                    },
-                },
-                'summary': {
-                    'hash_hexdigest': {**{algo: EMPTY[algo] for algo in HASH_ALGO_PREFS}},
-                    'count_branches': 0,
-                    'count_leaves': 0,
-                    'size_bytes': 0,
-                },
-                'branches': {},
-                'leaves': {},
-            }
-        }
-        self.shadow = {**{algo: self.hasher[algo]() for algo in HASH_ALGO_PREFS}, 'branches': {}}  # type: ignore
+    def __init__(self, path_selector: str, pid: int) -> None:
+        """Construct a machine instance pinned on a process id and a path."""
+        self.path_selector = path_selector
+        self.pid = pid
 
     @no_type_check
-    def machine_perf(self, pid: int):
+    def perf(self):
         """Some random information from machine performance measures."""
-        p = psutil.Process(pid)
+        p = psutil.Process(self.pid)
         cpts = p.cpu_times()
         cpts_union_attrs = ('children_system', 'children_user', 'system', 'user')
         mfi = p.memory_full_info()
@@ -111,7 +69,7 @@ class Taxonomy:
         }
 
     @no_type_check
-    def machine_context(self, path_selector: str):
+    def context(self):
         """Some random information from machine context."""
         swa = psutil.swap_memory()
         swa_union_attrs = ('free', 'percent', 'sin', 'sout', 'total', 'used')
@@ -132,7 +90,7 @@ class Taxonomy:
         )
         dic = psutil.disk_io_counters(perdisk=False)
         dic_union_attrs = ('read_bytes', 'read_count', 'read_time', 'write_bytes', 'write_count', 'write_time')
-        du = psutil.disk_usage(path_selector)
+        du = psutil.disk_usage(self.path_selector)
         du_union_attrs = ('free', 'percent', 'total', 'used')
         dpas = psutil.disk_partitions()
         dpa_union_attrs = ('device', 'fstype', 'maxfile', 'maxpath', 'mountpoint')
@@ -158,10 +116,63 @@ class Taxonomy:
             'disks': {
                 'counters_combined': {aspect: getattr(dic, aspect, None) for aspect in dic_union_attrs},
                 'partitions': partitions,
-                'path_selector': path_selector,
+                'path_selector': self.path_selector,
                 'usage': {aspect: getattr(du, aspect, None) for aspect in du_union_attrs},
             },
         }
+
+
+@no_type_check
+class Taxonomy:
+    """Collector of topological and size information on files in a tree."""
+
+    def __init__(self, root: pathlib.Path, excludes: str) -> None:
+        """Construct a collector instance for root."""
+        self.root = root
+        self.excludes = sorted(part.strip() for part in excludes.split(COMMA) if part.strip())
+        self.perspective = str(pathlib.Path.cwd())
+        self.closed = False
+        self.hasher = {
+            'sha512': hashlib.sha512,
+            'sha256': hashlib.sha256,
+        }
+        self.pid = os.getpid()
+        self.machine = Machine(str(self.root), self.pid)
+        self.start_time = dti.datetime.now(tz=dti.timezone.utc)
+
+        self.tree = {
+            TAX: {
+                'hash_algo_prefs': list(HASH_ALGO_PREFS),
+                'generator': {
+                    'name': APP_ALIAS,
+                    'version_info': list(VERSION_INFO),
+                    'source': f'https://pypi.or/project/taksonomia/{".".join(VERSION_INFO[:3])}/',
+                    'sbom': 'https://codes.dilettant.life/docs/taksonomia/third-party/',
+                },
+                'context': {
+                    'start_ts': self.start_time.strftime(TS_FORMAT),
+                    'end_ts': None,
+                    'duration_usecs': 0,
+                    **self.machine.context(),
+                    'pwd': self.perspective,
+                    'tree_root': str(self.root),
+                    'excludes': self.excludes,
+                    'machine_perf': {
+                        'pre': self.machine.perf(),
+                        'post': None,
+                    },
+                },
+                'summary': {
+                    'hash_hexdigest': {**{algo: EMPTY[algo] for algo in HASH_ALGO_PREFS}},
+                    'count_branches': 0,
+                    'count_leaves': 0,
+                    'size_bytes': 0,
+                },
+                'branches': {},
+                'leaves': {},
+            }
+        }
+        self.shadow = {**{algo: self.hasher[algo]() for algo in HASH_ALGO_PREFS}, 'branches': {}}  # type: ignore
 
     def ignore(self, path: pathlib.Path) -> bool:
         """Dry place for the filter hook (excludes)."""
@@ -246,7 +257,7 @@ class Taxonomy:
     def close(self) -> None:
         """Create the post visitation machine context perf entry (if needed))."""
         if not self.closed:
-            self.tree[TAX]['context']['machine_perf']['post'] = self.machine_perf(self.pid)  # type: ignore
+            self.tree[TAX]['context']['machine_perf']['post'] = self.machine.perf()  # type: ignore
             end_time = dti.datetime.now(tz=dti.timezone.utc)
             self.tree[TAX]['context']['end_ts'] = end_time.strftime(TS_FORMAT)  # type: ignore
             self.tree[TAX]['context']['duration_usecs'] = (end_time - self.start_time).microseconds  # type: ignore
