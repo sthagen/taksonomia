@@ -141,3 +141,11 @@ def test_main_format_yaml_tree_root_pos_test_fixtures_basic_nirvana_excludes_wit
     out, err = capsys.readouterr()
     assert not out
     assert not err
+
+
+def test_main_format_yaml_tree_root_pos_test_fixtures_basic_nirvana_excludes_with_slash_base64(capsys):
+    code = cli.main(['test/fixtures/basic/', '-o', '/dev/null', '-x', 'empty,/', '--format', 'yaml', '--base64-encode'])
+    assert code == 0
+    out, err = capsys.readouterr()
+    assert not out
+    assert not err

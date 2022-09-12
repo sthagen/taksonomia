@@ -52,6 +52,18 @@ def test_taxonomy_yaml_to_stdout_screen_only():
     taxonomy.dump(sink=sys.stdout, format_type='yaml')
 
 
+def test_taxonomy_yaml_to_stdout_screen_only_base64():
+    folder = pathlib.Path('test', 'fixtures', 'corner')
+    taxonomy = Taxonomy(folder, 'me,too')
+    taxonomy.dump(sink=sys.stdout, format_type='yaml', base64_encode=True)
+
+
+def test_taxonomy_json_to_stdout_screen_only_base64():
+    folder = pathlib.Path('test', 'fixtures', 'corner')
+    taxonomy = Taxonomy(folder, 'me,too')
+    taxonomy.dump(sink=sys.stdout, format_type='json', base64_encode=True)
+
+
 def test_taxonomy_dump_bad_format():
     folder = pathlib.Path('test', 'fixtures', 'corner')
     taxonomy = Taxonomy(folder, 'me,too')
