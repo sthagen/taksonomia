@@ -1,5 +1,6 @@
 """Taxonomy (Finnish: taksonomia) guided by conventions of a folder tree (implementation)."""
 import argparse
+import base64
 import datetime as dti
 import hashlib
 import json
@@ -262,36 +263,48 @@ class Taxonomy:
         return json.dumps(self.tree, indent=2)
 
     @no_type_check
-    def json_to(self, sink: object) -> None:
+    def json_to(self, sink: object, base64_encode: bool = False) -> None:
         """Close the taxonomy collection and write tree in json format to sink."""
         self.close()
         if sink is sys.stdout:
+            if base64_encode:
+                print(
+                    base64.b64encode(json.dumps(self.tree, indent=2).encode(encoding=ENCODING)).decode(
+                        encoding=ENCODING
+                    )
+                )
+                return
             print(json.dumps(self.tree, indent=2))
             return
 
         with open(pathlib.Path(sink), 'wt', encoding=ENCODING) as handle:
-            json.dump(self.tree, handle, indent=2)
+            handle.write(
+                base64.b64encode(json.dumps(self.tree, indent=2).encode(encoding=ENCODING)).decode(encoding=ENCODING)
+            )
 
     @no_type_check
-    def yaml_to(self, sink: object) -> None:
+    def yaml_to(self, sink: object, base64_encode: bool = False) -> None:
         """Close the taxonomy collection and write tree in yaml format to sink."""
         self.close()
         if sink is sys.stdout:
+            if base64_encode:
+                print(str(base64.b64encode(yaml.dump(self.tree).encode(encoding=ENCODING)).decode(encoding=ENCODING)))
+                return
             print(yaml.dump(self.tree))
             return
 
         with open(pathlib.Path(sink), 'wt', encoding=ENCODING) as handle:
-            yaml.dump(self.tree, handle)
+            handle.write(base64.b64encode(yaml.dump(self.tree).encode(encoding=ENCODING)).decode(encoding=ENCODING))
 
     @no_type_check
-    def dump(self, sink: object, format_type: str) -> None:
+    def dump(self, sink: object, format_type: str, base64_encode: bool = False) -> None:
         """Dump the assumed to be final taxonomy (tree) in json or yaml format."""
         if format_type.lower() not in KNOWN_FORMATS:
             raise ValueError(f'requested format {format_type} for taxonomy dump not in {KNOWN_FORMATS}')
 
         if format_type.lower() == 'json':
-            return self.json_to(sink)
-        return self.yaml_to(sink)
+            return self.json_to(sink, base64_encode)
+        return self.yaml_to(sink, base64_encode)
 
 
 def parse():  # type: ignore
@@ -309,6 +322,6 @@ def main(options: argparse.Namespace) -> int:
             continue
         taxonomy.add_leaf(path)
 
-    taxonomy.dump(sink=options.out_path, format_type=options.format_type)
+    taxonomy.dump(sink=options.out_path, format_type=options.format_type, base64_encode=options.base64_encode)
 
     return 0

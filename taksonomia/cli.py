@@ -44,6 +44,13 @@ def parse_request(argv: List[str]) -> argparse.Namespace:
         default='json',
         help='format (json, yaml) for taxonomy (default: json)',
     )
+    parser.add_argument(
+        '--base64-encode',
+        dest='base64_encode',
+        default=False,
+        action='store_true',
+        help='encode taxonomy in base64 (default: False)',
+    )
     options = parser.parse_args(argv)
 
     if not options.tree_root:
