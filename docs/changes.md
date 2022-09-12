@@ -2,7 +2,7 @@
 
 ## 2022.9.13
 
-* Belta nd braces process info gathering to fix https://todo.sr.ht/~sthagen/taksonomia/2
+* Belt and braces process info gathering to fix https://todo.sr.ht/~sthagen/taksonomia/2
 * Added base64-encode option to ease embedding of taxonomies into other documents / records.
 
 ## 2022.9.12
