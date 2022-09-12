@@ -96,14 +96,14 @@ class Taxonomy:
         ctxs = p.num_ctx_switches()
         ctxs_union_attrs = ('involuntary', 'voluntary')
         return {
-            'name': p.name(),
-            'status': p.status(),
+            'name': p.name() if hasattr(p, 'name') else None,
+            'status': p.status() if hasattr(p, 'status') else None,
             'create_time': dti.datetime.fromtimestamp(p.create_time(), dti.timezone.utc).strftime(TS_FORMAT),
-            'username': p.username(),
+            'username': p.username() if hasattr(p, 'username') else None,
             'cpu_times': {aspect: getattr(cpts, aspect, None) for aspect in cpts_union_attrs},
             'memory_full_info': {aspect: getattr(mfi, aspect, None) for aspect in mfi_union_attrs},
-            'memory_percent': p.memory_percent(),
-            'num_threads': p.num_threads(),
+            'memory_percent': p.memory_percent() if hasattr(p, 'memory_percent') else None,
+            'num_threads': p.num_threads() if hasattr(p, 'num_threads') else None,
             'threads': [{aspect: getattr(thr, aspect, None) for aspect in thr_union_attrs} for thr in threads],
             'num_fds': p.num_fds() if hasattr(p, 'num_fds') else None,
             'num_ctx_switches': {aspect: getattr(ctxs, aspect, None) for aspect in ctxs_union_attrs},
