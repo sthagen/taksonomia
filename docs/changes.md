@@ -2,8 +2,10 @@
 
 ## 2022.9.13
 
-* Added base64-encode command line option to ease embedding of taxonomies into other documents / records.
-* Added logging
+* Added base64-encode command line option to ease embedding of taxonomies
+* Added LZMA (xz) compression option (mutually exclusive to encoding) for output files
+* Added logging to support taxing larger trees and document parameters during execution
+* Added more short options in the hope these are useful and do not mislead users
 * Belt and braces process info gathering to fix https://todo.sr.ht/~sthagen/taksonomia/2
 
 ## 2022.9.12

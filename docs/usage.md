@@ -12,9 +12,11 @@ For the commandline please add the help option `-h` or `--help` like so:
 
 ```console
 ❯ taksonomia -h
-usage: taksonomia [-h] [--tree-root TREE_ROOT] [--excludes EXCLUDES] [--out-path OUT_PATH] [--format FORMAT_TYPE] [--base64-encode] [tree_root_pos]
+usage: taksonomia [-h] [--tree-root TREE_ROOT] [--excludes EXCLUDES] 
+       [--key-function KEY_FUNCTION] [--out-path OUT_PATH] [--format FORMAT_TYPE]
+       [--base64-encode] [--xz-compress] [tree_root_pos]
 
-Taxonomy (Finnish: taksonomia) guided by conventions of a folder tree.
+Taxonomy (Finnish: taksonomia) of a folder tree, guided by conventions.
 
 positional arguments:
   tree_root_pos         Root of the tree to visit. Optional (default: PWD)
@@ -27,10 +29,17 @@ options:
   --excludes EXCLUDES, -x EXCLUDES
                         comma separated list of values to exclude paths
                         containing the substring (default: empty string)
+  --key-function KEY_FUNCTION, -k KEY_FUNCTION
+                        key function (elf, md5) for branches and leaves (default: elf)
+                        use md5 for larger taxonomies
   --out-path OUT_PATH, -o OUT_PATH
                         output file path for taxonomy (default: STDOUT)
-  --format FORMAT_TYPE  format (json, yaml) for taxonomy (default: json)
-  --base64-encode       encode taxonomy in base64 (default: False)
+  --format FORMAT_TYPE, -f FORMAT_TYPE
+                        format (json, yaml) for taxonomy (default: json)
+  --base64-encode, -e   encode taxonomy in base64 (default: False)
+                        incompatible with option --xz-compress
+  --xz-compress, -c     compress taxonomy per LZMA(xz) (default: False)
+                        incompatible with option --base64-encode
 ```
 
 ## Example of Visiting a Folder
@@ -53,13 +62,14 @@ Taxing a folder with a single empty file:
       "sha512",
       "sha256"
     ],
+    "key_function": "elf",
     "generator": {
       "name": "taksonomia",
       "version_info": [
         "2022",
         "9",
-        "12",
-        "fa6f9052"
+        "13",
+        "cafefade"
       ],
       "source": "https://pypi.or/project/taksonomia/2022.9.11/",
       "sbom": "https://codes.dilettant.life/docs/taksonomia/third-party/"
@@ -118,7 +128,7 @@ Taxing a folder with a single empty file:
     },
     "branches": {},
     "leaves": {
-      "f36084f592a9260f0fdb971a2c6cc590": {
+      "41524436": {
         "path": "test/fixtures/corner/empty.txt",
         "hash_hexdigest": {
           "sha512": "cf83e135...f927da3e",
@@ -176,13 +186,14 @@ taxonomy:
     version_info:
     - '2022'
     - '9'
-    - '12'
-    - fa6f9052
+    - '13'
+    - cafefade
   hash_algo_prefs:
   - sha512
   - sha256
+  key_function: elf
   leaves:
-    f36084f592a9260f0fdb971a2c6cc590:
+    '41524436':
       hash_hexdigest:
         sha256: e3b0...b855
         sha512: cf83e135...f927da3e
