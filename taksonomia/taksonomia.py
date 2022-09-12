@@ -253,6 +253,7 @@ def main(options: argparse.Namespace) -> int:
         log.info(f'Detected leaf {path}')
 
     taxonomy.dump(sink=options.out_path, format_type=options.format_type, base64_encode=options.base64_encode)
-    log.info(f'Assessed taxonomy of folder {tree_root}')
+    duration_secs = taxonomy.tree['taxonomy']['context']['duration_usecs'] / 1.e6
+    log.info(f'Assessed taxonomy of folder {tree_root} in {duration_secs} secs')
 
     return 0
