@@ -1,5 +1,10 @@
 # Change History
 
+## 2022.9.13
+
+* Belta nd braces process info gathering to fix https://todo.sr.ht/~sthagen/taksonomia/2
+* Added base64 option to ease embedding of taxonomies into other documents / records.
+
 ## 2022.9.12
 
 * Adapted and extended tests to cover new behaviors, options, and again achieve full (screening) test coverage
