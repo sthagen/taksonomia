@@ -105,7 +105,7 @@ class Taxonomy:
             'memory_percent': p.memory_percent(),
             'num_threads': p.num_threads(),
             'threads': [{aspect: getattr(thr, aspect, None) for aspect in thr_union_attrs} for thr in threads],
-            'num_fds': p.num_fds(),
+            'num_fds': p.num_fds() if hasattr(p, 'num_fds') else None,
             'num_ctx_switches': {aspect: getattr(ctxs, aspect, None) for aspect in ctxs_union_attrs},
         }
 
