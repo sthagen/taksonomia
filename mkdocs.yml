@@ -1,5 +1,5 @@
 site_name: taksonomia
-site_description: "Taxonomy (Finnish: taksonomia) guided by conventions of a folder tree."
+site_description: "Taxonomy (Finnish: taksonomia) of a folder tree, guided by conventions."
 
 theme:
   name: 'material'
