@@ -197,9 +197,14 @@ class Taxonomy:
             return
 
         with open(pathlib.Path(sink), 'wt', encoding=ENCODING) as handle:
-            handle.write(
-                base64.b64encode(json.dumps(self.tree, indent=2).encode(encoding=ENCODING)).decode(encoding=ENCODING)
-            )
+            if base64_encode:
+                handle.write(
+                    base64.b64encode(json.dumps(self.tree, indent=2).encode(encoding=ENCODING)).decode(
+                        encoding=ENCODING
+                    )
+                )
+            else:
+                json.dump(self.tree, handle, indent=2)
 
     @no_type_check
     def yaml_to(self, sink: object, base64_encode: bool = False) -> None:
@@ -213,7 +218,10 @@ class Taxonomy:
             return
 
         with open(pathlib.Path(sink), 'wt', encoding=ENCODING) as handle:
-            handle.write(base64.b64encode(yaml.dump(self.tree).encode(encoding=ENCODING)).decode(encoding=ENCODING))
+            if base64_encode:
+                handle.write(base64.b64encode(yaml.dump(self.tree).encode(encoding=ENCODING)).decode(encoding=ENCODING))
+            else:
+                yaml.dump(self.tree, handle)
 
     @no_type_check
     def dump(self, sink: object, format_type: str, base64_encode: bool = False) -> None:
