@@ -49,7 +49,11 @@ options:
 Taxing a folder with a single empty file: 
 
 ```console
-❯ taksonomia --tree-root test/fixtures/corner
+❯ taksonomia --tree-root test/fixtures/corner > file.json
+2022-09-12T21:30:01.144294+00:00 INFO [TAKSONOMIA]: Assessing taxonomy of folder test/fixtures/corner
+2022-09-12T21:30:01.144863+00:00 INFO [TAKSONOMIA]: Output channel is STDOUT
+2022-09-12T21:30:01.229016+00:00 INFO [TAKSONOMIA]: Detected leaf test/fixtures/corner/empty.txt
+2022-09-12T21:30:01.229690+00:00 INFO [TAKSONOMIA]: Assessed taxonomy of folder test/fixtures/corner in 0.084431 secs
 ```
 
 ... results in something like (ommitted some parts of the hash values and context entries to avoid scrollbars):
@@ -147,7 +151,11 @@ Taxing a folder with a single empty file:
 Similarly for YAML:
 
 ```console
-❯ python -m taksonomia  --tree-root test/fixtures/corner --format yaml
+❯ taksonomia  --tree-root test/fixtures/corner --format yaml > file.yml
+2022-09-12T21:29:10.595129+00:00 INFO [TAKSONOMIA]: Assessing taxonomy of folder test/fixtures/corner
+2022-09-12T21:29:10.595660+00:00 INFO [TAKSONOMIA]: Output channel is STDOUT
+2022-09-12T21:29:10.676206+00:00 INFO [TAKSONOMIA]: Detected leaf test/fixtures/corner/empty.txt
+2022-09-12T21:29:10.683559+00:00 INFO [TAKSONOMIA]: Assessed taxonomy of folder test/fixtures/corner in 0.080705 secs
 ```
 
 yields (edited):
