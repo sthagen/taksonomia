@@ -1,5 +1,9 @@
 # Change History
 
+## 2022.9.14
+
+* Completed the move to orjson
+
 ## 2022.9.13
 
 * Added base64-encode command line option to ease embedding of taxonomies
