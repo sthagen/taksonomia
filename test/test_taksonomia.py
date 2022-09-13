@@ -111,7 +111,7 @@ def test_taxonomy_json_to_dev_null_screen_only_base64():
 def test_taxonomy_dump_bad_format():
     folder = pathlib.Path('test', 'fixtures', 'corner')
     taxonomy = Taxonomy(folder, 'me,too')
-    message = r"requested format unknown for taxonomy dump not in ('json', 'yaml')"
+    message = r"requested format unknown for taxonomy dump not in ('json', 'xml', 'yaml')"
     with pytest.raises(ValueError, match=re.escape(message)):
         taxonomy.dump(sink=sys.stdout, format_type='unknown')
 

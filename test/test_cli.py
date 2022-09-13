@@ -43,7 +43,7 @@ def test_parse_request_non_existing_format(capsys):
     assert err.value.code == 2
     out, err = capsys.readouterr()
     assert 'usage: taksonomia [-h] [--tree-root TREE_ROOT] [--excludes EXCLUDES]' in err
-    assert "taksonomia: error: requested format unknown for taxonomy dump not in ('json', 'yaml')" in err
+    assert "taksonomia: error: requested format unknown for taxonomy dump not in ('json', 'xml', 'yaml')" in err
     assert not out
 
 
@@ -168,6 +168,55 @@ def test_main_compress_yaml(capsys):
 
 def test_main_compress_json(capsys):
     options = cli.parse_request(['test/fixtures/basic/', '-c', '-o', '/tmp/delete-me.json.xz', '-x', 'empty,/'])
+    code = api.main(options)
+    assert code == 0
+    out, err = capsys.readouterr()
+    assert not out
+    assert not err
+
+
+def test_main_compress_xml(capsys):
+    options = cli.parse_request(
+        ['test/fixtures/basic/', '-f', 'xml', '-c', '-o', '/tmp/delete-me.xml.xz', '-x', 'empty,/']
+    )
+    code = api.main(options)
+    assert code == 0
+    out, err = capsys.readouterr()
+    assert not out
+    assert not err
+
+
+def test_main_xml(capsys):
+    options = cli.parse_request(['test/fixtures/basic/', '-f', 'xml', '-o', '/tmp/delete-me.xml', '-x', 'empty,/'])
+    code = api.main(options)
+    assert code == 0
+    out, err = capsys.readouterr()
+    assert not out
+    assert not err
+
+
+def test_main_xml_stdout(capsys):
+    options = cli.parse_request(['test/fixtures/basic/', '-f', 'xml', '-x', 'empty,/'])
+    code = api.main(options)
+    assert code == 0
+    out, err = capsys.readouterr()
+    assert '<?xml version="1.0" encoding="utf-8" ?>\n<taxonomy>' in out
+    assert not err
+
+
+def test_main_b64_encode_xml_stdout(capsys):
+    options = cli.parse_request(['test/fixtures/basic/', '-e', '-f', 'xml', '-x', 'empty,/'])
+    code = api.main(options)
+    assert code == 0
+    out, err = capsys.readouterr()
+    assert out.startswith('PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiID8+')
+    assert not err
+
+
+def test_main_b64_encode_xml(capsys):
+    options = cli.parse_request(
+        ['test/fixtures/basic/', '-e', '-f', 'xml', '-o', '/tmp/delete-me.xml.base64', '-x', 'empty,/']
+    )
     code = api.main(options)
     assert code == 0
     out, err = capsys.readouterr()
