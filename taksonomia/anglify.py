@@ -1,10 +1,10 @@
 """Transform taxonomy to XML."""
 import collections.abc
 import numbers
-import xml.etree.ElementTree as ET
+import xml.etree.ElementTree as ET  # nosec B405
 from random import randint
 from typing import no_type_check
-from xml.dom.minidom import parseString
+from xml.dom.minidom import parseString  # nosec B408
 
 from taksonomia import ENCODING
 
@@ -14,7 +14,7 @@ UNIQUE_IDS = []  # type: ignore
 @no_type_check
 def make_id(element, start=100000, end=999999):
     """Returns a random integer"""
-    return '%s_%s' % (element, randint(start, end))
+    return '%s_%s' % (element, randint(start, end))  # nosec B311
 
 
 @no_type_check
@@ -77,7 +77,7 @@ def key_is_valid_xml(key):
     """Checks that a key is a valid XML name"""
     test_xml = '<?xml version="1.0" encoding="UTF-8" ?><%s>foo</%s>' % (key, key)
     try:
-        parseString(test_xml)
+        parseString(test_xml)  # nosec B318
         return True
     except Exception:  # minidom does not implement exceptions well
         return False
