@@ -3,13 +3,13 @@ import argparse
 import base64
 import datetime as dti
 import hashlib
-import json
 import lzma
 import os
 import pathlib
 import sys
 from typing import no_type_check
 
+import orjson
 import yaml
 
 from taksonomia import (
@@ -37,6 +37,7 @@ EMPTY = {
 }
 ENCODING_ERRORS_POLICY = 'ignore'
 HASH_ALGO_PREFS = tuple(EMPTY)
+ORJSON_OPTIONS = orjson.OPT_INDENT_2 | orjson.OPT_APPEND_NEWLINE
 TAX = 'taxonomy'
 XMLNS = 'https://pypi.org/project/taksonomia/api/v1'
 XZ_EXT = '.xz'
@@ -222,7 +223,7 @@ class Taxonomy:
 
     def __repr__(self) -> str:
         """Express yourself."""
-        return json.dumps(self.tree, indent=2)
+        return orjson.dumps(self.tree, option=ORJSON_OPTIONS).decode(encoding=ENCODING)
 
     @no_type_check
     def json_to(self, sink: object, base64_encode: bool = False, xz_compress: bool = False) -> None:
@@ -232,29 +233,21 @@ class Taxonomy:
             if xz_compress:
                 log.warning('ignoring --xz-compress for now as json output goes to std out')
             if base64_encode:
-                print(
-                    base64.b64encode(json.dumps(self.tree, indent=2).encode(encoding=ENCODING)).decode(
-                        encoding=ENCODING
-                    )
-                )
+                print(base64.b64encode(orjson.dumps(self.tree, option=ORJSON_OPTIONS)).decode(encoding=ENCODING))
                 return
-            print(json.dumps(self.tree, indent=2))
+            print(orjson.dumps(self.tree, option=ORJSON_OPTIONS).decode(encoding=ENCODING))
             return
 
         if xz_compress:
-            with lzma.open(pathlib.Path(sink), 'w', check=lzma.CHECK_SHA256, filters=XZ_FILTERS) as handle:
-                handle.write(json.dumps(self.tree, indent=2).encode(encoding=ENCODING, errors=ENCODING_ERRORS_POLICY))
+            with lzma.open(pathlib.Path(sink), 'wb', check=lzma.CHECK_SHA256, filters=XZ_FILTERS) as handle:
+                handle.write(orjson.dumps(self.tree, option=ORJSON_OPTIONS))
             return
 
-        with open(pathlib.Path(sink), 'wt', encoding=ENCODING) as handle:
+        with open(pathlib.Path(sink), 'wb') as handle:
             if base64_encode:
-                handle.write(
-                    base64.b64encode(json.dumps(self.tree, indent=2).encode(encoding=ENCODING)).decode(
-                        encoding=ENCODING
-                    )
-                )
+                handle.write(base64.b64encode(orjson.dumps(self.tree, option=ORJSON_OPTIONS)))
             else:
-                json.dump(self.tree, handle, indent=2)
+                handle.write(orjson.dumps(self.tree, option=ORJSON_OPTIONS))
 
     @no_type_check
     def yaml_to(self, sink: object, base64_encode: bool = False, xz_compress: bool = False) -> None:
