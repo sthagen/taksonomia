@@ -12,9 +12,8 @@ For the commandline please add the help option `-h` or `--help` like so:
 
 ```console
 ❯ taksonomia -h
-usage: taksonomia [-h] [--tree-root TREE_ROOT] [--excludes EXCLUDES] 
-       [--key-function KEY_FUNCTION] [--out-path OUT_PATH] [--format FORMAT_TYPE]
-       [--base64-encode] [--xz-compress] [tree_root_pos]
+usage: taksonomia [-h] [--tree-root TREE_ROOT] [--excludes EXCLUDES] [--key-function KEY_FUNCTION] [--out-path OUT_PATH] [--format FORMAT_TYPE] [--base64-encode] [--xz-compress]
+                  [tree_root_pos]
 
 Taxonomy (Finnish: taksonomia) of a folder tree, guided by conventions.
 
@@ -30,12 +29,12 @@ options:
                         comma separated list of values to exclude paths
                         containing the substring (default: empty string)
   --key-function KEY_FUNCTION, -k KEY_FUNCTION
-                        key function (elf, md5) for branches and leaves (default: elf)
-                        use md5 for larger taxonomies
+                        key function (elf, md5) for branches and leaves
+                        (default: elf) use md5 for larger taxonomies
   --out-path OUT_PATH, -o OUT_PATH
                         output file path for taxonomy (default: STDOUT)
   --format FORMAT_TYPE, -f FORMAT_TYPE
-                        format (json, yaml) for taxonomy (default: json)
+                        format (json, xml, yaml) for taxonomy (default: json)
   --base64-encode, -e   encode taxonomy in base64 (default: False)
                         incompatible with option --xz-compress
   --xz-compress, -c     compress taxonomy per LZMA(xz) (default: False)
