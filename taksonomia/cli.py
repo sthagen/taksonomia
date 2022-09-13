@@ -36,7 +36,7 @@ def parse_request(argv: List[str]) -> argparse.Namespace:
         '-k',
         dest='key_function',
         default='elf',
-        help='key function (elf, md5) for branches and leaves (default: elf)\nuse md5 for larger taxonomies',
+        help='key function (elf, md5) for branches and leaves\n(default: elf) use md5 for larger taxonomies',
     )
     parser.add_argument(
         '--out-path',
