@@ -50,7 +50,7 @@ def parse_request(argv: List[str]) -> argparse.Namespace:
         '-f',
         dest='format_type',
         default='json',
-        help='format (json, yaml) for taxonomy (default: json)',
+        help='format (json, xml, yaml) for taxonomy (default: json)',
     )
     parser.add_argument(
         '--base64-encode',

@@ -12,6 +12,7 @@ from typing import no_type_check
 import orjson
 import yaml
 
+import taksonomia.anglify as anglify
 from taksonomia import (
     APP_ALIAS,
     COMMA,
@@ -250,6 +251,31 @@ class Taxonomy:
                 handle.write(orjson.dumps(self.tree, option=ORJSON_OPTIONS))
 
     @no_type_check
+    def xml_to(self, sink: object, base64_encode: bool = False, xz_compress: bool = False) -> None:
+        """Close the taxonomy collection and write tree in xml format to sink."""
+        self.close()
+        xml_str = anglify.as_xml(self.tree)
+        if sink is sys.stdout:
+            if xz_compress:
+                log.warning('ignoring --xz-compress for now as xml output goes to std out')
+            if base64_encode:
+                print(str(base64.b64encode(xml_str.encode(encoding=ENCODING)).decode(encoding=ENCODING)))
+                return
+            print(xml_str)
+            return
+
+        if xz_compress:
+            with lzma.open(pathlib.Path(sink), 'w', check=lzma.CHECK_SHA256, filters=XZ_FILTERS) as handle:
+                handle.write(xml_str.encode(encoding=ENCODING, errors=ENCODING_ERRORS_POLICY))
+            return
+
+        with open(pathlib.Path(sink), 'wt', encoding=ENCODING) as handle:
+            if base64_encode:
+                handle.write(base64.b64encode(xml_str.encode(encoding=ENCODING)).decode(encoding=ENCODING))
+            else:
+                handle.write(xml_str)
+
+    @no_type_check
     def yaml_to(self, sink: object, base64_encode: bool = False, xz_compress: bool = False) -> None:
         """Close the taxonomy collection and write tree in yaml format to sink."""
         self.close()
@@ -281,6 +307,8 @@ class Taxonomy:
 
         if format_type.lower() == 'json':
             return self.json_to(sink, base64_encode, xz_compress)
+        if format_type.lower() == 'xml':
+            return self.xml_to(sink, base64_encode, xz_compress)
         return self.yaml_to(sink, base64_encode, xz_compress)
 
 
