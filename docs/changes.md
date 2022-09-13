@@ -3,6 +3,7 @@
 ## 2022.9.14
 
 * Completed the move to orjson
+* Added XML format option
 
 ## 2022.9.13
 
