@@ -12,8 +12,9 @@ For the commandline please add the help option `-h` or `--help` like so:
 
 ```console
 ❯ taksonomia -h
-usage: taksonomia [-h] [--tree-root TREE_ROOT] [--excludes EXCLUDES] [--key-function KEY_FUNCTION] [--out-path OUT_PATH] [--format FORMAT_TYPE] [--base64-encode] [--xz-compress]
-                  [tree_root_pos]
+usage: taksonomia [-h] [--tree-root TREE_ROOT] [--excludes EXCLUDES]
+       [--key-function KEY_FUNCTION] [--out-path OUT_PATH]
+       [--format FORMAT_TYPE] [--base64-encode] [--xz-compress] [tree_root_pos]
 
 Taxonomy (Finnish: taksonomia) of a folder tree, guided by conventions.
 
