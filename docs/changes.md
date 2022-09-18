@@ -2,7 +2,7 @@
 
 ## 2022.9.18
 
-* Amended leaves with branch info to boost navigation
+* Amended leaves with branch hash (key) info to boost navigation
 
 ## 2022.9.14
 
