@@ -89,6 +89,13 @@ def make_valid_xml_name(key, attr):
     key = escape_xml(key)
     attr = escape_xml(attr)
 
+    # HAC KAD IDA CK
+    if set(key).intersection('0123456789'):
+        if all(n not in key for n in ('256', '512')):
+            attr['id'] = key
+            key = 'key'
+            return key, attr
+
     # pass through if key is already valid
     if key_is_valid_xml(key):
         return key, attr
