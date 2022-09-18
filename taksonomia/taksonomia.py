@@ -43,6 +43,7 @@ TAX = 'taxonomy'
 XMLNS = 'https://pypi.org/project/taksonomia/api/v1'
 XZ_EXT = '.xz'
 XZ_FILTERS = [{'id': lzma.FILTER_LZMA2, 'preset': 7 | lzma.PRESET_EXTREME}]
+LZMA_KWARGS = {'check': lzma.CHECK_SHA256, 'filters': XZ_FILTERS}
 
 
 def elf_hash(some_bytes: bytes) -> int:
@@ -241,7 +242,7 @@ class Taxonomy:
             return
 
         if xz_compress:
-            with lzma.open(pathlib.Path(sink), 'wb', check=lzma.CHECK_SHA256, filters=XZ_FILTERS) as handle:
+            with lzma.open(pathlib.Path(sink), 'wb', **LZMA_KWARGS) as handle:
                 handle.write(orjson.dumps(self.tree, option=ORJSON_OPTIONS))
             return
 
@@ -266,7 +267,7 @@ class Taxonomy:
             return
 
         if xz_compress:
-            with lzma.open(pathlib.Path(sink), 'w', check=lzma.CHECK_SHA256, filters=XZ_FILTERS) as handle:
+            with lzma.open(pathlib.Path(sink), 'w', **LZMA_KWARGS) as handle:
                 handle.write(xml_str.encode(encoding=ENCODING, errors=ENCODING_ERRORS_POLICY))
             return
 
@@ -290,7 +291,7 @@ class Taxonomy:
             return
 
         if xz_compress:
-            with lzma.open(pathlib.Path(sink), 'w', check=lzma.CHECK_SHA256, filters=XZ_FILTERS) as handle:
+            with lzma.open(pathlib.Path(sink), 'w', **LZMA_KWARGS) as handle:
                 handle.write(yaml.dump(self.tree).encode(encoding=ENCODING, errors=ENCODING_ERRORS_POLICY))
             return
 
