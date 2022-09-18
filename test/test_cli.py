@@ -1,6 +1,3 @@
-import pathlib
-import sys
-
 import pytest
 
 import taksonomia.cli as cli
@@ -10,10 +7,9 @@ from taksonomia.taksonomia import EMPTY_SHA512, XZ_EXT
 
 def test_parse_request_empty(capsys):
     options = cli.parse_request([])
-    assert options.out_path is sys.stdout
-    assert options.tree_root == str(pathlib.Path.cwd())
+    assert options == 0
     out, err = capsys.readouterr()
-    assert not out
+    assert 'usage: taksonomia' in out
     assert not err
 
 

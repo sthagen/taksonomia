@@ -8,7 +8,7 @@ import taksonomia.taksonomia as api
 from taksonomia import APP_ALIAS, APP_NAME, KNOWN_FORMATS, KNOWN_KEY_FUNCTIONS
 
 
-def parse_request(argv: List[str]) -> argparse.Namespace:
+def parse_request(argv: List[str]) -> Union[int, argparse.Namespace]:
     """DRY."""
     parser = argparse.ArgumentParser(
         prog=APP_ALIAS, description=APP_NAME, formatter_class=argparse.RawTextHelpFormatter
@@ -68,6 +68,10 @@ def parse_request(argv: List[str]) -> argparse.Namespace:
         action='store_true',
         help='compress taxonomy per LZMA(xz) (default: False)\nincompatible with option --base64-encode',
     )
+    if not argv:
+        parser.print_help()
+        return 0
+
     options = parser.parse_args(argv)
 
     if not options.tree_root:
@@ -106,4 +110,6 @@ def main(argv: Union[List[str], None] = None) -> int:
     """Delegate processing to functional module."""
     argv = sys.argv[1:] if argv is None else argv
     options = parse_request(argv)
+    if isinstance(options, int):
+        return 0
     return api.main(options)
