@@ -91,7 +91,7 @@ def make_valid_xml_name(key, attr):
 
     # HAC KAD IDA CK
     if set(key).intersection('0123456789'):
-        if all(n not in key for n in ('256', '512')):
+        if all(n not in key for n in ('sha256', 'sha512')):
             attr['id'] = key
             key = 'key'
             return key, attr
