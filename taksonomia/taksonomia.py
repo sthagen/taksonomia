@@ -182,6 +182,7 @@ class Taxonomy:
         leaf = str(path)
         self.tree[TAX]['leaves'][self.key(leaf)] = {  # type: ignore
             'path': leaf,
+            'branch': self.key(str(path.parent)),
             'hash_hexdigest': {algo: self.hash_file(path, algo) for algo in HASH_ALGO_PREFS},
             'size_bytes': size_bytes,
             'mod_time': mod_time,
