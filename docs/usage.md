@@ -8,13 +8,12 @@ import taksonomia.taksonomia as api
 
 ## Getting Help
 
-For the commandline please add the help option `-h` or `--help` like so:
+For the commandline please call the app without arguments or add the help option (`-h` or `--help`).
 
 ```console
-❯ taksonomia -h
-usage: taksonomia [-h] [--tree-root TREE_ROOT] [--excludes EXCLUDES]
-       [--key-function KEY_FUNCTION] [--out-path OUT_PATH]
-       [--format FORMAT_TYPE] [--base64-encode] [--xz-compress] [tree_root_pos]
+❯ taksonomia --help
+usage: taksonomia [-h] [--tree-root TREE_ROOT] [--excludes EXCLUDES] [--key-function KEY_FUNCTION] [--out-path OUT_PATH] [--format FORMAT_TYPE] [--base64-encode] [--xz-compress]
+                  [tree_root_pos]
 
 Taxonomy (Finnish: taksonomia) of a folder tree, guided by conventions.
 
@@ -134,6 +133,7 @@ Taxing a folder with a single empty file:
     "leaves": {
       "41524436": {
         "path": "test/fixtures/corner/empty.txt",
+        "branch": "110978498",
         "hash_hexdigest": {
           "sha512": "cf83e135...f927da3e",
           "sha256": "e3b0...b855"
@@ -202,6 +202,7 @@ taxonomy:
   key_function: elf
   leaves:
     '41524436':
+      branch: '110978498'
       hash_hexdigest:
         sha256: e3b0...b855
         sha512: cf83e135...f927da3e
@@ -215,4 +216,88 @@ taxonomy:
       sha256: cd37...f8e6
       sha512: 8fb29448...be77f166
     size_bytes: 0
+```
+### XML Format
+
+Similarly for XML:
+
+```console
+❯ taksonomia  --tree-root test/fixtures/corner --format xml > file.xml
+2022-09-18T20:39:13.509378+00:00 INFO [TAKSONOMIA]: Assessing taxonomy of folder test/fixtures/corner
+2022-09-18T20:39:13.510101+00:00 INFO [TAKSONOMIA]: Output channel is STDOUT
+2022-09-18T20:39:13.611015+00:00 INFO [TAKSONOMIA]: Detected leaf test/fixtures/corner/empty.txt
+2022-09-18T20:39:13.621416+00:00 INFO [TAKSONOMIA]: Assessed taxonomy of folder test/fixtures/corner in 0.101208 secs
+```
+
+yields (edited):
+
+```xml
+<?xml version="1.0" encoding="utf-8" ?>
+<taxonomy>
+  <hash_algo_prefs>
+    <item>sha512</item>
+    <item>sha256</item>
+  </hash_algo_prefs>
+  <key_function>elf</key_function>
+  <generator>
+    <name>taksonomia</name>
+    <version_info>
+      <item>2022</item>
+      <item>9</item>
+      <item>18</item>
+      <item>abadcafe</item>
+    </version_info>
+    <source>https://pypi.or/project/taksonomia/2022.9.18/</source>
+    <sbom>https://codes.dilettant.life/docs/taksonomia/third-party/</sbom>
+  </generator>
+  <context>
+    <start_ts>2022-09-18 20:39:13.510180 +00:00</start_ts>
+    <end_ts>2022-09-18 20:39:13.611388 +00:00</end_ts>
+    <duration_usecs>101208</duration_usecs>
+    <!-- ... -->
+    <cpu_info>
+      <python_version>3.10.6.final.0 (64 bit)</python_version>
+      <!-- ... -->
+    </cpu_info>
+    <memory>
+      <!-- ... -->
+    </memory>
+    <disks>
+      <!-- ... -->
+    </disks>
+    <pwd>/some/where</pwd>
+    <tree_root>test/fixtures/corner</tree_root>
+    <excludes />
+    <machine_perf>
+      <pre>
+        <!-- ... -->
+      </pre>
+      <post>
+        <!-- ... -->
+      </post>
+    </machine_perf>
+  </context>
+  <summary>
+    <hash_hexdigest>
+      <sha512>8fb29448...be77f166</sha512>
+      <sha256>cd37...f8e6</sha256>
+    </hash_hexdigest>
+    <count_branches>0</count_branches>
+    <count_leaves>1</count_leaves>
+    <size_bytes>0</size_bytes>
+  </summary>
+  <branches />
+  <leaves>
+    <key id="41524436">
+      <path>test/fixtures/corner/empty.txt</path>
+      <branch>110978498</branch>
+      <hash_hexdigest>
+        <sha512>cf83e135...f927da3e</sha512>
+        <sha256>e3b0...b855</sha256>
+      </hash_hexdigest>
+      <size_bytes>0</size_bytes>
+      <mod_time>2022-09-09 19:59:01.121278 +00:00</mod_time>
+    </key>
+  </leaves>
+</taxonomy>
 ```
