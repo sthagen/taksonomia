@@ -3,6 +3,7 @@
 ## 2022.9.18
 
 * Amended leaves with branch hash (key) info to boost navigation
+* Changed xml element name strategy for branches and leaves to not the hash as id attribute
 
 ## 2022.9.14
 
