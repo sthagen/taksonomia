@@ -3,6 +3,7 @@
 ## 2022.9.18
 
 * Amended leaves with branch hash (key) info to boost navigation
+* Changed command line behavior to show help when called without arguments
 * Changed xml element name strategy for branches and leaves to not the hash as id attribute
 
 ## 2022.9.14
