@@ -1,5 +1,9 @@
 # Change History
 
+## 2022.9.18
+
+* Amended leaves with branch info to boost navigation
+
 ## 2022.9.14
 
 * Completed the move to orjson
