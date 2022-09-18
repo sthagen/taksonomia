@@ -39,3 +39,11 @@ def test_make_valid_xml_name():
     key, attr = api.make_valid_xml_name('a256cafe', {})
     assert key == 'key'
     assert attr == {'id': 'a256cafe'}
+
+    key, attr = api.make_valid_xml_name('-ohno', {})
+    assert key == 'key'
+    assert attr == {'name': '-ohno'}
+
+    key, attr = api.make_valid_xml_name(' ohno', {})
+    assert key == '_ohno'
+    assert attr == {}
