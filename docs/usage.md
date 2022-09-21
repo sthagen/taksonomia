@@ -12,8 +12,9 @@ For the commandline please call the app without arguments or add the help option
 
 ```console
 ❯ taksonomia --help
-usage: taksonomia [-h] [--tree-root TREE_ROOT] [--excludes EXCLUDES] [--key-function KEY_FUNCTION] [--out-path OUT_PATH] [--format FORMAT_TYPE] [--base64-encode] [--xz-compress]
-                  [tree_root_pos]
+usage: taksonomia [-h] [--tree-root TREE_ROOT] [--excludes EXCLUDES] [--key-function KEY_FUNCTION]
+                  [--out-path OUT_PATH] [--formats FORMAT_TYPE_CSL] [--base64-encode]
+                  [--xz-compress] [tree_root_pos]
 
 Taxonomy (Finnish: taksonomia) of a folder tree, guided by conventions.
 
@@ -32,9 +33,9 @@ options:
                         key function (elf, md5) for branches and leaves
                         (default: elf) use md5 for larger taxonomies
   --out-path OUT_PATH, -o OUT_PATH
-                        output file path for taxonomy (default: STDOUT)
-  --format FORMAT_TYPE, -f FORMAT_TYPE
-                        format (json, xml, yaml) for taxonomy (default: json)
+                        output file path (stem) for taxonomy (default: STDOUT)
+  --formats FORMAT_TYPE_CSL, -f FORMAT_TYPE_CSL
+                        formats (json, xml, yaml) as comma separated list for taxonomy (default: json)
   --base64-encode, -e   encode taxonomy in base64 (default: False)
                         incompatible with option --xz-compress
   --xz-compress, -c     compress taxonomy per LZMA(xz) (default: False)
@@ -52,6 +53,7 @@ Taxing a folder with a single empty file:
 2022-09-12T21:30:01.144294+00:00 INFO [TAKSONOMIA]: Assessing taxonomy of folder test/fixtures/corner
 2022-09-12T21:30:01.144863+00:00 INFO [TAKSONOMIA]: Output channel is STDOUT
 2022-09-12T21:30:01.229016+00:00 INFO [TAKSONOMIA]: Detected leaf test/fixtures/corner/empty.txt
+2022-09-12T21:30:01.229016+00:00 INFO [TAKSONOMIA]: - Dumping taxonomy as json format
 2022-09-12T21:30:01.229690+00:00 INFO [TAKSONOMIA]: Assessed taxonomy of folder test/fixtures/corner in 0.084431 secs
 ```
 
@@ -155,6 +157,7 @@ Similarly for YAML:
 2022-09-12T21:29:10.595129+00:00 INFO [TAKSONOMIA]: Assessing taxonomy of folder test/fixtures/corner
 2022-09-12T21:29:10.595660+00:00 INFO [TAKSONOMIA]: Output channel is STDOUT
 2022-09-12T21:29:10.676206+00:00 INFO [TAKSONOMIA]: Detected leaf test/fixtures/corner/empty.txt
+2022-09-12T21:29:10.676206+00:00 INFO [TAKSONOMIA]: - Dumping taxonomy as yaml format
 2022-09-12T21:29:10.683559+00:00 INFO [TAKSONOMIA]: Assessed taxonomy of folder test/fixtures/corner in 0.080705 secs
 ```
 
@@ -226,6 +229,7 @@ Similarly for XML:
 2022-09-18T20:39:13.509378+00:00 INFO [TAKSONOMIA]: Assessing taxonomy of folder test/fixtures/corner
 2022-09-18T20:39:13.510101+00:00 INFO [TAKSONOMIA]: Output channel is STDOUT
 2022-09-18T20:39:13.611015+00:00 INFO [TAKSONOMIA]: Detected leaf test/fixtures/corner/empty.txt
+2022-09-18T20:39:13.621416+00:00 INFO [TAKSONOMIA]: - Dumping taxonomy as xml format
 2022-09-18T20:39:13.621416+00:00 INFO [TAKSONOMIA]: Assessed taxonomy of folder test/fixtures/corner in 0.101208 secs
 ```
 
@@ -300,4 +304,16 @@ yields (edited):
     </key>
   </leaves>
 </taxonomy>
+```
+
+### Multiple Formats at once
+
+```console
+❯ taksonomia --tree-root test/fixtures/corner -o inventory -f json,yaml
+2022-09-21T15:49:36.073212+00:00 INFO [TAKSONOMIA]: Assessing taxonomy of folder test/fixtures/corner
+2022-09-21T15:49:36.074322+00:00 INFO [TAKSONOMIA]: Output channel is inventory
+2022-09-21T15:49:36.175694+00:00 INFO [TAKSONOMIA]: Detected leaf test/fixtures/corner/empty.txt
+2022-09-21T15:49:36.175771+00:00 INFO [TAKSONOMIA]: - Dumping taxonomy as json format
+2022-09-21T15:49:36.176401+00:00 INFO [TAKSONOMIA]: - Dumping taxonomy as yaml format
+2022-09-21T15:49:36.183656+00:00 INFO [TAKSONOMIA]: Assessed taxonomy of folder test/fixtures/corner in 0.101696 secs
 ```
