@@ -4,6 +4,7 @@
 
 * Fixed duration calculation and changed key name from duration_usecs to duration_secs
 * Optimized performance by allowing multiple formats per run to only execute the possibly costly hashing once
+* Added example to usage documentation
 
 ## 2022.9.18
 
