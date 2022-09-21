@@ -1,5 +1,9 @@
 # Change History
 
+## 2022.9.21
+
+* Fixed duration calculation and changed key name from duration_usecs to duration_secs
+
 ## 2022.9.18
 
 * Amended leaves with branch hash (key) info to boost navigation

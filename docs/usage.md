@@ -80,7 +80,7 @@ Taxing a folder with a single empty file:
     "context": {
       "start_ts": "2022-09-10 12:14:02.229878 +00:00",
       "end_ts": "2022-09-10 12:14:02.305927 +00:00",
-      "duration_usecs": 76049,
+      "duration_secs": 0.084431,
       "...": "...",
       "boottime": "2022-09-10 05:56:16.000000 +00:00",
       "cpu_info": {
@@ -173,7 +173,7 @@ taxonomy:
       path_selector: test/fixtures/corner
       usage:
         ...
-    duration_usecs: 81618
+    duration_secs: 0.080705
     end_ts: '2022-09-11 14:44:50.953556 +00:00'
     excludes: []
     machine_perf:
@@ -253,7 +253,7 @@ yields (edited):
   <context>
     <start_ts>2022-09-18 20:39:13.510180 +00:00</start_ts>
     <end_ts>2022-09-18 20:39:13.611388 +00:00</end_ts>
-    <duration_usecs>101208</duration_usecs>
+    <duration_secs>0.080705</duration_secs>
     <!-- ... -->
     <cpu_info>
       <python_version>3.10.6.final.0 (64 bit)</python_version>
