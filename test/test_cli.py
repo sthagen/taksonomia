@@ -19,7 +19,7 @@ def test_parse_request_help(capsys):
             cli.parse_request([option])
         assert not err.value.code
         out, err = capsys.readouterr()
-        assert 'output file path for taxonomy' in out
+        assert 'output file path (stem) for taxonomy' in out
         assert not err
 
 
@@ -53,39 +53,6 @@ def test_parse_request_file_as_tree_root(capsys):
     assert not out
 
 
-def test_parse_request_tree_root_test_fixtures_corner(capsys):
-    options = cli.parse_request(['--tree-root', 'test/fixtures/corner/', '-o', '/dev/null'])
-    assert options.tree_root == 'test/fixtures/corner/'
-    assert options.out_path == '/dev/null'
-    out, err = capsys.readouterr()
-    assert not out
-    assert not err
-
-
-def test_main_tree_root_test_fixtures_corner_nirvana(capsys):
-    code = cli.main(['--tree-root', 'test/fixtures/corner/', '-o', '/dev/null'])
-    assert code == 0
-    out, err = capsys.readouterr()
-    assert not out
-    assert not err
-
-
-def test_main_tree_root_pos_test_fixtures_corner_nirvana(capsys):
-    code = cli.main(['test/fixtures/corner/', '-o', '/dev/null'])
-    assert code == 0
-    out, err = capsys.readouterr()
-    assert not out
-    assert not err
-
-
-def test_main_tree_root_pos_test_fixtures_corner_nirvana_excludes(capsys):
-    code = cli.main(['test/fixtures/corner/', '-o', '/dev/null', '-x', 'corner'])
-    assert code == 0
-    out, err = capsys.readouterr()
-    assert not out
-    assert not err
-
-
 def test_main_tree_root_test_fixtures_corner_result(capsys):
     code = cli.main(['--tree-root', 'test/fixtures/corner/'])
     assert code == 0
@@ -116,38 +83,6 @@ def test_main_tree_root_test_fixtures_basic_result(capsys):
     assert '"count_branches": 4,' in out
     assert '"count_leaves": 8,' in out
     assert '"size_bytes": 15' in out
-    assert not err
-
-
-def test_main_tree_root_pos_test_fixtures_basic_nirvana_excludes(capsys):
-    code = cli.main(['test/fixtures/basic/', '-o', '/dev/null', '-x', 'empty'])
-    assert code == 0
-    out, err = capsys.readouterr()
-    assert not out
-    assert not err
-
-
-def test_main_tree_root_pos_test_fixtures_basic_nirvana_excludes_with_slash(capsys):
-    code = cli.main(['test/fixtures/basic/', '-o', '/dev/null', '-x', 'empty,/'])
-    assert code == 0
-    out, err = capsys.readouterr()
-    assert not out
-    assert not err
-
-
-def test_main_format_yaml_tree_root_pos_test_fixtures_basic_nirvana_excludes_with_slash(capsys):
-    code = cli.main(['test/fixtures/basic/', '-o', '/dev/null', '-x', 'empty,/', '--format', 'yaml'])
-    assert code == 0
-    out, err = capsys.readouterr()
-    assert not out
-    assert not err
-
-
-def test_main_format_yaml_tree_root_pos_test_fixtures_basic_nirvana_excludes_with_slash_base64(capsys):
-    code = cli.main(['test/fixtures/basic/', '-o', '/dev/null', '-x', 'empty,/', '--format', 'yaml', '--base64-encode'])
-    assert code == 0
-    out, err = capsys.readouterr()
-    assert not out
     assert not err
 
 
@@ -237,19 +172,6 @@ def test_main_compression_and_stdout_given(capsys):
     out, err = capsys.readouterr()
     assert 'usage: taksonomia [-h] [--tree-root TREE_ROOT] [--excludes EXCLUDES]' in err
     assert 'taksonomia: error: compression for now not supported for standard output (only for files)' in err
-    assert not out
-
-
-def test_main_compression_and_file_without_xz_suffix_given(capsys):
-    with pytest.raises(SystemExit) as err:
-        cli.main(['test/fixtures/basic/', '-o', '/tmp/some.json', '-c'])
-    assert err.value.code == 2
-    out, err = capsys.readouterr()
-    assert 'usage: taksonomia [-h] [--tree-root TREE_ROOT] [--excludes EXCLUDES]' in err
-    assert (
-        f'taksonomia: error: compression for now only supported for output written to a file with {XZ_EXT} suffix'
-        in err
-    )
     assert not out
 
 

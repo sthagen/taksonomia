@@ -41,11 +41,11 @@ def test_taxonomy_close():
     assert not taxonomy.closed
     taxonomy.close()
     end_ts = taxonomy.tree['taxonomy']['context']['end_ts']
-    duration_usecs = taxonomy.tree['taxonomy']['context']['duration_usecs']
+    duration_usecs = taxonomy.tree['taxonomy']['context']['duration_secs']
     assert taxonomy.closed
     taxonomy.close()
     assert taxonomy.tree['taxonomy']['context']['end_ts'] == end_ts
-    assert taxonomy.tree['taxonomy']['context']['duration_usecs'] == duration_usecs
+    assert taxonomy.tree['taxonomy']['context']['duration_secs'] == duration_usecs
 
 
 def test_taxonomy_report_screen_only():
@@ -53,11 +53,11 @@ def test_taxonomy_report_screen_only():
     taxonomy = Taxonomy(folder, 'me,too')
     assert not taxonomy.closed
     assert taxonomy.tree['taxonomy']['context']['end_ts'] is None
-    assert taxonomy.tree['taxonomy']['context']['duration_usecs'] == 0
+    assert taxonomy.tree['taxonomy']['context']['duration_secs'] == 0
     tree = taxonomy.report()
     assert taxonomy.tree['taxonomy']['context']['end_ts'] is not None
-    assert taxonomy.tree['taxonomy']['context']['duration_usecs'] > 0
-    assert tree['taxonomy']['context']['duration_usecs'] == taxonomy.tree['taxonomy']['context']['duration_usecs']
+    assert taxonomy.tree['taxonomy']['context']['duration_secs'] > 0
+    assert tree['taxonomy']['context']['duration_secs'] == taxonomy.tree['taxonomy']['context']['duration_secs']
 
 
 def test_taxonomy_yaml_to_stdout_screen_only():
@@ -100,12 +100,6 @@ def test_taxonomy_json_to_stdout_screen_only_base64():
     folder = pathlib.Path('test', 'fixtures', 'corner')
     taxonomy = Taxonomy(folder, 'me,too')
     taxonomy.dump(sink=sys.stdout, format_type='json', base64_encode=True)
-
-
-def test_taxonomy_json_to_dev_null_screen_only_base64():
-    folder = pathlib.Path('test', 'fixtures', 'corner')
-    taxonomy = Taxonomy(folder, 'me,too')
-    taxonomy.dump(sink='/dev/null', format_type='json', base64_encode=True)
 
 
 def test_taxonomy_dump_bad_format():
