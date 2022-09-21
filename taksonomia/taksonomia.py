@@ -104,7 +104,7 @@ class Taxonomy:
                 'context': {
                     'start_ts': self.start_time.strftime(TS_FORMAT),
                     'end_ts': None,
-                    'duration_usecs': 0,
+                    'duration_secs': 0,
                     **self.machine.context(),
                     'pwd': self.perspective,
                     'tree_root': str(self.root),
@@ -215,7 +215,7 @@ class Taxonomy:
             self.tree[TAX]['context']['machine_perf']['post'] = self.machine.perf()  # type: ignore
             end_time = dti.datetime.now(tz=dti.timezone.utc)
             self.tree[TAX]['context']['end_ts'] = end_time.strftime(TS_FORMAT)  # type: ignore
-            self.tree[TAX]['context']['duration_usecs'] = (end_time - self.start_time).microseconds  # type: ignore
+            self.tree[TAX]['context']['duration_secs'] = (end_time - self.start_time).total_seconds()  # type: ignore
             self.closed = True
 
     @no_type_check
@@ -345,7 +345,7 @@ def main(options: argparse.Namespace) -> int:
         base64_encode=options.base64_encode,
         xz_compress=options.xz_compress,
     )
-    duration_secs = taxonomy.tree['taxonomy']['context']['duration_usecs'] / 1.0e6  # type: ignore
+    duration_secs = taxonomy.tree['taxonomy']['context']['duration_secs']  # type: ignore
     log.info(f'Assessed taxonomy of folder {tree_root} in {duration_secs} secs')
 
     return 0
