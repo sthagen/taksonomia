@@ -39,6 +39,11 @@ TS_FORMAT_LOG = '%Y-%m-%dT%H:%M:%S'
 TS_FORMAT_PAYLOADS = '%Y-%m-%d %H:%M:%S.%f UTC'
 
 
+def parse_csl(csl: str) -> List[str]:
+    """DRY."""
+    return [fmt.strip().lower() for fmt in csl.split(COMMA) if fmt.strip()]
+
+
 @no_type_check
 def formatTime_RFC3339(self, record, datefmt=None):
     """HACK A DID ACK we could inject .astimezone() to localize ..."""

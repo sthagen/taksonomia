@@ -22,6 +22,7 @@ from taksonomia import (
     TS_FORMAT,
     __version_info__ as VERSION_INFO,
     log,
+    parse_csl,
 )
 from taksonomia.machine import Machine
 
@@ -242,11 +243,11 @@ class Taxonomy:
             return
 
         if xz_compress:
-            with lzma.open(pathlib.Path(sink), 'wb', **LZMA_KWARGS) as handle:
+            with lzma.open(pathlib.Path(f'{sink}.json.xz'), 'wb', **LZMA_KWARGS) as handle:
                 handle.write(orjson.dumps(self.tree, option=ORJSON_OPTIONS))
             return
 
-        with open(pathlib.Path(sink), 'wb') as handle:
+        with open(pathlib.Path(f'{sink}.json.b64'), 'wb') as handle:
             if base64_encode:
                 handle.write(base64.b64encode(orjson.dumps(self.tree, option=ORJSON_OPTIONS)))
             else:
@@ -267,11 +268,11 @@ class Taxonomy:
             return
 
         if xz_compress:
-            with lzma.open(pathlib.Path(sink), 'w', **LZMA_KWARGS) as handle:
+            with lzma.open(pathlib.Path(f'{sink}.xml.xz'), 'w', **LZMA_KWARGS) as handle:
                 handle.write(xml_str.encode(encoding=ENCODING, errors=ENCODING_ERRORS_POLICY))
             return
 
-        with open(pathlib.Path(sink), 'wt', encoding=ENCODING) as handle:
+        with open(pathlib.Path(f'{sink}.xml.b64'), 'wt', encoding=ENCODING) as handle:
             if base64_encode:
                 handle.write(base64.b64encode(xml_str.encode(encoding=ENCODING)).decode(encoding=ENCODING))
             else:
@@ -291,11 +292,11 @@ class Taxonomy:
             return
 
         if xz_compress:
-            with lzma.open(pathlib.Path(sink), 'w', **LZMA_KWARGS) as handle:
+            with lzma.open(pathlib.Path(f'{sink}.yml.xz'), 'w', **LZMA_KWARGS) as handle:
                 handle.write(yaml.dump(self.tree).encode(encoding=ENCODING, errors=ENCODING_ERRORS_POLICY))
             return
 
-        with open(pathlib.Path(sink), 'wt', encoding=ENCODING) as handle:
+        with open(pathlib.Path(f'{sink}.yml.b64'), 'wt', encoding=ENCODING) as handle:
             if base64_encode:
                 handle.write(base64.b64encode(yaml.dump(self.tree).encode(encoding=ENCODING)).decode(encoding=ENCODING))
             else:
@@ -339,12 +340,14 @@ def main(options: argparse.Namespace) -> int:
         taxonomy.add_leaf(path)
         log.info(f'Detected leaf {path}')
 
-    taxonomy.dump(
-        sink=options.out_path,
-        format_type=options.format_type,
-        base64_encode=options.base64_encode,
-        xz_compress=options.xz_compress,
-    )
+    for fmt in sorted(parse_csl(options.format_type_csl)):
+        log.info(f'- Dumping taxonomy as {fmt} format')
+        taxonomy.dump(
+            sink=options.out_path,
+            format_type=fmt,
+            base64_encode=options.base64_encode,
+            xz_compress=options.xz_compress,
+        )
     duration_secs = taxonomy.tree['taxonomy']['context']['duration_secs']  # type: ignore
     log.info(f'Assessed taxonomy of folder {tree_root} in {duration_secs} secs')
 

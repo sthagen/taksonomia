@@ -5,7 +5,7 @@ import sys
 from typing import List, Union
 
 import taksonomia.taksonomia as api
-from taksonomia import APP_ALIAS, APP_NAME, KNOWN_FORMATS, KNOWN_KEY_FUNCTIONS
+from taksonomia import APP_ALIAS, APP_NAME, KNOWN_FORMATS, KNOWN_KEY_FUNCTIONS, parse_csl
 
 
 def parse_request(argv: List[str]) -> Union[int, argparse.Namespace]:
@@ -43,14 +43,14 @@ def parse_request(argv: List[str]) -> Union[int, argparse.Namespace]:
         '-o',
         dest='out_path',
         default=sys.stdout,
-        help='output file path for taxonomy (default: STDOUT)',
+        help='output file path (stem) for taxonomy (default: STDOUT)',
     )
     parser.add_argument(
-        '--format',
+        '--formats',
         '-f',
-        dest='format_type',
+        dest='format_type_csl',
         default='json',
-        help='format (json, xml, yaml) for taxonomy (default: json)',
+        help='formats (json, xml, yaml) as comma separated list for taxonomy (default: json)',
     )
     parser.add_argument(
         '--base64-encode',
@@ -85,17 +85,20 @@ def parse_request(argv: List[str]) -> Union[int, argparse.Namespace]:
             f'requested key function {options.key_function} for branches and leaves not in {KNOWN_KEY_FUNCTIONS}'
         )
 
-    if options.format_type.lower() not in KNOWN_FORMATS:
-        parser.error(f'requested format {options.format_type} for taxonomy dump not in {KNOWN_FORMATS}')
+    format_types = parse_csl(options.format_type_csl)
+    channel_count = len(format_types)
+    for fmt in format_types:
+        if fmt not in KNOWN_FORMATS:
+            parser.error(f'requested format {fmt} for taxonomy dump not in {KNOWN_FORMATS}')
+
+    if options.out_path is sys.stdout and channel_count > 1:
+        parser.error('writing multiple formats to STDOUT is not supported.')
 
     if options.base64_encode and options.xz_compress:
         parser.error('the options --base64-encode and --xz-compress are mutually exclusive.')
 
     if options.xz_compress and options.out_path is sys.stdout:
         parser.error('compression for now not supported for standard output (only for files)')
-
-    if options.xz_compress and not options.out_path.lower().endswith(api.XZ_EXT):
-        parser.error(f'compression for now only supported for output written to a file with {api.XZ_EXT} suffix')
 
     tree_root = pathlib.Path(options.tree_root)
     if tree_root.exists():
