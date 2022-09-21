@@ -35,7 +35,17 @@ def test_parse_request_non_existing_tree_root(capsys):
 
 def test_parse_request_non_existing_format(capsys):
     with pytest.raises(SystemExit) as err:
-        cli.parse_request(['--tree-root', 'this-tree-root-is-missing', '--format', 'unknown'])
+        cli.parse_request(['--tree-root', 'this-tree-root-is-missing', '--formats', 'unknown'])
+    assert err.value.code == 2
+    out, err = capsys.readouterr()
+    assert 'usage: taksonomia [-h] [--tree-root TREE_ROOT] [--excludes EXCLUDES]' in err
+    assert "taksonomia: error: requested format unknown for taxonomy dump not in ('json', 'xml', 'yaml')" in err
+    assert not out
+
+
+def test_parse_request_non_existing_format_in_csl(capsys):
+    with pytest.raises(SystemExit) as err:
+        cli.parse_request(['--tree-root', 'this-tree-root-is-missing', '--formats', 'json,xml,yaml,unknown'])
     assert err.value.code == 2
     out, err = capsys.readouterr()
     assert 'usage: taksonomia [-h] [--tree-root TREE_ROOT] [--excludes EXCLUDES]' in err
