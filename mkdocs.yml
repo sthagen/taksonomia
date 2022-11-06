@@ -3,6 +3,9 @@ site_description: "Taxonomy (Finnish: taksonomia) of a folder tree, guided by co
 
 theme:
   name: 'material'
+  features:
+    - navigation.expand
+    - toc.integrate
   palette:
     # Light mode
     - media: "(prefers-color-scheme: light)"
