@@ -4,7 +4,7 @@
 
 * Bumped python version range to py39-py311 as well as implementation dependencies
 * Disabled the broken and still not fixed flake8 linter
-* Fixed suffixes for plain formats (.b64 only when bae64 encoding)
+* Fixed suffixes for plain formats (.b64 only when base64 encoding)
 
 ## 2022.9.21
 
