@@ -9,22 +9,22 @@
     {
         "key": "orjson",
         "package_name": "orjson",
-        "installed_version": "3.8.0",
-        "required_version": "3.8.0",
+        "installed_version": "3.8.3",
+        "required_version": "3.8.3",
         "dependencies": []
     },
     {
         "key": "psutil",
         "package_name": "psutil",
-        "installed_version": "5.9.2",
-        "required_version": "5.9.2",
+        "installed_version": "5.9.4",
+        "required_version": "5.9.4",
         "dependencies": []
     },
     {
         "key": "py-cpuinfo",
         "package_name": "py-cpuinfo",
-        "installed_version": "8.0.0",
-        "required_version": "8.0.0",
+        "installed_version": "9.0.0",
+        "required_version": "9.0.0",
         "dependencies": []
     },
     {
