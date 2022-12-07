@@ -247,10 +247,11 @@ class Taxonomy:
                 handle.write(orjson.dumps(self.tree, option=ORJSON_OPTIONS))
             return
 
-        with open(pathlib.Path(f'{sink}.json.b64'), 'wb') as handle:
-            if base64_encode:
+        if base64_encode:
+            with open(pathlib.Path(f'{sink}.json.b64'), 'wb') as handle:
                 handle.write(base64.b64encode(orjson.dumps(self.tree, option=ORJSON_OPTIONS)))
-            else:
+        else:
+            with open(pathlib.Path(f'{sink}.json'), 'wb') as handle:
                 handle.write(orjson.dumps(self.tree, option=ORJSON_OPTIONS))
 
     @no_type_check
@@ -272,10 +273,11 @@ class Taxonomy:
                 handle.write(xml_str.encode(encoding=ENCODING, errors=ENCODING_ERRORS_POLICY))
             return
 
-        with open(pathlib.Path(f'{sink}.xml.b64'), 'wt', encoding=ENCODING) as handle:
-            if base64_encode:
+        if base64_encode:
+            with open(pathlib.Path(f'{sink}.xml.b64'), 'wt', encoding=ENCODING) as handle:
                 handle.write(base64.b64encode(xml_str.encode(encoding=ENCODING)).decode(encoding=ENCODING))
-            else:
+        else:
+            with open(pathlib.Path(f'{sink}.xml'), 'wt', encoding=ENCODING) as handle:
                 handle.write(xml_str)
 
     @no_type_check
@@ -296,10 +298,11 @@ class Taxonomy:
                 handle.write(yaml.dump(self.tree).encode(encoding=ENCODING, errors=ENCODING_ERRORS_POLICY))
             return
 
-        with open(pathlib.Path(f'{sink}.yml.b64'), 'wt', encoding=ENCODING) as handle:
-            if base64_encode:
+        if base64_encode:
+            with open(pathlib.Path(f'{sink}.yml.b64'), 'wt', encoding=ENCODING) as handle:
                 handle.write(base64.b64encode(yaml.dump(self.tree).encode(encoding=ENCODING)).decode(encoding=ENCODING))
-            else:
+        else:
+            with open(pathlib.Path(f'{sink}.yml'), 'wt', encoding=ENCODING) as handle:
                 yaml.dump(self.tree, handle)
 
     @no_type_check
