@@ -1,5 +1,10 @@
 # Change History
 
+## 2022.12.7
+
+* Bumped python version range to py39-py311 as well as implementation dependencies
+* Disabled the broken and still not fixed flake8 linter
+
 ## 2022.9.21
 
 * Fixed duration calculation and changed key name from duration_usecs to duration_secs
