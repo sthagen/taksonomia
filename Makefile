@@ -28,7 +28,7 @@ init:
 .PHONY: lint
 lint:
 	python setup.py check -ms
-	$(flake8)
+	@echo Disabled $(flake8)
 	$(isort) --check-only --df
 	$(black) --check --diff
 
