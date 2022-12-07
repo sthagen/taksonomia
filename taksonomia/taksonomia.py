@@ -99,7 +99,7 @@ class Taxonomy:
                 'generator': {
                     'name': APP_ALIAS,
                     'version_info': list(VERSION_INFO),
-                    'source': f'https://pypi.or/project/taksonomia/{".".join(VERSION_INFO[:3])}/',
+                    'source': f'https://pypi.org/project/taksonomia/{".".join(VERSION_INFO[:3])}/',
                     'sbom': 'https://codes.dilettant.life/docs/taksonomia/third-party/',
                 },
                 'context': {
