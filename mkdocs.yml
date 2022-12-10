@@ -3,6 +3,8 @@ site_description: "Taxonomy (Finnish: taksonomia) of a folder tree, guided by co
 
 theme:
   name: 'material'
+  logo: assets/logo.png
+  favicon: images/favicon.ico
   features:
     - navigation.expand
     - toc.integrate
