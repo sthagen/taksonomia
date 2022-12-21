@@ -9,7 +9,7 @@ import pathlib
 import sys
 from typing import no_type_check
 
-import orjson
+import msgspec
 import yaml
 
 import taksonomia.anglify as anglify
@@ -39,7 +39,6 @@ EMPTY = {
 }
 ENCODING_ERRORS_POLICY = 'ignore'
 HASH_ALGO_PREFS = tuple(EMPTY)
-ORJSON_OPTIONS = orjson.OPT_INDENT_2 | orjson.OPT_APPEND_NEWLINE
 TAX = 'taxonomy'
 XMLNS = 'https://pypi.org/project/taksonomia/api/v1'
 XZ_EXT = '.xz'
@@ -227,7 +226,7 @@ class Taxonomy:
 
     def __repr__(self) -> str:
         """Express yourself."""
-        return orjson.dumps(self.tree, option=ORJSON_OPTIONS).decode(encoding=ENCODING)
+        return msgspec.json.format(msgspec.json.encode(self.tree)).decode()
 
     @no_type_check
     def json_to(self, sink: object, base64_encode: bool = False, xz_compress: bool = False) -> None:
@@ -237,22 +236,22 @@ class Taxonomy:
             if xz_compress:
                 log.warning('ignoring --xz-compress for now as json output goes to std out')
             if base64_encode:
-                print(base64.b64encode(orjson.dumps(self.tree, option=ORJSON_OPTIONS)).decode(encoding=ENCODING))
+                print(msgspec.json.encode(self.tree))
                 return
-            print(orjson.dumps(self.tree, option=ORJSON_OPTIONS).decode(encoding=ENCODING))
+            print(self.__repr__())
             return
 
         if xz_compress:
             with lzma.open(pathlib.Path(f'{sink}.json.xz'), 'wb', **LZMA_KWARGS) as handle:
-                handle.write(orjson.dumps(self.tree, option=ORJSON_OPTIONS))
+                handle.write(msgspec.json.encode(self.tree))
             return
 
         if base64_encode:
             with open(pathlib.Path(f'{sink}.json.b64'), 'wb') as handle:
-                handle.write(base64.b64encode(orjson.dumps(self.tree, option=ORJSON_OPTIONS)))
+                handle.write(base64.b64encode(msgspec.json.encode(self.tree)))
         else:
             with open(pathlib.Path(f'{sink}.json'), 'wb') as handle:
-                handle.write(orjson.dumps(self.tree, option=ORJSON_OPTIONS))
+                handle.write(msgspec.json.encode(self.tree))
 
     @no_type_check
     def xml_to(self, sink: object, base64_encode: bool = False, xz_compress: bool = False) -> None:
