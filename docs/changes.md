@@ -1,5 +1,9 @@
 # Change History
 
+## Source
+
+* Migrated from orjson to msgspec
+
 ## 2022.12.7
 
 * Bumped python version range to py39-py311 as well as implementation dependencies
