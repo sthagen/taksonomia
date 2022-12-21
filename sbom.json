@@ -2,15 +2,15 @@
   "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.4",
-  "serialNumber": "urn:uuid:aa32f27d-3252-46b6-88d3-037388612965",
+  "serialNumber": "urn:uuid:512e4bcc-58c0-46e6-925a-363ed83b43df",
   "version": 1,
   "metadata": {
-    "timestamp": "2022-12-07T15:14:03.693633+00:00",
+    "timestamp": "2022-12-21T14:53:12.435626+00:00",
     "tools": [
       {
         "vendor": "CycloneDX",
         "name": "cyclonedx-bom",
-        "version": "3.7.2"
+        "version": "3.10.1"
       },
       {
         "vendor": "CycloneDX",
@@ -56,35 +56,35 @@
   "components": [
     {
       "type": "library",
-      "bom-ref": "73d45a9a-d6ef-4b91-9680-cca141695ef5",
+      "bom-ref": "8eb5ff13-b694-4078-be32-5c0b16250f57",
       "name": "PyYAML",
       "version": "6.0",
       "purl": "pkg:pypi/pyyaml@6.0"
     },
     {
       "type": "library",
-      "bom-ref": "4d502a71-0ba2-4ab3-8f8e-1e819ee7fed8",
+      "bom-ref": "ae7e845f-1f04-40b5-97a5-9efce1ba4030",
       "name": "lxml",
-      "version": "4.9.1",
-      "purl": "pkg:pypi/lxml@4.9.1"
+      "version": "4.9.2",
+      "purl": "pkg:pypi/lxml@4.9.2"
     },
     {
       "type": "library",
-      "bom-ref": "c8c46d8f-e1b8-4c23-b114-3753ea70441d",
-      "name": "orjson",
-      "version": "3.8.3",
-      "purl": "pkg:pypi/orjson@3.8.3"
+      "bom-ref": "584d4068-e3f7-4924-b8f4-44d7f360e563",
+      "name": "msgspec",
+      "version": "0.11.0",
+      "purl": "pkg:pypi/msgspec@0.11.0"
     },
     {
       "type": "library",
-      "bom-ref": "7c541c4f-0127-4f09-b759-b517e4115fe5",
+      "bom-ref": "ace213b9-95a5-4fca-b63e-679834999374",
       "name": "psutil",
       "version": "5.9.4",
       "purl": "pkg:pypi/psutil@5.9.4"
     },
     {
       "type": "library",
-      "bom-ref": "21918449-798c-4f05-a36d-2e5d32b1719d",
+      "bom-ref": "363e1164-78fa-41b5-bd26-0d4124cae112",
       "name": "py-cpuinfo",
       "version": "9.0.0",
       "purl": "pkg:pypi/py-cpuinfo@9.0.0"
@@ -92,23 +92,23 @@
   ],
   "dependencies": [
     {
-      "ref": "73d45a9a-d6ef-4b91-9680-cca141695ef5",
+      "ref": "8eb5ff13-b694-4078-be32-5c0b16250f57",
       "dependsOn": []
     },
     {
-      "ref": "4d502a71-0ba2-4ab3-8f8e-1e819ee7fed8",
+      "ref": "ae7e845f-1f04-40b5-97a5-9efce1ba4030",
       "dependsOn": []
     },
     {
-      "ref": "c8c46d8f-e1b8-4c23-b114-3753ea70441d",
+      "ref": "584d4068-e3f7-4924-b8f4-44d7f360e563",
       "dependsOn": []
     },
     {
-      "ref": "7c541c4f-0127-4f09-b759-b517e4115fe5",
+      "ref": "ace213b9-95a5-4fca-b63e-679834999374",
       "dependsOn": []
     },
     {
-      "ref": "21918449-798c-4f05-a36d-2e5d32b1719d",
+      "ref": "363e1164-78fa-41b5-bd26-0d4124cae112",
       "dependsOn": []
     }
   ]
