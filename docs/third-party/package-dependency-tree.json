@@ -2,15 +2,15 @@
     {
         "key": "lxml",
         "package_name": "lxml",
-        "installed_version": "4.9.1",
-        "required_version": "4.9.1",
+        "installed_version": "4.9.2",
+        "required_version": "4.9.2",
         "dependencies": []
     },
     {
-        "key": "orjson",
-        "package_name": "orjson",
-        "installed_version": "3.8.3",
-        "required_version": "3.8.3",
+        "key": "msgspec",
+        "package_name": "msgspec",
+        "installed_version": "0.11.0",
+        "required_version": "0.11.0",
         "dependencies": []
     },
     {
