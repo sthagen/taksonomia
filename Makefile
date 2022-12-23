@@ -1,7 +1,6 @@
 .DEFAULT_GOAL := all
 black = black -S -l 120 --target-version py310 taksonomia test
-flake8 = flake8 taksonomia test
-isort = isort taksonomia test
+lint = ruff taksonomia test
 pytest = pytest --asyncio-mode=strict --cov=taksonomia --cov-report term-missing:skip-covered --cov-branch --log-format="%(levelname)s %(message)s"
 types = mypy taksonomia
 
@@ -17,7 +16,7 @@ install-all: install
 
 .PHONY: format
 format:
-	$(isort)
+	$(lint) --fix
 	$(black)
 
 .PHONY: init
@@ -28,8 +27,7 @@ init:
 .PHONY: lint
 lint:
 	python setup.py check -ms
-	@echo Disabled $(flake8)
-	$(isort) --check-only --df
+	$(lint)
 	$(black) --check --diff
 
 .PHONY: types

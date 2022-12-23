@@ -117,9 +117,8 @@ def test_main_compress_json(capsys):
 
 
 def test_main_compress_xml(capsys):
-    options = cli.parse_request(
-        ['test/fixtures/basic/', '-f', 'xml', '-c', '-o', '/tmp/delete-me.xml.xz', '-x', 'empty,/']
-    )
+    out_path = f'/tmp/delete-me.xml{XZ_EXT}'
+    options = cli.parse_request(['test/fixtures/basic/', '-f', 'xml', '-c', '-o', out_path, '-x', 'empty,/'])
     code = api.main(options)
     assert code == 0
     out, err = capsys.readouterr()
