@@ -2,6 +2,7 @@
 
 ## Source
 
+* Migrated from flake8 and isort to ruff
 * Migrated from orjson to msgspec
 
 ## 2022.12.7
