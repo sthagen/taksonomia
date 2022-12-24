@@ -1,8 +1,8 @@
 # Third Party Dependencies
 
 <!--[[[fill sbom_sha256()]]]-->
-The [SBOM in CycloneDX v1.4 JSON format](https://github.com/sthagen/pilli/blob/default/sbom.json) with SHA256 checksum ([73019165 ...](https://raw.githubusercontent.com/sthagen/pilli/default/sbom.json.sha256 "sha256:730191659c83df21518114954e0fcc10052a50dbe9e6339857d1d44a4e09d105")).
-<!--[[[end]]] (checksum: 05652291a3b282b8c1e912ff1df19a9c)-->
+The [SBOM in CycloneDX v1.4 JSON format](https://github.com/sthagen/pilli/blob/default/sbom.json) with SHA256 checksum ([6521a12e ...](https://raw.githubusercontent.com/sthagen/pilli/default/sbom.json.sha256 "sha256:6521a12e6e40137626814292dcd74f51a8a639fa26ffb24758c0c0aabeba3bcd")).
+<!--[[[end]]] (checksum: c6a930f45c8140ea682ad967b0d5ce79)-->
 ## Licenses 
 
 JSON files with complete license info of: [direct dependencies](direct-dependency-licenses.json) | [all dependencies](all-dependency-licenses.json)
@@ -22,10 +22,9 @@ JSON files with complete license info of: [direct dependencies](direct-dependenc
 ### Indirect Dependencies
 
 <!--[[[fill indirect_dependencies_table()]]]-->
-| Name                                          | Version                                        | License     | Author         | Description (from packaging data)         |
-|:----------------------------------------------|:-----------------------------------------------|:------------|:---------------|:------------------------------------------|
-| [click](https://palletsprojects.com/p/click/) | [8.1.3](https://pypi.org/project/click/8.1.3/) | BSD License | Armin Ronacher | Composable command line interface toolkit |
-<!--[[[end]]] (checksum: dc3a866a7aa3332404bde3da87727cb9)-->
+| Name | Version | License | Author | Description (from packaging data) |
+|:-----|:--------|:--------|:-------|:----------------------------------|
+<!--[[[end]]] (checksum: 8a87b89207db0be2864af66f9266660c)-->
 
 ## Dependency Tree(s)
 
