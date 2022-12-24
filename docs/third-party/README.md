@@ -1,8 +1,8 @@
 # Third Party Dependencies
 
 <!--[[[fill sbom_sha256()]]]-->
-The [SBOM in CycloneDX v1.4 JSON format](https://github.com/sthagen/pilli/blob/default/sbom.json) with SHA256 checksum ([6288d4d1 ...](https://raw.githubusercontent.com/sthagen/pilli/default/sbom.json.sha256 "sha256:6288d4d13317c48e51746196ee79235a5ce4101bc9e34bd10892bbea896e2fba")).
-<!--[[[end]]] (checksum: 24eb070ce5247cf2c8dd4bfc4bc38140)-->
+The [SBOM in CycloneDX v1.4 JSON format](https://github.com/sthagen/pilli/blob/default/sbom.json) with SHA256 checksum ([73019165 ...](https://raw.githubusercontent.com/sthagen/pilli/default/sbom.json.sha256 "sha256:730191659c83df21518114954e0fcc10052a50dbe9e6339857d1d44a4e09d105")).
+<!--[[[end]]] (checksum: 05652291a3b282b8c1e912ff1df19a9c)-->
 ## Licenses 
 
 JSON files with complete license info of: [direct dependencies](direct-dependency-licenses.json) | [all dependencies](all-dependency-licenses.json)
@@ -14,10 +14,10 @@ JSON files with complete license info of: [direct dependencies](direct-dependenc
 |:------------------------------------------------------|:----------------------------------------------------|:------------|:----------------------|:-------------------------------------------------------------------------------------------------|
 | [PyYAML](https://pyyaml.org/)                         | [6.0](https://pypi.org/project/PyYAML/6.0/)         | MIT License | Kirill Simonov        | YAML parser and emitter for Python                                                               |
 | [lxml](https://lxml.de/)                              | [4.9.2](https://pypi.org/project/lxml/4.9.2/)       | BSD License | lxml dev team         | Powerful and Pythonic XML processing library combining libxml2/libxslt with the ElementTree API. |
-| [msgspec](https://jcristharif.com/msgspec/)           | [0.11.0](https://pypi.org/project/msgspec/0.11.0/)  | BSD License | UNKNOWN               | A fast and friendly JSON/MessagePack library, with optional schema validation                    |
+| [msgspec](https://jcristharif.com/msgspec/)           | [0.11.0](https://pypi.org/project/msgspec/0.11.0/)  | BSD License | Jim Crist-Harif       | A fast and friendly JSON/MessagePack library, with optional schema validation                    |
 | [psutil](https://github.com/giampaolo/psutil)         | [5.9.4](https://pypi.org/project/psutil/5.9.4/)     | BSD License | Giampaolo Rodola      | Cross-platform lib for process and system monitoring in Python.                                  |
 | [py-cpuinfo](https://github.com/workhorsy/py-cpuinfo) | [9.0.0](https://pypi.org/project/py-cpuinfo/9.0.0/) | MIT License | Matthew Brennan Jones | Get CPU info with pure Python                                                                    |
-<!--[[[end]]] (checksum: 8871f37fd17d9e0120ce7d5ff7386310)-->
+<!--[[[end]]] (checksum: 1b611c14bbf99e0b2207f6fb6b50f52a)-->
 
 ### Indirect Dependencies
 
