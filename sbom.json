@@ -2,10 +2,10 @@
   "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.4",
-  "serialNumber": "urn:uuid:1ddf2a3c-e201-4e0d-8469-8472a75ffd01",
+  "serialNumber": "urn:uuid:d3d866ee-2fc4-4078-bf34-8e2575a6217f",
   "version": 1,
   "metadata": {
-    "timestamp": "2022-12-24T14:06:45.835766+00:00",
+    "timestamp": "2022-12-28T16:43:25.175517+00:00",
     "tools": [
       {
         "vendor": "CycloneDX",
@@ -15,7 +15,7 @@
       {
         "vendor": "CycloneDX",
         "name": "cyclonedx-python-lib",
-        "version": "2.7.1",
+        "version": "3.1.1",
         "externalReferences": [
           {
             "url": "https://github.com/CycloneDX/cyclonedx-python-lib/actions",
@@ -56,35 +56,35 @@
   "components": [
     {
       "type": "library",
-      "bom-ref": "44372fc5-eeeb-4fcb-9afa-583a8ae2a789",
+      "bom-ref": "5217787e-7890-4281-89e0-07b131bfbf6b",
       "name": "PyYAML",
       "version": "6.0",
       "purl": "pkg:pypi/pyyaml@6.0"
     },
     {
       "type": "library",
-      "bom-ref": "0eaba3bc-6dc9-4c31-baca-0f2d7272c259",
+      "bom-ref": "dc308c2d-4f7c-4f1b-9889-3da7d43e69c8",
       "name": "lxml",
       "version": "4.9.2",
       "purl": "pkg:pypi/lxml@4.9.2"
     },
     {
       "type": "library",
-      "bom-ref": "ec78cc41-a5d8-43e3-bdb1-ff5ad1f4beac",
+      "bom-ref": "d8aafa15-9626-427e-9654-9f4ab5ff8caa",
       "name": "msgspec",
       "version": "0.11.0",
       "purl": "pkg:pypi/msgspec@0.11.0"
     },
     {
       "type": "library",
-      "bom-ref": "b0c5b792-bb27-4ef7-a3da-0285891b93b9",
+      "bom-ref": "b2ded64b-411d-4c75-87f6-0678ea975d9a",
       "name": "psutil",
       "version": "5.9.4",
       "purl": "pkg:pypi/psutil@5.9.4"
     },
     {
       "type": "library",
-      "bom-ref": "5c2426e7-f976-4461-9caf-eb5d01719a5c",
+      "bom-ref": "7c1396b3-7556-409f-af39-e7f14c344ee8",
       "name": "py-cpuinfo",
       "version": "9.0.0",
       "purl": "pkg:pypi/py-cpuinfo@9.0.0"
@@ -92,23 +92,23 @@
   ],
   "dependencies": [
     {
-      "ref": "44372fc5-eeeb-4fcb-9afa-583a8ae2a789",
+      "ref": "5217787e-7890-4281-89e0-07b131bfbf6b",
       "dependsOn": []
     },
     {
-      "ref": "0eaba3bc-6dc9-4c31-baca-0f2d7272c259",
+      "ref": "dc308c2d-4f7c-4f1b-9889-3da7d43e69c8",
       "dependsOn": []
     },
     {
-      "ref": "ec78cc41-a5d8-43e3-bdb1-ff5ad1f4beac",
+      "ref": "d8aafa15-9626-427e-9654-9f4ab5ff8caa",
       "dependsOn": []
     },
     {
-      "ref": "b0c5b792-bb27-4ef7-a3da-0285891b93b9",
+      "ref": "b2ded64b-411d-4c75-87f6-0678ea975d9a",
       "dependsOn": []
     },
     {
-      "ref": "5c2426e7-f976-4461-9caf-eb5d01719a5c",
+      "ref": "7c1396b3-7556-409f-af39-e7f14c344ee8",
       "dependsOn": []
     }
   ]
