@@ -28,7 +28,7 @@ dependencies = [
 requires-python = ">=3.9"
 
 [project.optional-dependencies]
-dev = ["black", "coverage", "flake8", "hypothesis", "mypy", "pytest", "pytest-cov", "pytest-flake8", "types-jmespath"]
+dev = ["black", "coverage", "hypothesis", "mypy", "pytest", "pytest-cov", "pytest-flake8", "types-jmespath", "ruff"]
 
 [project.urls]
 Homepage = "https://git.sr.ht/~sthagen/taksonomia"
