@@ -1,5 +1,5 @@
 lxml==4.9.2
-msgspec==0.11.0
+msgspec==0.12.0
 psutil==5.9.4
 py-cpuinfo==9.0.0
 PyYAML==6.0

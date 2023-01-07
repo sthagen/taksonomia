@@ -2,6 +2,6 @@ digraph {
 	pyyaml [label="PyYAML\n6.0"]
 	"py-cpuinfo" [label="py-cpuinfo\n9.0.0"]
 	psutil [label="psutil\n5.9.4"]
-	msgspec [label="msgspec\n0.11.0"]
+	msgspec [label="msgspec\n0.12.0"]
 	lxml [label="lxml\n4.9.2"]
 }
