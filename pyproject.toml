@@ -44,9 +44,6 @@ taksonomia = "taksonomia.cli:main"
 include = ["taksonomia"]
 exclude = ["test*"]
 
-[bdist_wheel]
-universal = true
-
 [tool.black]
 line-length = 120
 skip-string-normalization = true
