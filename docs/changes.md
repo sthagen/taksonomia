@@ -1,7 +1,8 @@
 # Change History
 
-## Source
+## 2023.1.10
 
+* Made mod_time report modification and not change time to fix https://todo.sr.ht/~sthagen/taksonomia/3
 * Migrated from flake8 and isort to ruff
 * Migrated from orjson to msgspec
 
