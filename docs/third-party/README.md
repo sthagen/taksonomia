@@ -1,8 +1,8 @@
 # Third Party Dependencies
 
 <!--[[[fill sbom_sha256()]]]-->
-The [SBOM in CycloneDX v1.4 JSON format](https://git.sr.ht/~sthagen/taksonomia/blob/default/sbom.json) with SHA256 checksum ([c68a6907 ...](https://git.sr.ht/~sthagen/taksonomia/blob/default/sbom.json.sha256 "sha256:c68a6907a87d2cd8bde5b9450436c18669dc787eb8fb8f998657c0dae6657daf")).
-<!--[[[end]]] (checksum: 41ad98f4a136fe85c5b59753b40d82d9)-->
+The [SBOM in CycloneDX v1.4 JSON format](https://git.sr.ht/~sthagen/taksonomia/blob/default/sbom.json) with SHA256 checksum ([5cf55120 ...](https://git.sr.ht/~sthagen/taksonomia/blob/default/sbom.json.sha256 "sha256:5cf55120216d20869910768d9124ca61922a63a011288debff64ac3333c013ab")).
+<!--[[[end]]] (checksum: 3e9706e72c8564b391691309e775afb7)-->
 ## Licenses 
 
 JSON files with complete license info of: [direct dependencies](direct-dependency-licenses.json) | [all dependencies](all-dependency-licenses.json)
