@@ -152,7 +152,7 @@ class Taxonomy:
                 'count_leaves': 0,
                 'size_bytes': 0,
             },
-            'mod_time': dti.datetime.fromtimestamp(st.st_ctime, tz=dti.timezone.utc).strftime(TS_FORMAT),
+            'mod_time': dti.datetime.fromtimestamp(st.st_mtime, tz=dti.timezone.utc).strftime(TS_FORMAT),
         }
         self.shadow['branches'][self.key(branch)] = {**{algo: self.hasher[algo]() for algo in HASH_ALGO_PREFS}}
         self.tree[TAX]['summary']['count_branches'] += 1  # type: ignore
@@ -179,7 +179,7 @@ class Taxonomy:
 
         st = path.stat()
         size_bytes = st.st_size
-        mod_time = dti.datetime.fromtimestamp(st.st_ctime, tz=dti.timezone.utc).strftime(TS_FORMAT)
+        mod_time = dti.datetime.fromtimestamp(st.st_mtime, tz=dti.timezone.utc).strftime(TS_FORMAT)
         leaf = str(path)
         self.tree[TAX]['leaves'][self.key(leaf)] = {  # type: ignore
             'path': leaf,
