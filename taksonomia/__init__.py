@@ -11,11 +11,11 @@ __version__ = '2023.1.10+parent.b82f6474'
 __version_info__ = tuple(
     e if '-' not in e else e.split('-')[0] for part in __version__.split('+') for e in part.split('.') if e != 'parent'
 )
-__all__: List[str] = []
 
 APP_ALIAS = 'taksonomia'
 APP_ENV = 'TAKSONOMIA'
 APP_NAME = 'Taxonomy (Finnish: taksonomia) of a folder tree, guided by conventions.'
+APP_VERSION = __version__
 COMMA = ','
 DEBUG = bool(os.getenv(f'{APP_ENV}_DEBUG', ''))
 DEFAULT_CONFIG_NAME = '.taksonomia.json'
@@ -28,6 +28,7 @@ QUIET = False
 STRICT = bool(os.getenv(f'{APP_ENV}_STRICT', ''))
 TS_FORMAT = '%Y-%m-%d %H:%M:%S.%f +00:00'
 VERBOSE = bool(os.getenv(f'{APP_ENV}_VERBOSE', ''))
+VERSION_INFO = __version_info__
 
 log = logging.getLogger()  # Module level logger is sufficient
 LOG_FOLDER = pathlib.Path('logs')
@@ -37,6 +38,17 @@ LOG_LEVEL = logging.INFO
 
 TS_FORMAT_LOG = '%Y-%m-%dT%H:%M:%S'
 TS_FORMAT_PAYLOADS = '%Y-%m-%d %H:%M:%S.%f UTC'
+
+__all__: List[str] = [
+    'APP_ALIAS',
+    'APP_ENV',
+    'APP_NAME',
+    'APP_VERSION',
+    'ENCODING',
+    'TS_FORMAT_PAYLOADS',
+    'VERSION_INFO',
+    'log',
+]
 
 
 def parse_csl(csl: str) -> List[str]:
