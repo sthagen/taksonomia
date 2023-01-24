@@ -20,7 +20,7 @@ from taksonomia import (
     KNOWN_FORMATS,
     KNOWN_KEY_FUNCTIONS,
     TS_FORMAT,
-    __version_info__ as VERSION_INFO,
+    VERSION_INFO,
     log,
     parse_csl,
 )
