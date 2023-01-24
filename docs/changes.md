@@ -1,5 +1,9 @@
 # Change History
 
+## 2023.1.24
+
+* Added version call interface
+
 ## 2023.1.10
 
 * Made mod_time report modification and not change time to fix https://todo.sr.ht/~sthagen/taksonomia/3
