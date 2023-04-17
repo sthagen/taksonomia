@@ -22,7 +22,7 @@ dependencies = [
     "PyYAML >= 6.0",
     "lxml >= 4.9.2",
     "msgspec >= 0.14.1",
-    "psutil >= 5.9.4",
+    "psutil >= 5.9.5",
     "py-cpuinfo >= 9.0.0",
 ]
 requires-python = ">=3.9"
