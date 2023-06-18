@@ -1,77 +1,71 @@
 # Change History
 
-## 2023.1.24
+2023.6.18
+:    * Added BLAKE2 to the key functions and make it the default (<https://todo.sr.ht/~sthagen/taksonomia/4>)
+* Moved SBOM noise into folder and added SPDX SBOM (derived) in multiple file formats
 
-* Added version call interface
+2023.1.24
+:    * Added version call interface
 
-## 2023.1.10
-
-* Made mod_time report modification and not change time to fix https://todo.sr.ht/~sthagen/taksonomia/3
+2023.1.10
+:    * Made mod_time report modification and not change time to fix https://todo.sr.ht/~sthagen/taksonomia/3
 * Migrated from flake8 and isort to ruff
 * Migrated from orjson to msgspec
 
-## 2022.12.7
+## 2022
 
-* Bumped python version range to py39-py311 as well as implementation dependencies
+2022.12.7
+:    * Bumped python version range to py39-py311 as well as implementation dependencies
 * Disabled the broken and still not fixed flake8 linter
 * Fixed suffixes for plain formats (.b64 only when base64 encoding)
 
-## 2022.9.21
-
-* Fixed duration calculation and changed key name from duration_usecs to duration_secs
+2022.9.21
+:    * Fixed duration calculation and changed key name from duration_usecs to duration_secs
 * Optimized performance by allowing multiple formats per run to only execute the possibly costly hashing once
 * Added example to usage documentation
 
-## 2022.9.18
-
-* Amended leaves with branch hash (key) info to boost navigation
+2022.9.18
+:    * Amended leaves with branch hash (key) info to boost navigation
 * Changed command line behavior to show help when called without arguments
 * Changed xml element name strategy for branches and leaves to not the hash as id attribute
 
-## 2022.9.14
-
-* Completed the move to orjson
+2022.9.14
+:    * Completed the move to orjson
 * Added XML format option
 
-## 2022.9.13
-
-* Added base64-encode command line option to ease embedding of taxonomies
+2022.9.13
+:    * Added base64-encode command line option to ease embedding of taxonomies
 * Added key-function command line option (elf|md5) for branches and leaves (default elf)
 * Added LZMA xz-compression option (mutually exclusive to encoding) for output files
 * Added logging to support taxing larger trees and document parameters during execution
 * Added more short options in the hope these are useful and do not mislead users
 * Belt and braces process info gathering to fix https://todo.sr.ht/~sthagen/taksonomia/2
 
-## 2022.9.12
-
-* Adapted and extended tests to cover new behaviors, options, and again achieve full (screening) test coverage
+2022.9.12
+:    * Adapted and extended tests to cover new behaviors, options, and again achieve full (screening) test coverage
 * Added format option and additional YAML format
 * Moved all tree elements under the single taxonomy root to simplify injection of tree and prepare possible future XML format
 * Migrated path keys to md5 and added path key to records (branches and leaves)
 
-## 2022.9.11
-
-* Added excludes option to exempt paths containing zero or more of the comma separated strings
+2022.9.11
+:    * Added excludes option to exempt paths containing zero or more of the comma separated strings
 * Added generator information and the excludes to the taxonomy report
 * Fixed failed CPSR coding for branch hash digest slots
 * Less naive context info gathering to fix https://todo.sr.ht/~sthagen/taksonomia/1
 
-## 2022.9.10
-
-* Changed the tree root parameter to optional (and added positional optional alternative) parameter defaulting to current working dir to ease use in automation within build processes
+2022.9.10
+:    * Changed the tree root parameter to optional (and added positional optional alternative) parameter defaulting to current working dir to ease use in automation within build processes
 * Extended the taxonomy with context and performance data
 * Optimized away the pre pass for folder gathering
 * Simplified the reporting by directly returning the serializable tree from the new report method
 
-## 2022.9.9
-
-* Achieved complete (screening) test coverage
+2022.9.9
+:    * Achieved complete (screening) test coverage
 * Added command line interface and changed signature and behavior of main implementation interface
 * Changed default output to stdout, extended collector, and fixed aggregations not propagated
 * Decided on hash avalanches based on hexdigest hashing
 * Transformed non-existing tree-root as well as non-folder tree-root into error cases
 * Updated baseline, SBOM, third-party docs, and usage docs
 
-## 2022.9.8
-
-* Initial release on PyPI
+2022.9.8
+:    * Initial release on PyPI
