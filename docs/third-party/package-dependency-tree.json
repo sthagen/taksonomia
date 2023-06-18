@@ -9,15 +9,15 @@
     {
         "key": "msgspec",
         "package_name": "msgspec",
-        "installed_version": "0.12.0",
-        "required_version": "0.12.0",
+        "installed_version": "0.16.0",
+        "required_version": "0.16.0",
         "dependencies": []
     },
     {
         "key": "psutil",
         "package_name": "psutil",
-        "installed_version": "5.9.4",
-        "required_version": "5.9.4",
+        "installed_version": "5.9.5",
+        "required_version": "5.9.5",
         "dependencies": []
     },
     {
