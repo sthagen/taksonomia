@@ -35,8 +35,8 @@ def parse_request(argv: List[str]) -> Union[int, argparse.Namespace]:
         '--key-function',
         '-k',
         dest='key_function',
-        default='elf',
-        help='key function (elf, md5) for branches and leaves\n(default: elf) use md5 for larger taxonomies',
+        default='blake2',
+        help='key function (blake2, elf, md5) for branches and leaves\n(default: blake2) use elf only for very small taxonomies',
     )
     parser.add_argument(
         '--out-path',

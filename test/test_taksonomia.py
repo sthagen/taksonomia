@@ -17,7 +17,7 @@ def test_taxonomy_hash_file_bad_algo():
 
 def test_taxonomy_hash_file_bad_key_function():
     folder = pathlib.Path('test', 'fixtures', 'corner')
-    message = r"key function unknown not in ('elf', 'md5')"
+    message = r"key function unknown not in ('blake2', 'elf', 'md5')"
     with pytest.raises(ValueError, match=re.escape(message)):
         Taxonomy(folder, 'me,too', key_function='unknown')
 

@@ -135,7 +135,9 @@ class Taxonomy:
         """Hashing function for the path keys."""
         if self.key_function == 'elf':
             return str(elf_hash(path_str.encode(ENCODING)))
-        return hashlib.md5(path_str.encode(ENCODING)).hexdigest()  # nosec B324
+        elif self.key_function == 'md5':
+            return hashlib.md5(path_str.encode(ENCODING)).hexdigest()  # nosec B324
+        return hashlib.blake2b(path_str.encode(ENCODING)).hexdigest()
 
     def add_branch(self, path: pathlib.Path) -> None:
         """Add a folder (sub tree) entry."""
