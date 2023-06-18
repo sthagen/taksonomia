@@ -12,9 +12,11 @@ For the commandline please call the app without arguments or add the help option
 
 ```console
 ❯ taksonomia --help
+Taxonomy (Finnish: taksonomia) of a folder tree, guided by conventions. version 2023.6.18+parent.a8561973
 usage: taksonomia [-h] [--tree-root TREE_ROOT] [--excludes EXCLUDES] [--key-function KEY_FUNCTION]
-                  [--out-path OUT_PATH] [--formats FORMAT_TYPE_CSL] [--base64-encode]
-                  [--xz-compress] [tree_root_pos]
+                  [--out-path OUT_PATH] [--formats FORMAT_TYPE_CSL] [--base64-encode] [--xz-compress]
+                  [--version]
+                  [tree_root_pos]
 
 Taxonomy (Finnish: taksonomia) of a folder tree, guided by conventions.
 
@@ -30,8 +32,8 @@ options:
                         comma separated list of values to exclude paths
                         containing the substring (default: empty string)
   --key-function KEY_FUNCTION, -k KEY_FUNCTION
-                        key function (elf, md5) for branches and leaves
-                        (default: elf) use md5 for larger taxonomies
+                        key function (blake2, elf, md5) for branches and leaves
+                        (default: blake2) use elf only for very small taxonomies
   --out-path OUT_PATH, -o OUT_PATH
                         output file path (stem) for taxonomy (default: STDOUT)
   --formats FORMAT_TYPE_CSL, -f FORMAT_TYPE_CSL
@@ -40,6 +42,7 @@ options:
                         incompatible with option --xz-compress
   --xz-compress, -c     compress taxonomy per LZMA(xz) (default: False)
                         incompatible with option --base64-encode
+  --version, -V         show version of the app and exit
 ```
 
 ## Example of Visiting a Folder
@@ -50,11 +53,11 @@ Taxing a folder with a single empty file:
 
 ```console
 ❯ taksonomia --tree-root test/fixtures/corner > file.json
-2022-09-12T21:30:01.144294+00:00 INFO [TAKSONOMIA]: Assessing taxonomy of folder test/fixtures/corner
-2022-09-12T21:30:01.144863+00:00 INFO [TAKSONOMIA]: Output channel is STDOUT
-2022-09-12T21:30:01.229016+00:00 INFO [TAKSONOMIA]: Detected leaf test/fixtures/corner/empty.txt
-2022-09-12T21:30:01.229016+00:00 INFO [TAKSONOMIA]: - Dumping taxonomy as json format
-2022-09-12T21:30:01.229690+00:00 INFO [TAKSONOMIA]: Assessed taxonomy of folder test/fixtures/corner in 0.084431 secs
+2023-06-18T12:07:46.384571+00:00 INFO [TAKSONOMIA]: Assessing taxonomy of folder test/fixtures/corner
+2023-06-18T12:07:46.385266+00:00 INFO [TAKSONOMIA]: Output channel is STDOUT
+2023-06-18T12:07:46.453150+00:00 INFO [TAKSONOMIA]: Detected leaf test/fixtures/corner/empty.txt
+2023-06-18T12:07:46.453213+00:00 INFO [TAKSONOMIA]: - Dumping taxonomy as json format
+2023-06-18T12:07:46.453624+00:00 INFO [TAKSONOMIA]: Assessed taxonomy of folder test/fixtures/corner in 0.068191 secs
 ```
 
 ... results in something like (ommitted some parts of the hash values and context entries to avoid scrollbars):
@@ -62,31 +65,30 @@ Taxing a folder with a single empty file:
 ```json
 {
   "taxonomy": {
-  {
     "hash_algo_prefs": [
       "sha512",
       "sha256"
     ],
-    "key_function": "elf",
+    "key_function": "blake2",
     "generator": {
       "name": "taksonomia",
       "version_info": [
-        "2022",
-        "9",
-        "21",
-        "339872ae"
+        "2023",
+        "6",
+        "18",
+        "a8561973"
       ],
-      "source": "https://pypi.or/project/taksonomia/2022.9.11/",
+      "source": "https://pypi.org/project/taksonomia/2023.6.18/",
       "sbom": "https://codes.dilettant.life/docs/taksonomia/third-party/"
     },
     "context": {
-      "start_ts": "2022-09-10 12:14:02.229878 +00:00",
-      "end_ts": "2022-09-10 12:14:02.305927 +00:00",
-      "duration_secs": 0.084431,
+      "start_ts": "2023-06-18 12:07:46.385326 +00:00",
+      "end_ts": "2023-06-18 12:07:46.453517 +00:00",
+      "duration_secs": 0.068191,
       "...": "...",
-      "boottime": "2022-09-10 05:56:16.000000 +00:00",
+      "boottime": "2023-06-18 07:15:12.000000 +00:00",
       "cpu_info": {
-        "python_version": "3.10.6.final.0 (64 bit)",
+        "python_version": "3.10.9.final.0 (64 bit)",
         "...": "..."
       },
       "memory": {
@@ -105,19 +107,19 @@ Taxing a folder with a single empty file:
       "machine_perf": {
         "pre": {
           "...": "...",
-          "create_time": "2022-09-10 12:14:02.029446 +00:00",
+          "create_time": "2023-06-18 12:07:46.185527 +00:00",
           "...": "...",
           "num_fds": 3,
           "num_ctx_switches": {
-            "voluntary": 199,
-            "involuntary": 0
+            "involuntary": 0,
+            "voluntary": 291
           }
         },
         "post": {
           "...": "...",
           "num_ctx_switches": {
-            "voluntary": 210,
-            "involuntary": 0
+            "involuntary": 0,
+            "voluntary": 302
           }
         }
       }
@@ -133,9 +135,9 @@ Taxing a folder with a single empty file:
     },
     "branches": {},
     "leaves": {
-      "41524436": {
+      "45fae75...3c045662": {
         "path": "test/fixtures/corner/empty.txt",
-        "branch": "110978498",
+        "branch": "9b311395...d917fb07",
         "hash_hexdigest": {
           "sha512": "cf83e135...f927da3e",
           "sha256": "e3b0...b855"
@@ -154,11 +156,11 @@ Similarly for YAML:
 
 ```console
 ❯ taksonomia  --tree-root test/fixtures/corner --format yaml > file.yml
-2022-09-12T21:29:10.595129+00:00 INFO [TAKSONOMIA]: Assessing taxonomy of folder test/fixtures/corner
-2022-09-12T21:29:10.595660+00:00 INFO [TAKSONOMIA]: Output channel is STDOUT
-2022-09-12T21:29:10.676206+00:00 INFO [TAKSONOMIA]: Detected leaf test/fixtures/corner/empty.txt
-2022-09-12T21:29:10.676206+00:00 INFO [TAKSONOMIA]: - Dumping taxonomy as yaml format
-2022-09-12T21:29:10.683559+00:00 INFO [TAKSONOMIA]: Assessed taxonomy of folder test/fixtures/corner in 0.080705 secs
+2023-06-18T12:12:57.431188+00:00 INFO [TAKSONOMIA]: Assessing taxonomy of folder test/fixtures/corner
+2023-06-18T12:12:57.431803+00:00 INFO [TAKSONOMIA]: Output channel is STDOUT
+2023-06-18T12:12:57.499515+00:00 INFO [TAKSONOMIA]: Detected leaf test/fixtures/corner/empty.txt
+2023-06-18T12:12:57.499581+00:00 INFO [TAKSONOMIA]: - Dumping taxonomy as yaml format
+2023-06-18T12:12:57.506535+00:00 INFO [TAKSONOMIA]: Assessed taxonomy of folder test/fixtures/corner in 0.06803 secs
 ```
 
 yields (edited):
@@ -167,17 +169,17 @@ yields (edited):
 taxonomy:
   branches: {}
   context:
-    boottime: '2022-09-11 07:13:04.000000 +00:00'
+    boottime: '2023-06-18 07:15:12.000000 +00:00'
     cpu_info:
       ...
-      python_version: 3.10.6.final.0 (64 bit)
+      python_version: 3.10.9.final.0 (64 bit)
     disks:
       ...
       path_selector: test/fixtures/corner
       usage:
         ...
-    duration_secs: 0.080705
-    end_ts: '2022-09-11 14:44:50.953556 +00:00'
+    duration_secs: 0.06803
+    end_ts: '2023-06-18 12:12:57.499890 +00:00'
     excludes: []
     machine_perf:
       post:
@@ -188,24 +190,24 @@ taxonomy:
       ...
     ...
     pwd: /some/where
-    start_ts: '2022-09-11 14:44:50.871938 +00:00'
+    start_ts: '2023-06-18 12:12:57.431860 +00:00'
     tree_root: test/fixtures/corner
   generator:
     name: taksonomia
     sbom: https://codes.dilettant.life/docs/taksonomia/third-party/
-    source: https://pypi.or/project/taksonomia/2022.9.11/
+    source: https://pypi.org/project/taksonomia/2023.6.18/
     version_info:
-    - '2022'
-    - '9'
-    - '21'
-    - 339872ae
+    - '2023'
+    - '6'
+    - '18'
+    - a8561973
   hash_algo_prefs:
   - sha512
   - sha256
-  key_function: elf
+  key_function: blake2
   leaves:
-    '41524436':
-      branch: '110978498'
+    ? 45fae756...a53c045662
+    : branch: 9b311395...d917fb07
       hash_hexdigest:
         sha256: e3b0...b855
         sha512: cf83e135...f927da3e
@@ -226,11 +228,11 @@ Similarly for XML:
 
 ```console
 ❯ taksonomia  --tree-root test/fixtures/corner --format xml > file.xml
-2022-09-18T20:39:13.509378+00:00 INFO [TAKSONOMIA]: Assessing taxonomy of folder test/fixtures/corner
-2022-09-18T20:39:13.510101+00:00 INFO [TAKSONOMIA]: Output channel is STDOUT
-2022-09-18T20:39:13.611015+00:00 INFO [TAKSONOMIA]: Detected leaf test/fixtures/corner/empty.txt
-2022-09-18T20:39:13.621416+00:00 INFO [TAKSONOMIA]: - Dumping taxonomy as xml format
-2022-09-18T20:39:13.621416+00:00 INFO [TAKSONOMIA]: Assessed taxonomy of folder test/fixtures/corner in 0.101208 secs
+2023-06-18T12:16:39.569156+00:00 INFO [TAKSONOMIA]: Assessing taxonomy of folder test/fixtures/corner
+2023-06-18T12:16:39.569612+00:00 INFO [TAKSONOMIA]: Output channel is STDOUT
+2023-06-18T12:16:39.639475+00:00 INFO [TAKSONOMIA]: Detected leaf test/fixtures/corner/empty.txt
+2023-06-18T12:16:39.639544+00:00 INFO [TAKSONOMIA]: - Dumping taxonomy as xml format
+2023-06-18T12:16:39.646266+00:00 INFO [TAKSONOMIA]: Assessed taxonomy of folder test/fixtures/corner in 0.07016 secs
 ```
 
 yields (edited):
@@ -242,25 +244,25 @@ yields (edited):
     <item>sha512</item>
     <item>sha256</item>
   </hash_algo_prefs>
-  <key_function>elf</key_function>
+  <key_function>blake2</key_function>
   <generator>
     <name>taksonomia</name>
     <version_info>
-      <item>2022</item>
-      <item>9</item>
-      <item>21</item>
-      <item>339872ae</item>
+      <item>2023</item>
+      <item>6</item>
+      <item>18</item>
+      <item>a8561973</item>
     </version_info>
-    <source>https://pypi.or/project/taksonomia/2022.9.18/</source>
+    <source>https://pypi.org/project/taksonomia/2023.6.18/</source>
     <sbom>https://codes.dilettant.life/docs/taksonomia/third-party/</sbom>
   </generator>
   <context>
-    <start_ts>2022-09-18 20:39:13.510180 +00:00</start_ts>
-    <end_ts>2022-09-18 20:39:13.611388 +00:00</end_ts>
-    <duration_secs>0.080705</duration_secs>
+    <start_ts>2023-06-18 12:16:39.569676 +00:00</start_ts>
+    <end_ts>2023-06-18 12:16:39.639836 +00:00</end_ts>
+    <duration_secs>0.07016</duration_secs>
     <!-- ... -->
     <cpu_info>
-      <python_version>3.10.6.final.0 (64 bit)</python_version>
+      <python_version>3.10.9.final.0 (64 bit)</python_version>
       <!-- ... -->
     </cpu_info>
     <memory>
@@ -292,9 +294,9 @@ yields (edited):
   </summary>
   <branches />
   <leaves>
-    <key id="41524436">
+    <key id="45fae756...3c045662">
       <path>test/fixtures/corner/empty.txt</path>
-      <branch>110978498</branch>
+      <branch>9b311395...d917fb07</branch>
       <hash_hexdigest>
         <sha512>cf83e135...f927da3e</sha512>
         <sha256>e3b0...b855</sha256>
@@ -310,10 +312,10 @@ yields (edited):
 
 ```console
 ❯ taksonomia --tree-root test/fixtures/corner -o inventory -f json,yaml
-2022-09-21T15:49:36.073212+00:00 INFO [TAKSONOMIA]: Assessing taxonomy of folder test/fixtures/corner
-2022-09-21T15:49:36.074322+00:00 INFO [TAKSONOMIA]: Output channel is inventory
-2022-09-21T15:49:36.175694+00:00 INFO [TAKSONOMIA]: Detected leaf test/fixtures/corner/empty.txt
-2022-09-21T15:49:36.175771+00:00 INFO [TAKSONOMIA]: - Dumping taxonomy as json format
-2022-09-21T15:49:36.176401+00:00 INFO [TAKSONOMIA]: - Dumping taxonomy as yaml format
-2022-09-21T15:49:36.183656+00:00 INFO [TAKSONOMIA]: Assessed taxonomy of folder test/fixtures/corner in 0.101696 secs
+2023-06-18T12:19:25.849420+00:00 INFO [TAKSONOMIA]: Assessing taxonomy of folder test/fixtures/corner
+2023-06-18T12:19:25.850021+00:00 INFO [TAKSONOMIA]: Output channel is inventory
+2023-06-18T12:19:25.916580+00:00 INFO [TAKSONOMIA]: Detected leaf test/fixtures/corner/empty.txt
+2023-06-18T12:19:25.916657+00:00 INFO [TAKSONOMIA]: - Dumping taxonomy as json format
+2023-06-18T12:19:25.917342+00:00 INFO [TAKSONOMIA]: - Dumping taxonomy as yaml format
+2023-06-18T12:19:25.924094+00:00 INFO [TAKSONOMIA]: Assessed taxonomy of folder test/fixtures/corner in 0.066893 secs
 ```

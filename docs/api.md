@@ -24,10 +24,10 @@ Something like:
     "generator": {
       "name": "taksonomia",
       "version_info": [
-        "2022",
-        "9",
-        "21",
-        "339872ae"
+        "2023",
+        "6",
+        "18",
+        "a8561973"
       ],
 # ...
 ```
