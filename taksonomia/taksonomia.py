@@ -124,7 +124,7 @@ class Taxonomy:
                 'leaves': {},
             }
         }
-        self.shadow = {**{algo: self.hasher[algo]() for algo in HASH_ALGO_PREFS}, 'branches': {}}  # type: ignore
+        self.shadow = {**{algo: self.hasher[algo]() for algo in HASH_ALGO_PREFS}, 'branches': {}}
 
     def ignore(self, path: pathlib.Path) -> bool:
         """Dry place for the filter hook (excludes)."""
@@ -156,7 +156,9 @@ class Taxonomy:
             },
             'mod_time': dti.datetime.fromtimestamp(st.st_mtime, tz=dti.timezone.utc).strftime(TS_FORMAT),
         }
-        self.shadow['branches'][self.key(branch)] = {**{algo: self.hasher[algo]() for algo in HASH_ALGO_PREFS}}
+        self.shadow['branches'][self.key(branch)] = {  # type: ignore
+            **{algo: self.hasher[algo]() for algo in HASH_ALGO_PREFS}
+        }
         self.tree[TAX]['summary']['count_branches'] += 1  # type: ignore
         for parent in path.parents:
             branch_key = self.key(str(parent))
@@ -193,7 +195,7 @@ class Taxonomy:
 
         hexdig = 'hash_hexdigest'
         for algo in HASH_ALGO_PREFS:
-            self.shadow[algo].update(
+            self.shadow[algo].update(  # type: ignore
                 self.tree[TAX]['leaves'][self.key(leaf)][hexdig][algo].encode(ENCODING)  # type: ignore
             )
             self.tree[TAX]['summary'][hexdig][algo] = self.shadow[algo].hexdigest()  # type: ignore
@@ -204,7 +206,7 @@ class Taxonomy:
             if bk in self.tree[TAX]['branches']:
                 self.tree[TAX]['branches'][bk]['summary']['count_leaves'] += 1  # type: ignore
                 self.tree[TAX]['branches'][bk]['summary']['size_bytes'] += size_bytes  # type: ignore
-                shadow_sum = self.shadow['branches'][bk]
+                shadow_sum = self.shadow['branches'][bk]  # type: ignore
                 for algo in HASH_ALGO_PREFS:
                     shadow_sum[algo].update(
                         self.tree[TAX]['leaves'][self.key(leaf)][hexdig][algo].encode(ENCODING)  # type: ignore
