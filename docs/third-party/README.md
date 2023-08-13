@@ -1,8 +1,8 @@
 # Third Party Dependencies
 
 <!--[[[fill sbom_sha256()]]]-->
-The [SBOM in CycloneDX v1.4 JSON format](https://git.sr.ht/~sthagen/taksonomia/blob/default/sbom/cdx.json) with SHA256 checksum ([beb9b277 ...](https://git.sr.ht/~sthagen/taksonomia/blob/default/sbom/cdx.json.sha256 "sha256:beb9b2779c2b86e386f2cc3386d01ee8605b2848ac39f537419de970c81e9af8")).
-<!--[[[end]]] (checksum: d34003a20609f6c7169019081028d3d2)-->
+The [SBOM in CycloneDX v1.4 JSON format](https://git.sr.ht/~sthagen/taksonomia/blob/default/sbom/cdx.json) with SHA256 checksum ([106d4ca5 ...](https://git.sr.ht/~sthagen/taksonomia/blob/default/sbom/cdx.json.sha256 "sha256:106d4ca575a964b8b10fea7073a84fa2c81036932e88c1eab8b404c1239aaacf")).
+<!--[[[end]]] (checksum: 8a8bf31d3c513476ea08f4d7036ff6a8)-->
 ## Licenses 
 
 JSON files with complete license info of: [direct dependencies](direct-dependency-licenses.json) | [all dependencies](all-dependency-licenses.json)
@@ -14,10 +14,10 @@ JSON files with complete license info of: [direct dependencies](direct-dependenc
 |:------------------------------------------------------|:----------------------------------------------------|:------------|:----------------------|:---------------------------------------------------------------------------------------------------------|
 | [PyYAML](https://pyyaml.org/)                         | [6.0.1](https://pypi.org/project/PyYAML/6.0.1/)     | MIT License | Kirill Simonov        | YAML parser and emitter for Python                                                                       |
 | [lxml](https://lxml.de/)                              | [4.9.3](https://pypi.org/project/lxml/4.9.3/)       | BSD License | lxml dev team         | Powerful and Pythonic XML processing library combining libxml2/libxslt with the ElementTree API.         |
-| [msgspec](https://jcristharif.com/msgspec/)           | [0.17.0](https://pypi.org/project/msgspec/0.17.0/)  | BSD License | Jim Crist-Harif       | A fast serialization and validation library, with builtin support for JSON, MessagePack, YAML, and TOML. |
+| [msgspec](https://jcristharif.com/msgspec/)           | [0.18.0](https://pypi.org/project/msgspec/0.18.0/)  | BSD License | Jim Crist-Harif       | A fast serialization and validation library, with builtin support for JSON, MessagePack, YAML, and TOML. |
 | [psutil](https://github.com/giampaolo/psutil)         | [5.9.5](https://pypi.org/project/psutil/5.9.5/)     | BSD License | Giampaolo Rodola      | Cross-platform lib for process and system monitoring in Python.                                          |
 | [py-cpuinfo](https://github.com/workhorsy/py-cpuinfo) | [9.0.0](https://pypi.org/project/py-cpuinfo/9.0.0/) | MIT License | Matthew Brennan Jones | Get CPU info with pure Python                                                                            |
-<!--[[[end]]] (checksum: 17a4ed4e0494b475a68289d48acb5b05)-->
+<!--[[[end]]] (checksum: 9efa3ab80d87069808f9577ea8689fa4)-->
 
 ### Indirect Dependencies
 
@@ -41,9 +41,9 @@ Base graphviz file in dot format: [Trees of the direct dependencies](package-dep
 <!--[[[fill dependency_tree_console_text()]]]-->
 ````console
 lxml==4.9.3
-msgspec==0.17.0
+msgspec==0.18.0
 psutil==5.9.5
 py-cpuinfo==9.0.0
 PyYAML==6.0.1
 ````
-<!--[[[end]]] (checksum: fabe999626b2a5f241421a3b8ff12988)-->
+<!--[[[end]]] (checksum: 7984dac973d6ef33a142eface68db1ab)-->
