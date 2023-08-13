@@ -2,10 +2,10 @@
   "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.4",
-  "serialNumber": "urn:uuid:5b0e9f12-9920-4ecb-9035-cfb20f1634ca",
+  "serialNumber": "urn:uuid:9b992325-c933-4a82-b5e8-c8da9907e013",
   "version": 1,
   "metadata": {
-    "timestamp": "2023-07-23T19:30:25.074972+00:00",
+    "timestamp": "2023-08-13T13:31:36.235186+00:00",
     "tools": [
       {
         "vendor": "CycloneDX",
@@ -15,7 +15,7 @@
       {
         "vendor": "CycloneDX",
         "name": "cyclonedx-python-lib",
-        "version": "3.1.1",
+        "version": "3.1.5",
         "externalReferences": [
           {
             "url": "https://github.com/CycloneDX/cyclonedx-python-lib/actions",
@@ -56,35 +56,35 @@
   "components": [
     {
       "type": "library",
-      "bom-ref": "f83290ec-86f4-4add-879e-7b71970b14d0",
+      "bom-ref": "4ee1e9ac-c11d-4363-93fb-2ff0961ab7e0",
       "name": "PyYAML",
       "version": "6.0.1",
       "purl": "pkg:pypi/pyyaml@6.0.1"
     },
     {
       "type": "library",
-      "bom-ref": "e1cc5e5c-10bd-4289-8d70-fcb21e6ff480",
+      "bom-ref": "9dc317ba-e0ce-4ad8-90c2-f313d9e50198",
       "name": "lxml",
       "version": "4.9.3",
       "purl": "pkg:pypi/lxml@4.9.3"
     },
     {
       "type": "library",
-      "bom-ref": "1e2427bf-4ef8-4e4b-9140-89e324be6a96",
+      "bom-ref": "2d4e812c-5f06-4925-a82d-201f202529d0",
       "name": "msgspec",
-      "version": "0.17.0",
-      "purl": "pkg:pypi/msgspec@0.17.0"
+      "version": "0.18.0",
+      "purl": "pkg:pypi/msgspec@0.18.0"
     },
     {
       "type": "library",
-      "bom-ref": "332e1e0c-9279-4be7-beb1-d325ffb1247d",
+      "bom-ref": "e95a4d8e-2de2-4957-bc2f-bc8ffd58eca8",
       "name": "psutil",
       "version": "5.9.5",
       "purl": "pkg:pypi/psutil@5.9.5"
     },
     {
       "type": "library",
-      "bom-ref": "e7c883c8-09d3-4420-9847-e2977714ec2b",
+      "bom-ref": "55084f25-a598-4908-b1b4-5c6e5952c8d4",
       "name": "py-cpuinfo",
       "version": "9.0.0",
       "purl": "pkg:pypi/py-cpuinfo@9.0.0"
@@ -92,23 +92,23 @@
   ],
   "dependencies": [
     {
-      "ref": "f83290ec-86f4-4add-879e-7b71970b14d0",
+      "ref": "4ee1e9ac-c11d-4363-93fb-2ff0961ab7e0",
       "dependsOn": []
     },
     {
-      "ref": "e1cc5e5c-10bd-4289-8d70-fcb21e6ff480",
+      "ref": "9dc317ba-e0ce-4ad8-90c2-f313d9e50198",
       "dependsOn": []
     },
     {
-      "ref": "1e2427bf-4ef8-4e4b-9140-89e324be6a96",
+      "ref": "2d4e812c-5f06-4925-a82d-201f202529d0",
       "dependsOn": []
     },
     {
-      "ref": "332e1e0c-9279-4be7-beb1-d325ffb1247d",
+      "ref": "e95a4d8e-2de2-4957-bc2f-bc8ffd58eca8",
       "dependsOn": []
     },
     {
-      "ref": "e7c883c8-09d3-4420-9847-e2977714ec2b",
+      "ref": "55084f25-a598-4908-b1b4-5c6e5952c8d4",
       "dependsOn": []
     }
   ]
