@@ -2,10 +2,10 @@
   "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.4",
-  "serialNumber": "urn:uuid:9b992325-c933-4a82-b5e8-c8da9907e013",
+  "serialNumber": "urn:uuid:d56d8458-332d-4f67-a8fd-73086cf1d94b",
   "version": 1,
   "metadata": {
-    "timestamp": "2023-08-13T13:31:36.235186+00:00",
+    "timestamp": "2023-08-15T06:27:46.624011+00:00",
     "tools": [
       {
         "vendor": "CycloneDX",
@@ -56,35 +56,35 @@
   "components": [
     {
       "type": "library",
-      "bom-ref": "4ee1e9ac-c11d-4363-93fb-2ff0961ab7e0",
+      "bom-ref": "67a5e1c3-516f-44e3-a71b-9a993db116c5",
       "name": "PyYAML",
       "version": "6.0.1",
       "purl": "pkg:pypi/pyyaml@6.0.1"
     },
     {
       "type": "library",
-      "bom-ref": "9dc317ba-e0ce-4ad8-90c2-f313d9e50198",
+      "bom-ref": "a4c236cc-8e49-44fa-96cf-71f45e32b005",
       "name": "lxml",
       "version": "4.9.3",
       "purl": "pkg:pypi/lxml@4.9.3"
     },
     {
       "type": "library",
-      "bom-ref": "2d4e812c-5f06-4925-a82d-201f202529d0",
+      "bom-ref": "f16a14ba-8ec8-4551-8856-9f2beb9791a6",
       "name": "msgspec",
       "version": "0.18.0",
       "purl": "pkg:pypi/msgspec@0.18.0"
     },
     {
       "type": "library",
-      "bom-ref": "e95a4d8e-2de2-4957-bc2f-bc8ffd58eca8",
+      "bom-ref": "98855463-181b-4bb1-9edd-39cbf125e2f7",
       "name": "psutil",
       "version": "5.9.5",
       "purl": "pkg:pypi/psutil@5.9.5"
     },
     {
       "type": "library",
-      "bom-ref": "55084f25-a598-4908-b1b4-5c6e5952c8d4",
+      "bom-ref": "6e148535-ecda-4867-a2a4-7b83581e2ffd",
       "name": "py-cpuinfo",
       "version": "9.0.0",
       "purl": "pkg:pypi/py-cpuinfo@9.0.0"
@@ -92,23 +92,23 @@
   ],
   "dependencies": [
     {
-      "ref": "4ee1e9ac-c11d-4363-93fb-2ff0961ab7e0",
+      "ref": "67a5e1c3-516f-44e3-a71b-9a993db116c5",
       "dependsOn": []
     },
     {
-      "ref": "9dc317ba-e0ce-4ad8-90c2-f313d9e50198",
+      "ref": "a4c236cc-8e49-44fa-96cf-71f45e32b005",
       "dependsOn": []
     },
     {
-      "ref": "2d4e812c-5f06-4925-a82d-201f202529d0",
+      "ref": "f16a14ba-8ec8-4551-8856-9f2beb9791a6",
       "dependsOn": []
     },
     {
-      "ref": "e95a4d8e-2de2-4957-bc2f-bc8ffd58eca8",
+      "ref": "98855463-181b-4bb1-9edd-39cbf125e2f7",
       "dependsOn": []
     },
     {
-      "ref": "55084f25-a598-4908-b1b4-5c6e5952c8d4",
+      "ref": "6e148535-ecda-4867-a2a4-7b83581e2ffd",
       "dependsOn": []
     }
   ]
