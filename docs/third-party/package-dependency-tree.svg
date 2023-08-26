@@ -27,7 +27,7 @@
 <title>msgspec</title>
 <ellipse fill="none" stroke="black" cx="240.97" cy="-25.81" rx="44.72" ry="25.81"/>
 <text text-anchor="middle" x="240.97" y="-26.76" font-family="Times,serif" font-size="14.00">msgspec</text>
-<text text-anchor="middle" x="240.97" y="-12.51" font-family="Times,serif" font-size="14.00">0.18.1</text>
+<text text-anchor="middle" x="240.97" y="-12.51" font-family="Times,serif" font-size="14.00">0.18.2</text>
 </g>
 <!-- psutil -->
 <g id="node4" class="node">
