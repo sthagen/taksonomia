@@ -22,7 +22,7 @@ keywords = ["developer-tools", "fingerprints", "validation", "verification", "sb
 dependencies = [
     "PyYAML >= 6.0.1",
     "lxml >= 4.9.3",
-    "msgspec >= 0.18.3",
+    "msgspec >= 0.18.4",
     "psutil >= 5.9.5",
     "py-cpuinfo >= 9.0.0",
 ]
