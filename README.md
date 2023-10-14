@@ -3,6 +3,7 @@
 Taxonomy (Finnish: taksonomia) of a folder tree, guided by conventions.
 
 [License: MIT](https://git.sr.ht/~sthagen/taksonomia/tree/default/item/LICENSE)
+[Country of origin: Switzerland](https://git.sr.ht/~sthagen/taksonomia/tree/default/item/COUNTRY-OF-ORIGIN)
 
 Third party dependencies are documented in the folder [third-party](docs/third-party/README.md).
 
