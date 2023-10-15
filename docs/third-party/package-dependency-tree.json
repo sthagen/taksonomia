@@ -16,8 +16,8 @@
     {
         "key": "psutil",
         "package_name": "psutil",
-        "installed_version": "5.9.5",
-        "required_version": "5.9.5",
+        "installed_version": "5.9.6",
+        "required_version": "5.9.6",
         "dependencies": []
     },
     {
