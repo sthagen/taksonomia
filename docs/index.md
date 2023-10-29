@@ -2,18 +2,15 @@
 
 Taxonomy (Finnish: taksonomia) of a folder tree, guided by conventions.
 
-[License: MIT](https://git.sr.ht/~sthagen/taksonomia/tree/default/item/LICENSE) |
-[Country of origin: Switzerland](https://git.sr.ht/~sthagen/taksonomia/tree/default/item/COUNTRY-OF-ORIGIN) |
-[Export control classification number(ECCN): EAR99](https://git.sr.ht/~sthagen/taksonomia/tree/default/item/EXPORT-CONTROL-CLASSIFICATION-NUMBER)
+[![license](badges/license-spdx-mit.svg)](https://git.sr.ht/~sthagen/taksonomia/tree/default/item/LICENSE)
+[![Country of Origin](badges/country-of-origin-name-switzerland-neutral.svg)](https://git.sr.ht/~sthagen/taksonomia/tree/default/item/COUNTRY-OF-ORIGIN)
+[![Export Classification Control Number (ECCN)](badges/export-control-classification-number_eccn-ear99-neutral.svg)](https://git.sr.ht/~sthagen/taksonomia/tree/default/item/EXPORT-CONTROL-CLASSIFICATION-NUMBER)
+[![Configuration](badges/configuration-sbom.svg)](third-party/index.html)
 
-Third party dependencies are documented in the folder [third-party](third-party/README.md).
-
-[![version](https://img.shields.io/pypi/v/taksonomia.svg?style=flat)](https://pypi.python.org/pypi/taksonomia/)
-[![downloads](https://static.pepy.tech/badge/taksonomia/month)](https://pepy.tech/project/taksonomia)
-[![wheel](https://img.shields.io/pypi/wheel/taksonomia.svg?style=flat)](https://pypi.python.org/pypi/taksonomia/)
-[![supported-versions](https://img.shields.io/pypi/pyversions/taksonomia.svg?style=flat)](https://pypi.python.org/pypi/taksonomia/)
-[![supported-implementations](https://img.shields.io/pypi/implementation/taksonomia.svg?style=flat)](https://pypi.python.org/pypi/taksonomia/)
-[![maintenance-status](https://img.shields.io/github/commit-activity/y/sthagen/taksonomia.svg?style=flat)](https://git.sr.ht/~sthagen/taksonomia/log)
+[![Version](https://img.shields.io/pypi/v/taksonomia.svg?style=flat)](https://pypi.python.org/pypi/taksonomia/)
+[![Downloads](https://static.pepy.tech/badge/taksonomia/month)](https://pepy.tech/project/taksonomia)
+[![Supported Versions](https://img.shields.io/pypi/pyversions/taksonomia.svg?style=flat)](https://pypi.python.org/pypi/taksonomia/)
+[![Maintenance Status](https://img.shields.io/github/commit-activity/y/sthagen/taksonomia.svg?style=flat)](https://git.sr.ht/~sthagen/taksonomia/log)
 
 ## Bug Tracker
 
