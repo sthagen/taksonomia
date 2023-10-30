@@ -8,9 +8,9 @@ Taxonomy (Finnish: taksonomia) of a folder tree, guided by conventions.
 [![Configuration](badges/configuration-sbom.svg)](third-party/index.html)
 
 [![Version](https://img.shields.io/pypi/v/taksonomia.svg?style=flat)](https://pypi.python.org/pypi/taksonomia/)
-[![Downloads](docs/badges/downloads-per-month.svg)](https://pepy.tech/project/taksonomia)
+[![Downloads](badges/downloads-per-month.svg)](https://pepy.tech/project/taksonomia)
 [![Supported Versions](https://img.shields.io/pypi/pyversions/taksonomia.svg?style=flat)](https://pypi.python.org/pypi/taksonomia/)
-[![Maintenance Status](docs/badges/commits-per-year.svg)](https://git.sr.ht/~sthagen/taksonomia/log)
+[![Maintenance Status](badges/commits-per-year.svg)](https://git.sr.ht/~sthagen/taksonomia/log)
 
 ## Bug Tracker
 
