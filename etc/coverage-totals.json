@@ -1,7 +1,7 @@
 {
   "taksonomia": {
-    "version": "7.3.2",
-    "timestamp": "2023-12-02T15:35:56.404606",
+    "coverage_tool_version": "7.3.2",
+    "timestamp": "2023-12-02 16:32:17 +00:00",
     "branch_coverage": true,
     "show_contexts": true,
     "covered_lines": 474,
@@ -13,6 +13,24 @@
     "num_branches": 247,
     "num_partial_branches": 28,
     "covered_branches": 193,
-    "missing_branches": 54
+    "missing_branches": 54,
+    "node_id": "c79891e5-aabf-3a83-95b9-588edcd8327f",
+    "nfiles": 5,
+    "files": [
+      "taksonomia/__init__.py",
+      "taksonomia/anglify.py",
+      "taksonomia/cli.py",
+      "taksonomia/machine.py",
+      "taksonomia/taksonomia.py"
+    ],
+    "blake3": "3a4905998b36f8858068633f0e2eafb0f793593c1757e83f8fee9d81e1ea5f24",
+    "blake2": "7762e4181f91e4c518077077ac11c8455c689336859cf772bed694d27da6de7e0f4bd4bdee0717dd5c7c776b166e658f543f304d414c5e6937853322c4ba2ffd",
+    "sha512": "3d1fc5c18e54ff84c671a70b0962198ea458c184e641baeef682e0446d26720a0af77e8499ec22cc75a50129b26c03eab8b7a0d7708d6f55af0ebfd0ba8dbf3f",
+    "sha384": "76692fb973230249b4112dcc569c98c12ccf2d0c5989805c44966c2d04cd0ef150319b64775339be3958585888e5f537",
+    "sha256": "86a7ffa97e7204b37028eebc9374ed9ea5733ee2246f34e7155eec952c860893",
+    "sha1": "ede65c5ee398756611e8fc540aea02c5258848f6",
+    "md5": "866fe2690fbfeeb414eb26416e730942",
+    "python_version": "3.10.12",
+    "entropy": 4.825464
   }
 }
