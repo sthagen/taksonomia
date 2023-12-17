@@ -1,8 +1,8 @@
 # Third Party Dependencies
 
 <!--[[[fill sbom_sha256()]]]-->
-The [SBOM in CycloneDX v1.4 JSON format](https://git.sr.ht/~sthagen/taksonomia/blob/default/etc/sbom/cdx.json) with SHA256 checksum ([9136c823 ...](https://git.sr.ht/~sthagen/taksonomia/blob/default/etc/sbom/cdx.json.sha256 "sha256:9136c82364a40f00d918bc04840c56a423df7c46f12eddf307000b5648a8dfdc")).
-<!--[[[end]]] (checksum: 1bb43c72f71a34d4e7faed4175753aa7)-->
+The [SBOM in CycloneDX v1.4 JSON format](https://git.sr.ht/~sthagen/taksonomia/blob/default/etc/sbom/cdx.json) with SHA256 checksum ([f1b58dbf ...](https://git.sr.ht/~sthagen/taksonomia/blob/default/etc/sbom/cdx.json.sha256 "sha256:f1b58dbfba45e0ea17b64fdedb423cf37bda3467d8e273748a11d375c7bc2620")).
+<!--[[[end]]] (checksum: ba0c2bb27519f428ef58120b2d01875a)-->
 ## Licenses 
 
 JSON files with complete license info of: [direct dependencies](direct-dependency-licenses.json) | [all dependencies](all-dependency-licenses.json)
@@ -15,9 +15,9 @@ JSON files with complete license info of: [direct dependencies](direct-dependenc
 | [PyYAML](https://pyyaml.org/)                         | [6.0.1](https://pypi.org/project/PyYAML/6.0.1/)     | MIT License | Kirill Simonov        | YAML parser and emitter for Python                                                                       |
 | [lxml](https://lxml.de/)                              | [4.9.3](https://pypi.org/project/lxml/4.9.3/)       | BSD License | lxml dev team         | Powerful and Pythonic XML processing library combining libxml2/libxslt with the ElementTree API.         |
 | [msgspec](https://jcristharif.com/msgspec/)           | [0.18.5](https://pypi.org/project/msgspec/0.18.5/)  | BSD License | Jim Crist-Harif       | A fast serialization and validation library, with builtin support for JSON, MessagePack, YAML, and TOML. |
-| [psutil](https://github.com/giampaolo/psutil)         | [5.9.6](https://pypi.org/project/psutil/5.9.6/)     | BSD License | Giampaolo Rodola      | Cross-platform lib for process and system monitoring in Python.                                          |
+| [psutil](https://github.com/giampaolo/psutil)         | [5.9.7](https://pypi.org/project/psutil/5.9.7/)     | BSD License | Giampaolo Rodola      | Cross-platform lib for process and system monitoring in Python.                                          |
 | [py-cpuinfo](https://github.com/workhorsy/py-cpuinfo) | [9.0.0](https://pypi.org/project/py-cpuinfo/9.0.0/) | MIT License | Matthew Brennan Jones | Get CPU info with pure Python                                                                            |
-<!--[[[end]]] (checksum: 27465c6e69c474734c3dad36fa7555f8)-->
+<!--[[[end]]] (checksum: 62c99e5e609ba834dd5269e93284acb3)-->
 
 ### Indirect Dependencies
 
@@ -42,8 +42,8 @@ Base graphviz file in dot format: [Trees of the direct dependencies](package-dep
 ````console
 lxml==4.9.3
 msgspec==0.18.5
-psutil==5.9.6
+psutil==5.9.7
 py-cpuinfo==9.0.0
 PyYAML==6.0.1
 ````
-<!--[[[end]]] (checksum: 14b8663ee2741e17907871f4e7b21ee7)-->
+<!--[[[end]]] (checksum: df1887c1f883df1b4925a00d03e48746)-->
