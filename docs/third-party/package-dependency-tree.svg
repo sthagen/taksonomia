@@ -20,7 +20,7 @@
 <title>lxml</title>
 <ellipse fill="none" stroke="black" cx="146.97" cy="-28.99" rx="30.94" ry="28.99"/>
 <text text-anchor="middle" x="146.97" y="-32.19" font-family="Times,serif" font-size="14.00">lxml</text>
-<text text-anchor="middle" x="146.97" y="-15.69" font-family="Times,serif" font-size="14.00">4.9.3</text>
+<text text-anchor="middle" x="146.97" y="-15.69" font-family="Times,serif" font-size="14.00">5.0.0</text>
 </g>
 <!-- msgspec -->
 <g id="node3" class="node">

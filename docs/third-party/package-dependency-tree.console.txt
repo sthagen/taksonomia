@@ -1,4 +1,4 @@
-lxml==4.9.3
+lxml==5.0.0
 msgspec==0.18.5
 psutil==5.9.7
 py-cpuinfo==9.0.0
