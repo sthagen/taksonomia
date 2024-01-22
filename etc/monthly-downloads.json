@@ -28,7 +28,7 @@
     {
       "category": "3.10",
       "date": "2024-01",
-      "downloads": 216
+      "downloads": 236
     },
     {
       "category": "3.11",
@@ -58,12 +58,12 @@
     {
       "category": "3.11",
       "date": "2024-01",
-      "downloads": 162
+      "downloads": 170
     },
     {
       "category": "3.12",
       "date": "2024-01",
-      "downloads": 114
+      "downloads": 122
     },
     {
       "category": "3.3",
@@ -103,7 +103,7 @@
     {
       "category": "3.8",
       "date": "2024-01",
-      "downloads": 80
+      "downloads": 84
     },
     {
       "category": "3.9",
@@ -133,7 +133,7 @@
     {
       "category": "null",
       "date": "2023-07",
-      "downloads": 17
+      "downloads": 14
     },
     {
       "category": "null",
@@ -163,7 +163,7 @@
     {
       "category": "null",
       "date": "2024-01",
-      "downloads": 40
+      "downloads": 41
     }
   ],
   "package": "taksonomia",
