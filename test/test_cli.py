@@ -191,7 +191,7 @@ def test_main_unknown_key_function(capsys):
     out, err = capsys.readouterr()
     assert 'usage: taksonomia [-h] [--tree-root TREE_ROOT] [--excludes EXCLUDES]' in err
     assert (
-        "taksonomia: error: requested key function unknown-key-function for branches and leaves not in ('blake2', 'elf', 'md5')"
-        in err
-    )
+        'taksonomia: error: requested key function unknown-key-function'
+        " for branches and leaves not in ('blake2', 'elf', 'md5')"
+    ) in err
     assert not out
