@@ -1,4 +1,5 @@
 """Taxonomy (Finnish: taksonomia) guided by conventions of a folder tree (implementation)."""
+
 import datetime as dti
 import os
 import platform

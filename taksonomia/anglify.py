@@ -1,4 +1,5 @@
 """Transform taxonomy to XML."""
+
 import collections.abc
 import numbers
 import xml.etree.ElementTree as ET  # nosec B405
@@ -55,7 +56,7 @@ def get_xml_type(val):
 
 @no_type_check
 def escape_xml(s):
-    if type(s) == str:
+    if isinstance(s, str):
         s = str(s)
         s = s.replace('&', '&amp;')
         s = s.replace('"', '&quot;')
@@ -133,13 +134,13 @@ def convert(obj, ids, attr_type, item_func, cdata, parent='root'):
 
     item_name = item_func(parent)
 
-    if isinstance(obj, numbers.Number) or type(obj) == str:
+    if isinstance(obj, (numbers.Number, str)):
         return convert_kv(item_name, obj, attr_type, cdata)
 
     if hasattr(obj, 'isoformat'):
         return convert_kv(item_name, obj.isoformat(), attr_type, cdata)
 
-    if type(obj) == bool:
+    if isinstance(obj, bool):
         return convert_bool(item_name, obj, attr_type, cdata)
 
     if obj is None:
@@ -163,13 +164,13 @@ def convert_dict(obj, ids, parent, attr_type, item_func, cdata):
 
         key, attr = make_valid_xml_name(key, attr)
 
-        if isinstance(val, numbers.Number) or type(val) == str:
+        if isinstance(val, (numbers.Number, str)):
             lines.append(convert_kv(key, val, attr_type, attr, cdata))
 
         elif hasattr(val, 'isoformat'):  # datetime
             lines.append(convert_kv(key, val.isoformat(), attr_type, attr, cdata))
 
-        elif type(val) == bool:
+        elif isinstance(val, bool):
             lines.append(convert_bool(key, val, attr_type, attr, cdata))
 
         elif isinstance(val, dict):
@@ -209,13 +210,13 @@ def convert_list(items, ids, parent, attr_type, item_func, cdata):
 
     for i, item in enumerate(items):
         attr = {} if not ids else {'id': '%s_%s' % (this_id, i + 1)}
-        if isinstance(item, numbers.Number) or type(item) == str:
+        if isinstance(item, (numbers.Number, str)):
             lines.append(convert_kv(item_name, item, attr_type, attr, cdata))
 
         elif hasattr(item, 'isoformat'):  # datetime
             lines.append(convert_kv(item_name, item.isoformat(), attr_type, attr, cdata))
 
-        elif type(item) == bool:
+        elif isinstance(item, bool):
             lines.append(convert_bool(item_name, item, attr_type, attr, cdata))
 
         elif isinstance(item, dict):

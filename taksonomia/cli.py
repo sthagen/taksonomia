@@ -1,4 +1,5 @@
 """CLI operations for taxonomy (Finnish: taksonomia) of a folder tree, guided by conventions."""
+
 import argparse
 import pathlib
 import sys
@@ -36,7 +37,10 @@ def parse_request(argv: List[str]) -> Union[int, argparse.Namespace]:
         '-k',
         dest='key_function',
         default='blake2',
-        help='key function (blake2, elf, md5) for branches and leaves\n(default: blake2) use elf only for very small taxonomies',
+        help=(
+            'key function (blake2, elf, md5) for branches and leaves\n'
+            '(default: blake2) use elf only for very small taxonomies'
+        ),
     )
     parser.add_argument(
         '--out-path',

@@ -1,4 +1,5 @@
 """Taxonomy (Finnish: taksonomia) of a folder tree, guided by conventions."""
+
 import datetime as dti
 import logging
 import os
