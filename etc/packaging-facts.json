@@ -21,6 +21,7 @@
       "last_month": -1,
       "last_week": -1
     },
+    "dynamic": null,
     "home_page": "",
     "keywords": "developer-tools,fingerprints,validation,verification,sbom,taxonomy",
     "license": "",
@@ -37,6 +38,7 @@
       "Source-Code": "https://git.sr.ht/~sthagen/taksonomia",
       "Test-Coverage": "https://codes.dilettant.life/coverage/taksonomia"
     },
+    "provides_extra": null,
     "release_url": "https://pypi.org/project/taksonomia/2023.6.18/",
     "requires_dist": [
       "PyYAML (>=6.0)",
