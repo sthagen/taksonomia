@@ -25,6 +25,8 @@
     "home_page": "",
     "keywords": "developer-tools,fingerprints,validation,verification,sbom,taxonomy",
     "license": "",
+    "license_expression": null,
+    "license_files": null,
     "maintainer": "",
     "maintainer_email": "Stefan Hagen <stefan@hagen.link>",
     "name": "taksonomia",
