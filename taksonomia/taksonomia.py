@@ -344,8 +344,11 @@ def main(options: argparse.Namespace) -> int:
             log.info(f'Detected branch {path}')
             taxonomy.add_branch(path)
             continue
-        taxonomy.add_leaf(path)
-        log.info(f'Detected leaf {path}')
+        if path.is_file():
+            taxonomy.add_leaf(path)
+            log.info(f'Detected leaf {path}')
+            continue
+        log.info(f'Ignored non-regular file {path}')
 
     for fmt in sorted(parse_csl(options.format_type_csl)):
         log.info(f'- Dumping taxonomy as {fmt} format')
