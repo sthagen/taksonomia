@@ -33,7 +33,12 @@
     {
       "category": "3.10",
       "date": "2025-04",
-      "downloads": 734
+      "downloads": 956
+    },
+    {
+      "category": "3.10",
+      "date": "2025-05",
+      "downloads": 148
     },
     {
       "category": "3.11",
@@ -68,7 +73,12 @@
     {
       "category": "3.11",
       "date": "2025-04",
-      "downloads": 742
+      "downloads": 848
+    },
+    {
+      "category": "3.11",
+      "date": "2025-05",
+      "downloads": 81
     },
     {
       "category": "3.12",
@@ -103,7 +113,12 @@
     {
       "category": "3.12",
       "date": "2025-04",
-      "downloads": 216
+      "downloads": 240
+    },
+    {
+      "category": "3.12",
+      "date": "2025-05",
+      "downloads": 16
     },
     {
       "category": "3.13",
@@ -143,7 +158,12 @@
     {
       "category": "3.8",
       "date": "2025-04",
-      "downloads": 218
+      "downloads": 242
+    },
+    {
+      "category": "3.8",
+      "date": "2025-05",
+      "downloads": 16
     },
     {
       "category": "3.9",
@@ -193,7 +213,12 @@
     {
       "category": "null",
       "date": "2025-04",
-      "downloads": 505
+      "downloads": 520
+    },
+    {
+      "category": "null",
+      "date": "2025-05",
+      "downloads": 1
     }
   ],
   "package": "taksonomia",
